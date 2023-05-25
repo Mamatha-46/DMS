@@ -1,0 +1,88 @@
+﻿.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.3rem + 2px);
+    padding: 0.65rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #e2e5ec;
+    border-radius: 4px;
+    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+}
+.row {
+    display: block;
+    margin-right: 2%
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  two columns with equal width 
+    grid-gap: 40px;  gap between grid items 
+    grid-row-gap: 0.3in;  gap between grid rows 
+}
+
+.row.small-gap {
+    margin-bottom: 20px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    flex-basis: calc(33.33% - 10px);
+    height: 75px;
+    margin: 5px;
+}
+
+.boxMulti {
+    display: flex;
+    flex-direction: column;
+    flex-basis: calc(33.3% - 10px);
+    height: 120px;
+    margin: 5px;
+}
+
+.box label {
+    margin-bottom: 5px;
+}
+
+.box input,
+.box select,
+.box textarea {
+    width: 250px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 35px;
+}
+
+
+.custom-textbox {
+    height: auto;
+    width: 250px;
+}
+
+.custom-textboxMultiline {
+    height: 100px;
+    width: 300px;
+}
+
+#add-file-btn {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+#address {
+    height: 30px;
+    width: 150px;
+}
+
+
+

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DMS.Models.Zip>
+
+
+
+<head>
+    <link rel="stylesheet" href="~/css/css/table.css" />
+</head>
+<table class="table" style="width:1200px;margin-left:20px;text-align:center">
+    <thead>
+        <tr>
+            <th style="width:200px;height:25px">
+                @Html.DisplayNameFor(model => model.AreaName)
+            </th>
+            <th style="width:200px">
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+
+            <th style="width:200px">
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th style="width:200px">
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+
+            <th style="width:200px">
+                @Html.DisplayNameFor(model => model.Zipcode)
+            </th>
+
+            <th style="width:200px">
+                Actions
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="height:25px">
+                    @Html.DisplayFor(modelItem => item.AreaName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zipcode)
+                </td>
+                <td>
+                    <div class="dropdown">
+
+                        <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+
+                        @*<div class="dropdown-menu" style="display:none;">
+                            <a class="dropdown-item" href="@Url.Action("ZipDetails", "Zip", new { id = item.Id })"><i class="fa fa-pen"></i>View</a>
+                        </div>*@
+
+                        <a class="dropdown-item" href="@Url.Action("ZipDetails", "Zip", new { id = item.Id })">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            View
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

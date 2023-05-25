@@ -1,0 +1,245 @@
+﻿@model IEnumerable<DMS.Models.InvoiceViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div style="margin-left:60%;" class="d-flex justify-content-end">
+
+    <form action="@Url.Action("Index")" method="get" class="form-inline mb-3 ml-auto">
+        <input type="text" name="searchString" class="form-control mr-2" placeholder="Search...">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="~/css/css/table.css" />
+</head>
+
+<div class="row" style="margin-left:0%">
+
+    <table class="table tablesorter" align="center" cellpadding="2" border="1">
+
+        <thead>
+            <tr>
+                <th class="header">Id<i class="fa fa-sort"></i></th>
+                <th class="header">InvoiceNo<i class="fa fa-sort"></i></th>
+                <th class="header">From<i class="fa fa-sort"></i></th>
+                <th class="header">To<i class="fa fa-sort"></i></th>
+                <th class="header">Amount<i class="fa fa-sort"></i></th>
+                <th class="header">Status<i class="fa fa-sort"></i></th>
+                <th class="header">AddedOn<i class="fa fa-sort"></i></th>
+                <th class="header">Licence<i class="fa fa-sort"></i></th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var item in Model)
+            {
+
+            <tr>
+
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.InvoiceNo)</td>
+                <td>@Html.DisplayFor(modelItem => item.From)</td>
+                <td>@Html.DisplayFor(modelItem => item.To)</td>
+                <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>@Html.DisplayFor(modelItem => item.AddedOn)</td>
+                <td>@Html.DisplayFor(modelItem => item.Licence)</td>
+                <td>
+                    <span class="badge badge-warning">@((item.Status == 1) ? "Inactive" : "Active")</span>
+                </td>
+                <!-- new column -->
+                <td>
+                    <div class="dropdown">
+                        @*<a class="btn btn-link" style="cursor:pointer;"
+                   onmouseover="this.nextElementSibling.style.display='block'"
+                   onmouseout="this.nextElementSibling.style.display='none'">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>*@
+                        @*<a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>*@
+
+                        
+
+                            <a class="dropdown-item" href="@Url.Action("Details", "Invoice", new { id = item.Id })">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                View
+                            </a>                         
+                        
+                    </div>
+
+                </td>
+            </tr>
+
+            }
+
+        </tbody>
+
+
+
+    </table>
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-toggle").click(function (e) {
+                e.preventDefault();
+                $(this).siblings(".dropdown-menu").toggle();
+            });
+        });
+        //$(document).ready(function () {
+        //    debugger;
+        //    $(".tablesorter").tablesorter({
+        //        theme: "bootstrap",
+        //        headerTemplate: "{content} {icon}",
+        //        widgets: ["zebra"],
+        //        sortList: [[0, 0]]
+        //    });
+        //});
+
+
+        $(function () {
+            $(".tablesorter").tablesorter();
+        });
+
+
+    </script>
+}
+
+@*@model IEnumerable<Distributionmanagement.Models.Brand>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
+    </p>
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"  />
+    </head>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Industry</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Zipcode</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => item.State)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+                    <td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                                <i class="fas fa-ellipsis-v"></i>
+
+                            </a>
+
+                            <div class="dropdown-menu" style="display:none;">
+                                <a class="dropdown-item" href="@Url.Action("Edit", "Brand", new { id = item.BrandId })">Edit</a>
+                                <a class="dropdown-item" href="@Url.Action("Details", "Brand", new { id = item.BrandId })">Details</a>
+                                <a class="dropdown-item" href="@Url.Action("Delete", "Brand", new { id = item.BrandId })">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+
+@*@model IEnumerable<Distributionmanagement.Models.Brand>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
+    </p>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Industry</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Zipcode</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => item.State)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+                    <td>
+                        <a href="#" class="kebab-menu" data-id="@item.BrandId">
+                            <i class="fa-thin fa-ellipsis-vertical"></i>
+
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $(".kebab-menu").click(function () {
+                var id = $(this).data("id");
+                var options = '<div class="dropdown-menu">' +
+                    '<a class="dropdown-item" href="@Url.Action("Edit", "Brand")/' + id + '">Edit</a>' +
+                    '<a class="dropdown-item" href="@Url.Action("Details", "Brand")/' + id + '">Details</a>' +
+                    '<a class="dropdown-item" href="@Url.Action("Delete", "Brand")/' + id + '">Delete</a>' +
+                    '</div>';
+                $(this).append(options);
+                return false;
+            });
+        });
+    </script>*@

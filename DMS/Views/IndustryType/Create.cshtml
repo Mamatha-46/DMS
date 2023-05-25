@@ -1,0 +1,73 @@
+﻿@model DMS.Models.Industry
+
+@{ ViewData["Title"] = "Create";
+  Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+    <style>
+        td{
+            width:200px;
+            padding:50px;
+        }
+    </style>
+</head>
+<br />
+
+<h4 style="text-align:center">Add Industry Type</h4>
+<hr />
+<div class="row">
+    <a asp-action="Index" class="btn btn-secondary btn-sm" style="display:flex;float:right"> Back</a>
+</div>
+<div class="container-fluid" style="background-color:snow;"> 
+
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" style="width:250px" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                </td>
+                <td style="width:300px">
+
+                    <div class="form-group">
+                        <div>
+                            <label asp-for="Status" class="control-label"></label>
+                        </div>
+                        <div class="row" style="display:flex;gap:20px">
+                            <label>
+                                <input style="display:inline-block" type="radio" class="form-check" name="Status" value="0" (@model.Status==0?"checked":"")>
+                                Inactive
+                            </label>
+                            <label>
+                                <input style="display:inline-block" type="radio" class="form-check" name="Status" value="1" (@model.Status==1?"checked":"")>
+                                Active
+                            </label>
+                        </div>
+
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <input type="submit" value="AddIndustry" class="btn btn-primary" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

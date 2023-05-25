@@ -1,0 +1,221 @@
+﻿@model DMS.Models.Zip
+@*@model IEnumerable<DMS.Models.Zip>*@
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h4>Zip</h4>
+<hr />
+<br />
+<br>
+
+
+
+    <div>
+        <a asp-action="Index" style="text-align:right">Back to List</a>
+    </div>
+    <form asp-action="Index">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <div class="box">
+                        <label asp-for="Country" class="control-label">Country</label>
+                        @Html.DropDownList("Country", ViewData["Country"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="box">
+                        <label asp-for="State" class="control-label">State/ Region </label>
+                        @Html.DropDownList("State", ViewData["State"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="box">
+                        <label asp-for="City" class="control-label">City</label>
+                        @Html.DropDownList("City", ViewData["City"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="Zipcode" class="control-label"></label>
+                        <input asp-for="Zipcode" class="form-control" />
+                        <span asp-validation-for="Zipcode" class="text-danger"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <input  id="Search" type="submit" value="Search" class="btn btn-primary" />
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+
+    </form>
+
+@*@section ZipViewModelSection {
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-append">
+                <table id="table-container" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Zipcode</th>
+                            <th>place</th>
+                            <th>country</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ZipViewModelSection)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Zipcode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AreaName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Country)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}*@
+
+    @*<div class="form-group">
+        <div class="input-group">
+            <div class="input-group-append">
+                <table id="table-container" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Zipcode</th>
+                            <th>place</th>
+                            <th>country</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ZipViewModel)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Zipcode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AreaName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Country)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>*@
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $("#country_id").change(function () {
+            var countryId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Company/GetStatesByCountryId",
+                data: { countryId: countryId },
+                success: function (result) {
+                    $("#state_id").empty();
+                    $("#city_id").empty();
+                    $.each(result, function (i, state) {
+                        $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+                    });
+                    $("#state_id").prepend('<option value="" selected>--Select--</option>');
+                }
+            });
+        });
+
+        $("#state_id").change(function () {
+            var stateId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Company/GetcitiesBystateId",
+                data: { stateId: stateId },
+                success: function (result) {
+
+                    $("#city_id").empty();
+                    $.each(result, function (i, city) {
+                        $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+                    });
+                    $("#city_id").prepend('<option value="" selected>--Select--</option>');
+                }
+            });
+        });
+    </script>
+
+
+    <script type="text/javascript">
+$(document).ready(function() {
+    $('#Search').on('click', function(){
+        debugger;
+        var path = '@Url.Action("GetSearchIndex", "Zip")'; // Replace with your controller and action names
+        var country = $('#country-dropdown option:selected').val();
+        var state = $('#state-dropdown option:selected').val();
+        var city = $('#city-dropdown option:selected').val();
+        var zip = $('#zipcode').val();
+        $.ajax({
+            url: path,
+            data: { country: country, state: state, city: city, zip: zip },
+            type: "POST",
+            success: function(data){
+                $('#table-container').show();
+                $("#table-container").html(data);
+            },
+            error: function(){
+                alert('Try Again Later');
+            }
+ 
+        });
+});
+    </script>
+

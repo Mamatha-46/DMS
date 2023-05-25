@@ -1,0 +1,261 @@
+﻿@model DMS.Models.Prospect
+
+@{ ViewData["Title"] = "Edit";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<h1>Edit Prospect</h1>
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+</head>
+<style>
+    .row {
+        display: block;
+        margin-right: 20%;
+    }
+</style>
+<h4>Prospect</h4>
+<hr />
+<div class="row small-gap">
+    <div class="row">
+        <div class="col-lg-12">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="container">
+                    <div class="box">
+                      
+                        <label asp-for="AddedId" class="control-label"></label>
+                        @Html.DropDownList("AddedId", ViewData["AddedId"] as SelectList, new { @class = "form-control" })
+                        <span asp-validation-for="AddedId" class="text-danger"></span>
+                        
+                    
+                </div>
+                <div class="box">
+                    <label asp-for="Name" class="control-label"> Prospect Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="IndustryType" class="control-label"></label>
+                    @Html.DropDownList("IndustryType", ViewData["IndustryType"] as SelectList, new { @class = "form-control" })
+                    <span asp-validation-for="IndustryType" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="CountryName" class="control-label">Country</label>
+                    @Html.DropDownList("CountryName", ViewData["CountryName"] as SelectList, new { @class = "form-control", @id = "country_id" })
+                    <span asp-validation-for="CountryName" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="State" class="control-label">State/Religion/Provience</label>
+                    @Html.DropDownList("State", ViewData["State"] as SelectList, new { @class = "form-control", @id = "state_id" })
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="City" class="control-label">City</label>
+                    @Html.DropDownList("City", ViewData["City"] as SelectList, new { @class = "form-control", @id = "city_id" })
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Zip" class="control-label">ZipCode</label>
+                    <input asp-for="Zip" class="form-control" />
+                    <span asp-validation-for="Zip" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Email" class="control-label">EmailId</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Number" class="control-label">Phone/Mobile</label>
+                    <input asp-for="Number" class="form-control" />
+                    <span asp-validation-for="Number" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Address1" class="control-label">Address1</label>
+                    <textarea asp-for="Address1" class="form-control"></textarea>
+                    <span asp-validation-for="Address1" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Address2" class="control-label">Address2</label>
+                    <textarea asp-for="Address2" class="form-control"></textarea>
+                    <span asp-validation-for="Address2" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Province" class="control-label">Province</label>
+                    <input asp-for="Province" class="form-control" />
+                    <span asp-validation-for="Province" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="CPerson" class="control-label">ContactPerson</label>
+                    <input asp-for="CPerson" class="form-control" />
+                    <span asp-validation-for="CPerson" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Website" class="control-label">Website</label>
+                    <input asp-for="Website" class="form-control" />
+                    <span asp-validation-for="Website" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Logo" class="control-label">Logo</label>
+                    <input asp-for="Logo" type="file" class="form-control-file" />
+                    <span asp-validation-for="Logo" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Gst" class="control-label">Gst</label>
+                    <input asp-for="Gst" class="form-control" />
+                    <span asp-validation-for="Gst" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Source" class="control-label">Source</label>
+                    <select asp-for="Source" class="form-control">
+                        <option value="">---Select--- </option>
+                        <option value="Referral">Referral</option>
+                        <option value="Email">Email</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="SocialMedia">SocialMedia</option>
+                        <option value="WebSite">WebSite</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="TechJockey">TechJockey</option>
+                        <option value="OwnDatabase">OwnDatabase</option>
+                    </select>
+                    <span asp-validation-for="Source" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="LeadType" class="control-label">LeadType</label>
+                    <select asp-for="LeadType" class="form-control">
+                        <option value="">---Select--- </option>
+                        <option value="Cold Lead">Cold Lead</option>
+                        <option value="Warm Lead">Warm Lead</option>
+                        <option value="Hot Lead">Hot Lead</option>
+                    </select>
+                    <span asp-validation-for="LeadType" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="ProsType" class="control-label">Status</label>
+                    <input asp-for="ProsType" class="form-control" />
+                    <span asp-validation-for="ProsType" class="text-danger"></span>
+                </div>
+                <div class="box">
+                    <label asp-for="Terms" class="control-label">Terms/conditions</label>
+                    <textarea asp-for="Terms" class="form-control tinymce"></textarea>
+                    <span asp-validation-for="Terms" class="text-danger"></span>
+                </div>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="Bank" class="control-label"></label>
+                    <input asp-for="Bank" class="form-control" />
+                    <span asp-validation-for="Bank" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AddedOn" class="control-label"></label>
+                    <input asp-for="AddedOn" class="form-control" />
+                    <span asp-validation-for="AddedOn" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AddedId" class="control-label"></label>
+                    <input asp-for="AddedId" class="form-control" />
+                    <span asp-validation-for="AddedId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AddedBy" class="control-label"></label>
+                    <input asp-for="AddedBy" class="form-control" />
+                    <span asp-validation-for="AddedBy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UpdatedBy" class="control-label"></label>
+                    <input asp-for="UpdatedBy" class="form-control" />
+                    <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UpdatedId" class="control-label"></label>
+                    <input asp-for="UpdatedId" class="form-control" />
+                    <span asp-validation-for="UpdatedId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AReaded" class="control-label"></label>
+                    <input asp-for="AReaded" class="form-control" />
+                    <span asp-validation-for="AReaded" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary" id="add-file-btn">Add File</button>
+                    </div>
+                </div>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>$(document).ready(function () {
+        $('#add-file-btn').click(function () {
+            $('#file-upload-fields').show();
+        });
+        $('#file-upload-fields input[type="file"]').change(function () {
+            var fileInput = $(this);
+            var fileName = fileInput[0].files[0].name;
+            var fileType = fileInput[0].files[0].type;
+            var file = fileInput[0].files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+
+            $.ajax({
+                url: '/Company/UploadFile',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('#FileName').val(fileName);
+                    $('#FileType').val(fileType);
+                    $('#FileUrl').val(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+
+        $("#country_id").change(function () {
+            var countryId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Company/GetStatesByCountryId",
+                data: { countryId: countryId },
+                success: function (result) {
+                    $("#state_id").empty();
+                    $("#city_id").empty();
+                    $.each(result, function (i, state) {
+                        $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+                    });
+                }
+            });
+        });
+
+
+
+        $("#state_id").change(function () {
+            var stateId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Company/GetcitiesBystateId",
+                data: { stateId: stateId },
+                success: function (result) {
+
+                    $("#city_id").empty();
+                    $.each(result, function (i, city) {
+                        $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+                    });
+                }
+            });
+        });
+    });</script>

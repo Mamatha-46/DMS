@@ -1,0 +1,202 @@
+﻿@*@model IEnumerable<DMS.Models.Industry>*@
+@model X.PagedList.IPagedList<Industry>
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*<div style="text-align:left;width:1000px">
+    <center>
+    <h1>Industry Type</h1>
+    </center>
+</div>*@
+<div class="col-lg-6">
+    <center>
+        <h2>Industry Type</h2>
+    </center>
+</div>
+
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="~/css/css/table.css" />
+
+    <style>
+        .badge-success {
+            background-color: green;
+        }
+
+        .badge-danger {
+            background-color: red;
+        }
+
+        .ellipse {
+            display: inline-block;
+            width: 50px; /* Adjust the width to fit your desired size */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <br />
+</head>
+
+
+<div style="margin-left:60%;" class="d-flex justify-content-end">
+
+    @*<form action="@Url.Action("Index")" method="get" class="form-inline mb-3 ml-auto">
+            <button style="border:none">
+                @Html.ActionLink("Add IndustryType", "CreateIndustry", "IndustryType", null, new { @class = "btn btn-info" })
+            </button>
+            <input type="text" name="searchString" class="form-control mr-2" placeholder="Search...">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>*@
+    <form action="@Url.Action("Index")" method="get" class="form-inline mb-3 ml-auto">
+        @*<input type="text" name="searchString" class="form-control mr-2" style="width:300px" placeholder="Search...">
+        <button type="submit" class="btn btn-primary">Search</button>*@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <div class="row">
+            <button style="border:none">
+                <a asp-action="Create" class="btn btn-primary" style="text-align:center; border:none"><i class="fa fa-plus"></i>Add Industry Type</a>
+            </button>
+            <a asp-action="Index" class="btn btn-secondary btn-sm" style="display:flex;float:right"> Back</a>
+
+        </div>
+    </form>
+</div>
+
+
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="~/css/css/table.css" />
+</head>
+<div class="row" style="margin-left:2%">
+
+
+    <table class="table tablesorter">
+
+        <thead>
+            <tr>
+                @*<th class="header" style="text-align:center;width:250px">Name<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align:center;width:250px">Status<i class="fa fa-sort"></i></th>
+                <th style="text-align:center;width:100px">Action</th>*@
+                <th class="header">Name<i class="fa fa-sort"></i></th>
+                <th class="header">Status<i class="fa fa-sort"></i></th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>
+                        <span class="badge @(item.Status == 0 ? "badge-danger" : "badge-success")"><span class="ellipse">@((item.Status == 0 ? "Inactive" : "Active"))</span>
+                        </span>                    
+                    </td>
+                    <!-- new column -->
+                    <td>
+                        <div class="dropdown">
+                            @*<a class="btn btn-link" style="cursor:pointer;"
+                                   onmouseover="this.nextElementSibling.style.display='block'"
+                                   onmouseout="this.nextElementSibling.style.display='none'">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </a>*@
+                            <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+
+                            @*<div class="dropdown-menu" style="display:none;">
+                                <a class="dropdown-item" href="@Url.Action("Edit", "IndustryType", new { id = item.Id })">
+                                    <i class="fa fa-pen"></i>Edit
+                                </a>
+                                <a class="dropdown-item" href="@Url.Action("Details", "IndustryType", new { id = item.Id})">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>View
+                                </a>*@
+                            <div class="dropdown-menu" style="display:none;">
+                                <a class="dropdown-item" href="@Url.Action("Details", "IndustryType", new { id = item.Id })"><i class="fa fa-eye"></i>View</a>
+
+                                <a class="dropdown-item" href="@Url.Action("Edit", "IndustryType", new { id = item.Id })"><i class="fa fa-pen"></i>Edit</a>
+
+                                <a class="dropdown-item" href="@Url.Action("ToggleStatus", "IndustryType", new { id = item.Id })">
+                                    @if (item.Status == 0)
+                                     {
+                                        <span><i class="badge-danger"></i>Inactivate</span> }
+                                    else
+                                    {
+                                    <span><i class="badge-success"></i>Activate</span>}
+                                    @*@if (TempData["Message"] != null)
+                                     {
+                                        <div class="alert alert-success" role="alert">
+                                            @TempData["Message"]
+                                        </div>
+                                     }*@
+                                </a>
+                            </div>
+                        </div>
+
+                       
+                    </td>
+                </tr>
+             }
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })">@i</a>
+                </li>
+        }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-toggle").click(function (e) {
+                e.preventDefault();
+                $(this).siblings(".dropdown-menu").toggle();
+            });
+        });
+        //$(document).ready(function () {
+        //    debugger;
+        //    $(".tablesorter").tablesorter({
+        //        theme: "bootstrap",
+        //        headerTemplate: "{content} {icon}",
+        //        widgets: ["zebra"],
+        //        sortList: [[0, 0]]
+        //    });
+        //});
+
+
+        $(function () {
+            $(".tablesorter").tablesorter();
+        });
+    </script>
+}

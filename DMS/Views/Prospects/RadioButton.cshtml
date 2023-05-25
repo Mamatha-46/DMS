@@ -1,0 +1,56 @@
+﻿@{ ViewData["Title"] = "RadioButton";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+<style>
+    .radiobox-horizontal {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .radiobox-horizontal li {
+            margin-right: 10px;
+        }
+</style>
+
+
+<div class="col-lg-6 col-md-4 col-sm-6  ">
+    <div class="form-group">
+        <ul class="radiobox">
+            <li>
+                <label class="kt-radio kt-radio--bold kt-radio--primary">
+                    <input asp-action="Self" type="radio" name="self" value="1" id="selfCheck" class="somoneCheck" onclick="openView()"> Self
+                    <span></span>
+                </label>
+            </li>
+
+            <li>
+                <label class="kt-radio kt-radio--bold kt-radio--primary">
+                    <input asp-action="ResellerCreate" type="radio" name="Reseller" value="0" id="somoneCheck" class="somoneCheck" onclick="openView1()"> To Reseller
+                    <span></span>
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>$('.somoneCheck').click(function () {
+        var value = $(this).val();
+        if (value == 1) {
+            $('.hideRow').removeClass('hideRow');
+            $('.selresellerbox').addClass('hide');
+        } else {
+            $('.hideRow').removeClass('hideRow');
+            $('.selresellerbox').removeClass('hide');
+        }
+    })
+
+    function openView() {
+        // Code to open the view goes here
+        window.location.href = "/Prospects/Self";
+    }
+
+    function openView1() {
+        // Code to open the view goes here
+        window.location.href = "/Prospects/ResellerCreate";
+    }</script>

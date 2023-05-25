@@ -1,0 +1,33 @@
+﻿@model DMS.Models.ProductMapView
+
+    
+
+
+<table>
+    <tr>
+        <th style="width:50px">#</th>
+        <th style="width:500px">Product Name</th>
+        <th style="width:100px">From Qty.</th>
+        <th style="width:100px">To Qty.</th>
+        <th style="width:100px">Discount</th>
+        <th style="width:100px">Unit price</th>
+        <th style="width:100px">After Discount</th>
+    </tr>
+
+
+    <tr>
+        <td>@Model.ProductId</td>
+        <td>@Model.ProductName</td>
+        <td>@Model.FromQty</td>
+        <td>@Model.ToQty</td>
+        <td>@Model.Discount</td>
+        <td>@Model.UnitPrice</td>
+        <td>@Model.AfterDiscount</td>
+
+
+    </tr>
+
+
+
+
+</table>

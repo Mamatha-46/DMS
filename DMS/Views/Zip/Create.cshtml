@@ -1,0 +1,155 @@
+﻿@model DMS.Models.Zip
+
+@{ ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<div style="text-align:center;width:1000px">
+    <center>
+        <h2>
+            Create New ZipCodes
+        </h2>
+    </center>
+</div>
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        td {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<hr />
+<div style="margin-left:60%;" class="d-flex justify-content-end">
+    <div class="row">
+        <a asp-action="Index2" class="btn btn-secondary btn-sm" style="display:flex;float:right"> Back</a>
+    </div>
+</div>
+
+<div class="row small-gap">
+    <div class="container-fluid" style="background-color:snow;">
+        <div class="row">
+            <div class="col-lg-12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                         <div class="container">
+                                        <div class="box">
+                                            <label asp-for="Country" class="control-label">Country</label>
+                                            @Html.DropDownList("Country", ViewData["Country"] as SelectList, new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
+                                            <span asp-validation-for="Country" class="text-danger"></span>
+                                        </div>
+                                        <div class="box">
+                                            <label asp-for="State" class="control-label">State/ Region </label>
+                                            @Html.DropDownList("State", ViewData["State"] as SelectList, new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
+                                            <span asp-validation-for="State" class="text-danger"></span>
+                                        </div>
+                                        <div class="box">
+                                            <label asp-for="City" class="control-label">City</label>
+                                            @Html.DropDownList("City", ViewData["City"] as SelectList, new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
+                                            <span asp-validation-for="City" class="text-danger"></span>
+                                        </div>
+                              
+                                        <div class="box">
+                                            <label asp-for="AreaName" class="control-label">Place Name</label>
+                                            <input asp-for="AreaName" class="form-control" />
+                                            <span asp-validation-for="AreaName" class="text-danger"></span>
+                                        </div>
+                                        <div class="box">
+                                            <label asp-for="Division1" class="control-label"></label>
+                                            <input asp-for="Division1" class="form-control" />
+                                            <span asp-validation-for="Division1" class="text-danger"></span>
+                                        </div>    
+                                        <div class="box">
+                                            <label asp-for="Division2" class="control-label"></label>
+                                            <input asp-for="Division2" class="form-control" />
+                                            <span asp-validation-for="Division2" class="text-danger"></span>
+                                        </div>                                   
+                                        <div class="box">
+                                            <label asp-for="Zipcode" class="control-label"></label>
+                                            <input asp-for="Zipcode" class="form-control" />
+                                            <span asp-validation-for="Zipcode" class="text-danger"></span>
+                                        </div>       
+                                    <div class="form-group"style="margin-top:28px">
+                                        <input type="submit" value="AddZipCode" class="btn btn-primary" />
+                                    </div>
+                         </div>       
+               </form>
+            </div>
+        </div>
+    </div>
+</div>
+    @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#add-file-btn').click(function () {
+                $('#file-upload-fields').show();
+            });
+            $('#file-upload-fields input[type="file"]').change(function () {
+                var fileInput = $(this);
+                var fileName = fileInput[0].files[0].name;
+                var fileType = fileInput[0].files[0].type;
+                var file = fileInput[0].files[0];
+                var formData = new FormData();
+                formData.append('file', file);
+
+                $.ajax({
+                    url: '/Company/UploadFile',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        $('#FileName').val(fileName);
+                        $('#FileType').val(fileType);
+                        $('#FileUrl').val(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
+
+            $("#country_id").change(function () {
+                var countryId = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Company/GetStatesByCountryId",
+                    data: { countryId: countryId },
+                    success: function (result) {
+                        $("#state_id").empty();
+                        $("#city_id").empty();
+                        $.each(result, function (i, state) {
+                            $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        });
+                    }
+                });
+            });
+
+
+
+            $("#state_id").change(function () {
+                var stateId = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Company/GetcitiesBystateId",
+                    data: { stateId: stateId },
+                    success: function (result) {
+
+                        $("#city_id").empty();
+                        $.each(result, function (i, city) {
+                            $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>

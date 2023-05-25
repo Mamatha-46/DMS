@@ -1,0 +1,157 @@
+﻿@model DMS.Models.Distributor
+
+@{
+    ViewData["Title"] = "CreateDistributor";
+}
+
+<h1>CreateDistributor</h1>
+
+<h4>Distributor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateDistributor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="DistributorId" class="control-label"></label>
+                        <input asp-for="DistributorId" class="form-control" />
+                        <span asp-validation-for="DistributorId" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="UserId" class="control-label"></label>
+                        <input asp-for="UserId" class="form-control" />
+                        <span asp-validation-for="UserId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="DistributorName" class="control-label">Reseller Name </label>
+                        <input asp-for="DistributorName" class="form-control" />
+                        <span asp-validation-for="DistributorName" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="Website" class="control-label"></label>
+                        <input asp-for="Website" class="form-control" />
+                        <span asp-validation-for="Website" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="DistributorType" class="control-label"></label>
+                        <input asp-for="DistributorType" class="form-control" />
+                        <span asp-validation-for="DistributorType" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="DistributorZip" class="control-label"></label>
+                        <input asp-for="DistributorZip" class="form-control" />
+                        <span asp-validation-for="DistributorZip" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="DistributorCountry" class="control-label"></label>
+                        <input asp-for="DistributorCountry" class="form-control" />
+                        <span asp-validation-for="DistributorCountry" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="DistributorState" class="control-label"></label>
+                        <input asp-for="DistributorState" class="form-control" />
+                        <span asp-validation-for="DistributorState" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="DistributorCity" class="control-label"></label>
+                        <input asp-for="DistributorCity" class="form-control" />
+                        <span asp-validation-for="DistributorCity" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="DistributorAddress1" class="control-label"></label>
+                        <textarea asp-for="DistributorAddress1" class="form-control"></textarea>
+
+                        <span asp-validation-for="DistributorAddress1" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="DistributorAddress2" class="control-label"></label>
+                        <textarea asp-for="DistributorAddress2" class="form-control"></textarea>
+                        <span asp-validation-for="DistributorAddress2" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="Province" class="control-label"></label>
+                        <input asp-for="Province" class="form-control" />
+                        <span asp-validation-for="Province" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="DistributorCName" class="control-label"></label>
+                        <input asp-for="DistributorCName" class="form-control" />
+                        <span asp-validation-for="DistributorCName" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="DistributorNumber" class="control-label"></label>
+                        <input asp-for="DistributorNumber" class="form-control" />
+                        <span asp-validation-for="DistributorNumber" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="DistributorVat" class="control-label"></label>
+                        <input asp-for="DistributorVat" class="form-control" />
+                        <span asp-validation-for="DistributorVat" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="Doctype" class="control-label"></label>
+                        <input asp-for="Doctype" class="form-control" />
+                        <span asp-validation-for="Doctype" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Docfile" class="control-label"></label>
+                        <input asp-for="Docfile" class="form-control" />
+                        <span asp-validation-for="Docfile" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="Terms" class="control-label"></label>
+                        <input asp-for="Terms" class="form-control" />
+                        <span asp-validation-for="Terms" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+                
+                
+               
+                
+               
+
+              
+               
+                <div class="form-group",align="left">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

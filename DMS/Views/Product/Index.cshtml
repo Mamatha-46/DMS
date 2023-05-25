@@ -1,0 +1,306 @@
+﻿@model X.PagedList.IPagedList<DMS.Models.Product>
+
+@{ ViewData["Title"] = "Index";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+
+ @using (Html.BeginForm("ImportExcel", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+ {@*<form method="post" enctype="multipart/form-data" action="/Product/ImportExcel">
+
+                <label for="fileInput" class="btn btn-primary">Import</label>
+                <input type="file" id="fileInput" name="file" accept=".xlsx" style="display: none;" />
+                    <input type="submit" id="submitButton" value="Submit" style="display: none;" />
+            </form>*@
+
+                    <form method="post" enctype="multipart/form-data" action="/Product/ImportExcel">
+
+                        <button type="button" id="ETE" class="btn btn-primary" data-toggle="modal" data-target="#importModal" style="margin-top:10px;margin-left:20px">
+                            Import
+                        </button>
+
+
+                        <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="importModalLabel">Import File</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="fileInput">Choose File:</label>
+                                            <input type="file" id="fileInput" name="file" accept=".xlsx" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+  }
+    <div style="margin-top:4px;width:1168px">
+        <form action="@Url.Action("Index")" method="get" class="form-inline mb-3 ml-auto">
+            <button style="border:none">
+                <a asp-action="ExportToExcel" id="ETE" class="btn btn-primary">ExportToExcel</a>
+            </button>
+            <input type="text" name="searchString" class="form-control mr-2" style="width:300px; margin-left:20%" placeholder="Search...">
+            <button type="submit" id="ETE" class="btn btn-primary">Search</button>
+            <button style="border:none">
+                <a asp-action="Createproduct" id="ETE" class="btn btn-primary"><i class="fa fa-plus"></i>Add Product</a>
+            </button>
+            <a href="@Url.Action("Dashboard", "Home")" id="ETE" class="btn btn-primary" style="display:flex; float:right;margin-left:221px;">← Back</a>
+          
+        </form>
+    </div>
+
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+        <link rel="stylesheet" href="~/css/css/table.css" />
+        <style>           
+            .ellipse {
+                display: inline-block;
+                width: 50px; /* Adjust the width to fit your desired size */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            #ETE {
+                background-color: navy;
+                color: white;
+                font-size: 0.875rem;
+                line-height:1;
+            }
+
+                #ETE:hover {
+                    background-color:lightseagreen;
+                }
+
+            body {
+                font-size: 1rem;
+                font-family: "pt-sans-regular", sans-serif;
+                font-weight: initial;
+            }
+            
+        </style>
+        
+    </head>
+<div class="row" style="margin-left:15px;text-align:center">
+
+
+    <table class="table tablesorter">
+
+        <thead>
+            <tr>
+                <th class="header" style="text-align: center; width: 150px">ProductCode<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align: center; width: 150px">Title<i class="fa fa-sort"></i></th>
+               
+                <th class="header" style="text-align: center; width:150px">price<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align: center; width: 150px">Status<i class="fa fa-sort"></i></th>
+
+                <th class="header" style="text-align: center; width: 150px">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+<tr>
+    <td >@Html.DisplayFor(modelItem => item.ProductCode)</td>
+    <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+
+    <td >@Html.DisplayFor(modelItem => item.ProductPrice)</td>
+
+    <td>
+        @if (item.Status == 1)
+        {
+<span class="badge badge-success ellipse">@((item.Status == 1) ? "Active" : "Inactive")</span> }
+                else
+                {
+<span class="badge badge-danger ellipse">@((item.Status == 1) ? "Active" : "Inactive")</span>}
+    </td>
+    <!-- new column -->
+    <td>
+        <div class="dropdown">
+           
+            <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                <i class="fas fa-ellipsis-v"></i>
+            </a>
+            <div class="dropdown-menu" style="display:none;">
+                <a class="dropdown-item" href="@Url.Action("Edit", "Product", new { id = item.ProductId })" aria-hidden="true"><i class="fa fa-pen"></i>Edit</a>
+               
+                <a class="dropdown-item" href="@Url.Action("Details", "Product", new { id = item.ProductId })">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    View
+                </a>
+                <a class="dropdown-item" href="@Url.Action("Delete", "Product", new { id = item.ProductId })"><i class="fa fa-pen"></i>Delete</a>
+                <a class="dropdown-item" href="@Url.Action("ToggleStatus", "Product", new { id = item.ProductId })">
+                    @if (item.Status == 1)
+                    {
+    <span class="status-red"><i class="fa fa-ban"></i>Deactivate</span> }
+                    else
+                    {
+    <span class="status-green"><i class="fa fa-check"></i>Activate</span>}
+                    @if (TempData["Message"] != null)
+                    {
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>}
+                </a>
+
+
+
+
+            </div>
+        </div>
+
+    </td>
+</tr>            }
+
+        </tbody>
+
+
+
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+<li class="page-item @(i == Model.PageNumber ? "active" : "")">
+    <a class="page-link" href="@Url.Action("Index", new { page = i, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })">@i</a>
+</li>            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // initialize tablesorter
+            $('table').tablesorter({
+                // options go here
+            }).tablesorterPager({
+                // use the pager widget for pagination
+                container: $(".pager"),
+                size: 10, // default number of rows per page
+            });
+
+            // add the "Show entries" dropdown
+            var showEntries = [10, 25, 50, 100];
+            var select = $("<select>")
+                .appendTo($(".show-entries"))
+                .addClass("form-control form-control-sm")
+                .on("change", function () {
+                    // update the number of rows per page
+                    var pageSize = parseInt($(this).val());
+                    $("table").trigger("pageSize", pageSize);
+                });
+            $.each(showEntries, function (i, val) {
+                $("<option>")
+                    .text(val + " rows")
+                    .appendTo(select)
+                    .prop("selected", i === 0);
+            });
+        });
+        $(document).ready(function () {
+            $(".dropdown-toggle").click(function (e) {
+                e.preventDefault();
+                $(this).siblings(".dropdown-menu").toggle();
+            });
+        });
+
+
+
+    </script>
+    <script>
+    function importExcel() {
+        // Trigger file input click event
+        document.getElementById('fileInput').click();
+    }
+
+    // Handle file input change event
+    document.getElementById('fileInput').addEventListener('change', function (e) {
+        // Get the selected file
+        var file = e.target.files[0];
+
+        // Create a new FormData object
+        var formData = new FormData();
+        formData.append('file', file);
+
+        // Create a new XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Set the URL and HTTP method
+        xhr.open('POST', '@Url.Action("ImportExcel", "ProductController")', true);
+
+        // Handle the response
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Reset the file input element
+                document.getElementById('fileInput').value = '';
+            } else {
+                // Display an error message
+                alert('Error occurred while importing the Excel file.');
+            }
+        };
+
+        // Send the request with the form data
+        xhr.send(formData);
+    });
+    </script>
+}
+<script>
+    document.getElementById('fileInput').addEventListener('change', function () {
+        document.getElementById('submitButton').style.display = 'block';
+    });
+
+    document.getElementById('fileInput').addEventListener('click', function () {
+        document.getElementById('submitButton').style.display = 'none';
+    });
+
+    document.getElementById('ImportExcel').addEventListener('click', function () {
+        document.getElementById('ImportExcel').click();
+    });
+</script>
+<style>
+    .badge-success {
+        background-color: green;
+    }
+
+    .badge-danger {
+        background-color: red;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script>
+    $(document).ready(function () {
+        $('#importModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset();
+        });
+    });
+</script>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DMS.Models.Zip>
+
+@{
+    ViewData["Title"] = "zip";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div style="margin-left:30%;" class="d-flex justify-content-end">
+
+    <form action="@Url.Action("zip")" method="get" class="form-inline mb-3 ml-auto">
+        <input type="text" name="searchString" class="form-control mr-2" placeholder="Search...">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button style="border:none">
+            <a asp-action="ZipCreate" class="btn btn-primary" style="text-align:center; border:none;"> <i class="fa fa-plus">Add ZipCode</i></a>
+        </button>
+
+    </form>
+</div>
+
+
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="~/css/css/table.css" />
+</head>
+<div class="row" style="margin-left:15%">
+
+
+    <table class="table tablesorter">
+
+        <thead>
+            <tr>
+                <th class="header">Country<i class="fa fa-sort"></i></th>
+                <th class="header">State<i class="fa fa-sort"></i></th>
+                <th class="header">City<i class="fa fa-sort"></i></th>
+                <th class="header">Postal/Zip Code<i class="fa fa-sort"></i></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Country)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

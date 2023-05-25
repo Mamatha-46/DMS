@@ -1,0 +1,135 @@
+﻿@model DMS.Models.Product
+
+@{ ViewData["Title"] = "Details";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<h1 style="color: #333;">View Product</h1>
+<div class="button-container">
+    <a asp-action="Index" class="btn btn-secondary">← Back</a>
+    <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-primary">Edit</a>
+</div>
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+</head>
+<div class="card">
+    <div class="card-body">
+
+        <hr />
+        <form asp-action="Edit" asp-route-id="@Model.ProductId">
+            <div class="card" style="margin-left: 20px; margin-right: 20px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="ProductCode" class="label-style"></label>
+                                    <input asp-for="ProductCode" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="Brand" class="label-style"></label>
+                                    <input asp-for="Brand" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="Model" class="label-style"></label>
+                                    <input asp-for="Model" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="Variant" class="label-style"></label>
+                                    <input asp-for="Variant" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="ProductName" class="label-style"></label>
+                                    <input asp-for="ProductName" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="ProductDesc" class="label-style"></label>
+                                    <input asp-for="ProductDesc" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="ProductImg" class="label-style"></label>
+                                    <input asp-for="ProductImg" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="ProductPrice" class="label-style"></label>
+                                    <input asp-for="ProductPrice" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="FromNode" class="label-style"></label>
+                                    <input asp-for="FromNode" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="ToNode" class="label-style"></label>
+                                    <input asp-for="ToNode" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="AddedOn" class="label-style"></label>
+                                    <input asp-for="AddedOn" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="AddedBy" class="label-style"></label>
+                                    <input asp-for="AddedBy" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label asp-for="Status" class="label-style"></label>
+                                    <input asp-for="Status" class="form-control input-style" style="height:auto;" readonly />
+                                </div>
+                            </div>
+
+                        </div>
+                        </div>
+                    <</div>
+
+                    </div>
+        </form>
+
+    </div>
+</div>
+
+<style>
+    .label-style {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .input-style {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 6px 10px;
+        width: 100%;
+    }
+</style>
+<style>
+    .button-container {
+        text-align: right;
+        margin-top: 10px;
+    }
+</style>
+<script>
+    function redirectToEdit() {
+        window.location.href = '@Url.Action("Edit")';
+    }
+</script>

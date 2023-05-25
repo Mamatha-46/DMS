@@ -1,0 +1,307 @@
+﻿@model X.PagedList.IPagedList<brandviewmodel>
+
+
+@{ ViewData["Title"] = "Index";
+   Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; 
+ }
+
+<div class="row">
+    <div class="col-log-12" style="background-color:whitesmoke">
+
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0" style="margin-left:15px"><strong>Company</strong></h4>
+
+            <div class="page-title-right" style="margin-left:10px">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard","Home") "class="btn btn-secondary btn-sm" style="display:flex;float:right">Back</a></li>
+                   
+                    <li class="breadcrumb-item active"><a href="@Url.Action("Createcompany")" class="btn btn-primary" style="text-align:center; border:none;"><i class="fa fa-plus"> Add Company </i></a></li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-end" style="margin-left:20%;margin-top:20px">
+
+    <form action="@Url.Action("Index")" method="get" class="form-inline mb-3 ml-auto">
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="searchString" class="form-control mr-2" style="width:200px" placeholder="Search..."><button type="submit" class="btn btn-primary" style="margin-right:12px">Search</button>
+        @*<button id="addCompanyButton" style="border:none">
+            <a asp-action="Createcompany" class="btn btn-primary" style="text-align:center; border:none;"> <i class="fa fa-plus">Add Company</i></a>
+        </button>*@
+
+    </form>
+</div>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="~/css/css/table.css" />
+    <style>
+        .ellipse {
+            display: inline-block;
+            width: 50px; /* Adjust the width to fit your desired size */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<div class="row" style="margin-left:15px;">
+    <table class="table tablesorter">
+
+        <thead>
+            <tr>
+                <th class="header">Name<i class="fa fa-sort"></i></th>
+                <th class="header">Industry<i class="fa fa-sort"></i></th>
+                <th class="header">Country<i class="fa fa-sort"></i></th>
+                <th class="header">State<i class="fa fa-sort"></i></th>
+                <th class="header">City<i class="fa fa-sort"></i></th>
+                <th class="header">Zipcode<i class="fa fa-sort"></i></th>
+                <th class="header">Status<i class="fa fa-sort"></i></th>
+
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+             {
+
+<tr>
+
+    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+    <td>@Html.DisplayFor(modelItem => item.IndustryName)</td>
+    <td>@Html.DisplayFor(modelItem => item.CountryName)</td>
+    <td>@Html.DisplayFor(modelItem => item.StateName)</td>
+    <td>@Html.DisplayFor(modelItem => item.CityName)</td>
+    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+    <td>
+        <span class="badge @(item.Status == 0 ? "badge-danger" : "badge-success")">
+        <span class="ellipse">@((item.Status == 0 ? "Inactive" : "Active"))</span>
+        </span>
+
+    </td>
+    <!-- new column -->
+    <td>
+        <div class="dropdown">
+            
+            <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                <i class="fas fa-ellipsis-v"></i>
+            </a>
+
+            <div class="dropdown-menu" style="display:none;">
+                <a class="dropdown-item" href="@Url.Action("Edit", "Company", new { id = item.BrandId })"><i class="fa fa-pen"></i>Edit</a>
+
+                <a class="dropdown-item" href="@Url.Action("Details", "Company", new { id = item.BrandId })">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    View
+                </a>
+                <a class="dropdown-item" href="@Url.Action("Delete", "Company", new { id = item.BrandId })"><i class="fa fa-pen"></i>Delete</a>
+                <a class="dropdown-item" href="@Url.Action("ToggleStatus", "Company", new { id = item.BrandId })">
+                    @if (item.Status == 1)
+                    {
+    <span><i class="fa fa-ban"></i>Deactivate</span> }
+                    else
+                    {
+    <span><i class="fa fa-check"></i>Activate</span>}
+                    @*@if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["Message"]
+                            </div>
+                        }*@
+                </a>
+            </div>
+        </div>
+    </td>
+</tr>        }
+            @if (!Model.Any())
+             {
+<tr>
+    <td colspan="8">No records found.</td>
+</tr>        }
+
+        </tbody>
+    </table>
+    <nav style="display:flex;float:right">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+<li class="page-item @(i == Model.PageNumber ? "active" : "")">
+    <a class="page-link" href="@Url.Action("Index", new { page = i, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })">@i</a>
+</li>            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-toggle").click(function (e) {
+                e.preventDefault();
+                $(this).siblings(".dropdown-menu").toggle();
+            });
+        });
+        //$(document).ready(function () {
+        //    debugger;
+        //    $(".tablesorter").tablesorter({
+        //        theme: "bootstrap",
+        //        headerTemplate: "{content} {icon}",
+        //        widgets: ["zebra"],
+        //        sortList: [[0, 0]]
+        //    });
+        //});
+
+
+        $(function () {
+            $(".tablesorter").tablesorter();
+        });
+
+
+    </script>
+}
+
+@*@model IEnumerable<Distributionmanagement.Models.Brand>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
+    </p>
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"  />
+    </head>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Industry</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Zipcode</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => item.State)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+                    <td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                                <i class="fas fa-ellipsis-v"></i>
+
+                            </a>
+
+                            <div class="dropdown-menu" style="display:none;">
+                                <a class="dropdown-item" href="@Url.Action("Edit", "Brand", new { id = item.BrandId })">Edit</a>
+                                <a class="dropdown-item" href="@Url.Action("Details", "Brand", new { id = item.BrandId })">Details</a>
+                                <a class="dropdown-item" href="@Url.Action("Delete", "Brand", new { id = item.BrandId })">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+
+@*@model IEnumerable<Distributionmanagement.Models.Brand>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
+    </p>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Industry</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Zipcode</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => item.State)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+                    <td>
+                        <a href="#" class="kebab-menu" data-id="@item.BrandId">
+                            <i class="fa-thin fa-ellipsis-vertical"></i>
+
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $(".kebab-menu").click(function () {
+                var id = $(this).data("id");
+                var options = '<div class="dropdown-menu">' +
+                    '<a class="dropdown-item" href="@Url.Action("Edit", "Brand")/' + id + '">Edit</a>' +
+                    '<a class="dropdown-item" href="@Url.Action("Details", "Brand")/' + id + '">Details</a>' +
+                    '<a class="dropdown-item" href="@Url.Action("Delete", "Brand")/' + id + '">Delete</a>' +
+                    '</div>';
+                $(this).append(options);
+                return false;
+            });
+        });
+    </script>*@

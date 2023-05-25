@@ -1,0 +1,205 @@
+﻿@model DMS.Models.Zip
+
+@{
+    ViewData["Title"] = "Index2";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div style="text-align:center;width:1000px">
+    <center>
+        <h1>
+            Zip Codes
+        </h1>
+    </center>
+</div>
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+    <style>
+        /*td {
+            width: 300px;
+        }*/
+    </style>
+</head>
+
+<div style="margin-left:60%;" class="d-flex justify-content-end">
+    <div class="row">
+        <button style="border:none">
+            <a asp-action="Create" class="btn btn-primary" style="text-align:center; border:none"><i class="fa fa-plus"></i>Add NewZipCode</a>
+        </button>
+        <a asp-action="Index2" class="btn btn-secondary btn-sm" style="display:flex;float:right"> Back</a>
+    </div>
+</div>
+<div class="container-fluid" style="background-color:snow;">
+    <div class="row">
+        <form asp-action="Search" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table style="margin-left:15px">
+                <tr>
+                    <td>
+                        @*<div class="col-lg-12">*@
+                        <div class="box">
+                            <label asp-for="Country" class="control-label">Country</label>
+                            @Html.DropDownList("Country", ViewData["Country"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+                        @*</div>*@
+                    </td>
+                    <td>
+                        @*<div class="col-lg-12">*@
+                        <div class="box">
+                            <label asp-for="State" class="control-label">State/ Region </label>
+                            @Html.DropDownList("State", ViewData["State"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                        @*</div>*@
+                    </td>
+                    <td>
+                        @*<div class="col-lg-12">*@
+                        <div class="box">
+                            <label asp-for="City" class="control-label">City</label>
+                            @Html.DropDownList("City", ViewData["City"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        @*</div>*@
+                    </td>
+                    <td>
+                        @*<div class="col-lg-12">*@
+                        <div class="box">
+                            <label asp-for="Zipcode" class="control-label"></label>
+                            <input style="height:44px" asp-for="Zipcode" class="form-control" />
+                            <span asp-validation-for="Zipcode" class="text-danger"></span>
+                        </div>
+                        @*</div>*@
+                    </td>
+                </tr>
+            </table>
+                @*<tr>
+                    <td>*@
+                        <div class="form-group">
+                            <input id="Search" style="margin-left:20px" type="submit" value="Search" class="btn btn-primary" />
+                        </div>
+                       
+                    @*</td>
+
+                </tr>
+                <tr>*@
+                    @*<td>*@
+                        <div id="searchResultsContainer" >
+                            
+                        </div>
+                    @*</td>
+                </tr>*@
+
+           
+
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //$("#country_id").change(function () {
+    //    var countryId = $(this).val();
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/Company/GetStatesByCountryId",
+    //        data: { countryId: countryId },
+    //        success: function (result) {
+    //            $("#state_id").empty();
+    //            $("#city_id").empty();
+    //            $.each(result, function (i, state) {
+    //                $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+    //            });
+    //            $("#state_id").prepend('<option value="" selected>--Select--</option>');
+    //        }
+    //    });
+    //});
+
+    //$("#state_id").change(function () {
+    //    var stateId = $(this).val();
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/Company/GetcitiesBystateId",
+    //        data: { stateId: stateId },
+    //        success: function (result) {
+
+    //            $("#city_id").empty();
+    //            $.each(result, function (i, city) {
+    //                $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+    //            });
+    //            $("#city_id").prepend('<option value="" selected>--Select--</option>');
+    //        }
+    //    });
+    //});
+</script>
+@*  *@
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#Search').on('click', function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+
+        var path = '@Url.Action("Search", "Zip", new { area = "" })';
+        var country = $("#country_id").val();
+        var state = $("#state_id").val();
+        var city = $("#city_id").val();
+        var zip = $('#zipcode').val();
+
+        $.ajax({
+            url: path,
+            data: { search: "", country: country, state: state, city: city, zip: zip },
+            type: "GET",
+            success: function (data) {
+                $('#searchResultsContainer').html(data); // Update the container with the returned partial view
+                $('#searchResultsContainer').show(); // Display the container
+            },
+            error: function () {
+                alert('Try Again Later');
+            }
+        });
+    });
+
+
+    $("#country_id").change(function () {
+        var countryId = $(this).val();
+        $.ajax({
+            type: "GET",
+            url: "/Company/GetStatesByCountryId",
+            data: { countryId: countryId },
+            success: function (result) {
+                $("#state_id").empty();
+                $("#city_id").empty();
+                $.each(result, function (i, state) {
+                    $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+                });
+                $("#state_id").prepend('<option value="" selected>--Select--</option>');
+            }
+        });
+    });
+
+    $("#state_id").change(function () {
+        var stateId = $(this).val();
+        $.ajax({
+            type: "GET",
+            url: "/Company/GetcitiesBystateId",
+            data: { stateId: stateId },
+            success: function (result) {
+
+                $("#city_id").empty();
+                $.each(result, function (i, city) {
+                    $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+                });
+                $("#city_id").prepend('<option value="" selected>--Select--</option>');
+            }
+        });
+    });
+});
+</script>
+
+
+

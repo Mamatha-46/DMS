@@ -1,0 +1,302 @@
+﻿@model X.PagedList.IPagedList<resellerView>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div style="margin-left:25%;margin-top:10px">
+
+    <form action="@Url.Action("Index")" method="get" class="form-inline mb-3 ml-auto">
+        <input type="text" name="searchString" class="form-control mr-2" style="width:280px" placeholder="Search...">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button style="border:none">
+            <a asp-action="CreateReseller" class="btn btn-primary" style="text-align:center; border:none;margin-left:300px"><i class="fa fa-plus"></i>Add Reseller</a>
+            <a href="@Url.Action("Dashboard", "Home")" class="btn btn-primary" style="margin-left: 5px">← Back</a>
+        </button>
+    </form>
+</div>
+
+<style>
+    .ellipse {
+        display: inline-block;
+        width: 50px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="~/css/css/table.css" />
+</head>
+
+<div class="row" style="margin-left:5%">
+
+    <table class="table tablesorter" align="center"  cellpadding="2" border="1" style="text-align:center">
+
+        <thead>
+            <tr>
+                <th class="header" style="text-align:center;width:120px">DistributorID<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align:center">DID<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align:center">FullName<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align:center">Email<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align:center">ContactNumber<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align:center">City<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align:center">Country<i class="fa fa-sort"></i></th>
+                <th class="header" style="text-align: center">Status<i class="fa fa-sort"></i></th>
+
+                <th style="align-content:center;width:50px">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+            <tr>
+                <td style="height:10px">@Html.DisplayFor(modelItem => item.DistributorID)</td>
+                <td style="height:10px">@Html.DisplayFor(modelItem => item.DID)</td>
+                <td style="height:10px">@Html.DisplayFor(modelItem => item.FullName)</td>
+                <td style="height:10px">@Html.DisplayFor(modelItem => item.Email)</td>
+                <td style="height:10px">@Html.DisplayFor(modelItem => item.ContactNumber)</td>
+                <td style="height:10px">@Html.DisplayFor(modelItem => item.City)</td>
+                <td style="height:10px">@Html.DisplayFor(modelItem => item.Country)</td>
+                <td style="height:10px">
+                    @*<span class="badge badge-warning">@((item.Status == 0) ? "Pending" : "Completed")</span>*@
+
+
+                    <span class="badge @(item.Status == 0 ? "badge-danger" : "badge-success")">
+                        <span class="badge badge-warning">@((item.Status==0)?"Block":(item.Status==1)? "Active":"Pending")</span>
+
+
+
+                        <span class="badge @(item.Status == 0 ? "badge-danger" : "badge-success")">
+                            <span class="ellipse">@((item.Status == 0 ? "Inactive" : "Active"))</span>
+</td>
+                <!-- new column -->
+               
+                <td>
+                    <div class="dropdown">
+                        @*<a class="btn btn-link" style="cursor:pointer;"
+                   onmouseover="this.nextElementSibling.style.display='block'"
+                   onmouseout="this.nextElementSibling.style.display='none'">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>*@
+                        <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+
+                        <div class="dropdown-menu" style="display:none;">
+                            @*<a class="dropdown-item" href="@Url.Action("UpdateReseller", "Distributor", new { DistributorID = item.DistributorID })"><i class="fa fa-pen"></i>Edit</a>*@
+
+                            <a class="dropdown-item" href="@Url.Action("Details", "Distributor", new { DistributorID = item.DistributorID })">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                View
+                            </a>
+                            @*<a class="dropdown-item" href="@Url.Action("DeleteReseller", "Distributor", new { id = item.DistributorID })"><i class="fa fa-pen"></i>Delete</a>*@
+                        <a class="dropdown-item" href="@Url.Action("ToggleStatus", "Distributor", new { id = item.DistributorID })">
+                            @if (item.Status == 1)
+                            {
+                        <span><i class="fa fa-ban"></i>Deactivate</span> }
+                    else
+                    {
+                        <span><i class="fa fa-check"></i>Activate</span>}
+                            @*@if (TempData["Message"] != null)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    @TempData["Message"]
+                                </div>
+                            }*@
+
+                        </a>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+
+            }
+
+        </tbody>
+
+
+
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+<li class="page-item @(i == Model.PageNumber ? "active" : "")">
+    <a class="page-link" href="@Url.Action("Index", new { page = i, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })">@i</a>
+</li>            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-toggle").click(function (e) {
+                e.preventDefault();
+                $(this).siblings(".dropdown-menu").toggle();
+            });
+        });
+        //$(document).ready(function () {
+        //    debugger;
+        //    $(".tablesorter").tablesorter({
+        //        theme: "bootstrap",
+        //        headerTemplate: "{content} {icon}",
+        //        widgets: ["zebra"],
+        //        sortList: [[0, 0]]
+        //    });
+        //});
+
+
+        $(function () {
+            $(".tablesorter").tablesorter();
+        });
+    </script>
+}
+
+@*@model IEnumerable<Distributionmanagement.Models.Brand>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
+    </p>
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"  />
+    </head>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Industry</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Zipcode</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => item.State)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+                    <td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                                <i class="fas fa-ellipsis-v"></i>
+
+                            </a>
+
+                            <div class="dropdown-menu" style="display:none;">
+                                <a class="dropdown-item" href="@Url.Action("Edit", "Brand", new { id = item.BrandId })">Edit</a>
+                                <a class="dropdown-item" href="@Url.Action("Details", "Brand", new { id = item.BrandId })">Details</a>
+                                <a class="dropdown-item" href="@Url.Action("Delete", "Brand", new { id = item.BrandId })">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+
+@*@model IEnumerable<Distributionmanagement.Models.Brand>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
+    </p>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Industry</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Zipcode</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => item.State)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+                    <td>
+                        <a href="#" class="kebab-menu" data-id="@item.BrandId">
+                            <i class="fa-thin fa-ellipsis-vertical"></i>
+
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $(".kebab-menu").click(function () {
+                var id = $(this).data("id");
+                var options = '<div class="dropdown-menu">' +
+                    '<a class="dropdown-item" href="@Url.Action("Edit", "Brand")/' + id + '">Edit</a>' +
+                    '<a class="dropdown-item" href="@Url.Action("Details", "Brand")/' + id + '">Details</a>' +
+                    '<a class="dropdown-item" href="@Url.Action("Delete", "Brand")/' + id + '">Delete</a>' +
+                    '</div>';
+                $(this).append(options);
+                return false;
+            });
+        });
+    </script>*@

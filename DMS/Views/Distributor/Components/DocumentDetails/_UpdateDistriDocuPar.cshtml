@@ -1,0 +1,53 @@
+﻿@model DMS.Models.DistriDocu
+
+
+<table>
+    <tr>
+        <th style="width:200px">Name</th>
+        <th style="width:200px">File</th>
+        <th style="width:200px">status</th>
+        <th style="width:200px">Reseller Remarks</th>
+        <th style="width:200px">Admin Remarks</th>
+        <th style="width:200px">Added on</th>
+    </tr>
+    <tr>
+        <td>Business document</td>
+        <td><a href="~/images/R_bus38-230510030132.pdf">view</a></td>
+        <td>
+            <div class="row" style="display:flex;gap:20px">
+                <label>
+                    <input style="display:inline-block" type="radio" class="form-check" name="status" value="Innactive">
+                    Inactive
+                </label>
+                <label>
+                    <input style="display:inline-block" type="radio" class="form-check" name="status" value="Active" checked>
+                    Active
+                </label>
+            </div>
+        </td>
+        <td>@Model.ReGRemarks</td>
+        <td>@Model.Remarks</td>
+        <td>@Model.AddedOn</td>
+    </tr>
+
+    <tr>
+        <td>Tax Document</td>
+        <td><a href="~/images/R_bus38-230510030132.pdf">view</a></td>
+        <td>
+            <div class="row" style="display:flex;gap:20px">
+                <label>
+                    <input style="display:inline-block" type="radio" class="form-check" name="status1" value="Innactive">
+                    Inactive
+                </label>
+                <label>
+                    <input style="display:inline-block" type="radio" class="form-check" name="status1" value="Active" checked>
+                    Active
+                </label>
+            </div>
+        </td>
+        <td>@Model.ReGRemarks</td>
+        <td>@Model.Remarks</td>
+        <td>@Model.AddedOn</td>
+    </tr>
+
+</table>

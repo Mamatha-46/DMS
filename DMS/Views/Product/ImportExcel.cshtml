@@ -1,0 +1,97 @@
+﻿@model IEnumerable<DMS.Models.Product>
+
+@{ ViewData["Title"] = "ImportExcel";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+<a href="@Url.Action("Index", "Product")" class="btn btn-primary">Back</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Variant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductImg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FromNode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToNode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductCode)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Brand)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Model)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Variant)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductDesc)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductImg)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductPrice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FromNode)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ToNode)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AddedOn)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AddedBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+
+</tr>}
+    </tbody>
+</table>

@@ -1,0 +1,122 @@
+﻿@model DMS.Models.Industry
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div style="text-align:center;width:1000px">
+    <center>
+        <h2>View Industry Type</h2>
+    </center>
+</div>
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+    <style>
+        td {
+            width: 200px;
+            padding: 50px;
+        }
+    </style>
+</head>
+<div style="margin-left:60%;" class="d-flex justify-content-end">
+    <div class="row">
+        <a asp-action="Index" class="btn btn-secondary btn-sm" style="display:flex;float:right"> Back</a>
+    </div>
+    <div class="row">
+        @*<input type="submit" value="Edit" class="btn btn-primary" />*@
+        <a asp-action="Edit"  asp-route-id="@Model.Id" class="btn btn-primary" style="text-align:center; border:none">Edit</a>
+        @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    </div>
+</div>  
+    <div>
+        <hr />
+        <div class="container-fluid" style="background-color:snow;">
+            <div class="row">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="col-md-4">
+                                @Html.DisplayNameFor(model => model.Name)
+                                <input asp-for="Name" class="form-control" style="width:250px" readonly/>
+                            </div>
+                        </td>
+                        <td style="width:300px">
+                            <div class="form-group">
+                                <div>
+                                    <label>Status <span class="err"></span></label>
+                                </div>
+                                <div class="row" style="display:flex;gap:20px">
+                                    @if (Model.Status == 0)
+                                    {
+                                        <label class="kt-radio kt-radio--bold kt-radio--success">
+                                            <input type="radio" name="status" value="0" checked readonly> Inactive
+                                        </label>
+                                        <label class="kt-radio kt-radio--bold kt-radio--danger">
+                                            <input type="radio" name="status" value="1"> Active
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label class="kt-radio kt-radio--bold kt-radio--success">
+                                            <input type="radio" name="status" value="0"> Inactive
+                                        </label>
+                                        <label class="kt-radio kt-radio--bold kt-radio--danger">
+                                            <input type="radio" name="status" value="1" checked readonly> Active
+                                        </label>
+                                    }
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        @*<dl class="row" style="background-color:snow">
+                <dt class="col-md-12">
+                    @Html.DisplayNameFor(model => model.Name)
+
+                </dt>
+                <dd class="col-md-12">
+                    <div class="box">
+
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </dd>
+
+                <div class="row" >
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 ">
+                        <label>Status <span class="err"></span></label>
+
+                        @if (Model.Status == 1)
+                        {
+                            <label class="kt-radio kt-radio--bold kt-radio--success">
+                                <input type="radio" name="status" value="1" checked> Active
+                            </label>
+                            <label class="kt-radio kt-radio--bold kt-radio--danger">
+                                <input type="radio" name="status" value="0"> Inactive
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="kt-radio kt-radio--bold kt-radio--success">
+                                <input type="radio" name="status" value="1"> Active
+                            </label>
+                            <label class="kt-radio kt-radio--bold kt-radio--danger">
+                                <input type="radio" name="status" value="0" checked> Inactive
+                            </label>
+                        }
+
+                    </div>
+
+
+                </div>
+
+
+            </dl>*@
+    </div>
+    @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@

@@ -1,0 +1,253 @@
+﻿@model DMS.Models.Prospect
+
+@{
+    ViewData["Title"] = "CreateResellerProspect";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>CreateResellerProspect</h1>
+
+<h4>Prospect</h4>
+<hr />
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+</head>
+<div class="row small-gap">
+
+    <form>
+        <input type="radio" name="registration-type" value="self" onclick="showRegistrationForm('self')">Self
+        <input type="radio" name="registration-type" value="reseller" onclick="showRegistrationForm('reseller')">Reseller<br>
+    </form>
+
+    <div class="row" id="reseller-registration-form" style="display: none;">
+        <div class="col-lg-12">
+            <form asp-action="CreateResellerProspect" class="form-inline">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="container">
+
+                    <div class="box" style="margin: 27px 0px 0px 0px; width:300px">
+                        <div class="form-group" id="divAssignTo">
+                            <label asp-for="AddedId" class="control-label"> ASSIGN TO</label>
+                            @Html.DropDownList("AddedId", ViewData["AddedId"] as SelectList, new { @class = "form-control custom-width custom-textbox" })
+
+                            <span asp-validation-for="AddedId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="box" style="width:300px;">
+                        <label asp-for="Name" class="control-label"> Client Name</label>
+                        <input asp-for="Name" class="form-control custom-textbox" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="box" style="width:300px;">
+
+                        <label asp-for="IndustryType" class="control-label"></label>
+                        @Html.DropDownList("IndustryType", ViewData["IndustryType"] as SelectList, new { @class = "form-control custom-textbox" })
+                        <span asp-validation-for="IndustryType" class="text-danger"></span>
+                    </div>
+                    <div class="box"  style="width:300px;">
+                        <label asp-for="CountryName" class="control-label">Country</label>
+                        @Html.DropDownList("CountryName", ViewData["CountryName"] as SelectList, new { @class = "form-control custom-textbox" })
+                        <span asp-validation-for="CountryName" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="box"  style="width:300px;">
+
+                        <label asp-for="State" class="control-label">State/Religion/Provience</label>
+                        @Html.DropDownList("State", ViewData["State"] as SelectList, new { @class = "form-control custom-textbox" })
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                    <div class="box"  style="width:300px;">
+                        <label asp-for="City" class="control-label">City</label>
+                        @Html.DropDownList("City", ViewData["City"] as SelectList, new { @class = "form-control custom-textbox" })
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+
+                    <div class="box"  style="width:300px;">
+
+                        <label asp-for="Zip" class="control-label">ZipCode</label>
+                        <input asp-for="Zip" class="form-control custom-textbox" />
+                        <span asp-validation-for="Zip" class="text-danger"></span>
+                    </div>
+                    <div class="box" style="width:300px;">
+                        <label asp-for="Email" class="control-label">EmailId</label>
+                        <input asp-for="Email" class="form-control custom-textbox" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="box" style="width:300px;">
+
+                        <label asp-for="Number" class="control-label">Phone/Mobile</label>
+                        <input asp-for="Number" class="form-control custom-textbox" />
+                        <span asp-validation-for="Number" class="text-danger"></span>
+
+                    </div>
+                    <div class="box" style="width:300px;">
+                        <label asp-for="Address1" class="control-label">Address1</label>
+                        <textarea asp-for="Address1" class="form-control custom-textbox"></textarea>
+
+                        <span asp-validation-for="Address1" class="text-danger"></span>
+                    </div>
+
+                    <div class="box" style="width:300px;">
+
+                        <label asp-for="Address2" class="control-label">Address2</label>
+                        <textarea asp-for="Address2" class="form-control custom-textbox"></textarea>
+
+                        <span asp-validation-for="Address2" class="text-danger"></span>
+                    </div>
+                    <div class="box" style="width:300px;">
+                        <label asp-for="Province" class="control-label">Province</label>
+                        <input asp-for="Province" class="form-control custom-textbox" />
+                        <span asp-validation-for="Province" class="text-danger"></span>
+                    </div>
+
+                    <div class="box" style="width:300px;">
+
+                        <label asp-for="CPerson" class="control-label">ContactPerson</label>
+                        <input asp-for="CPerson" class="form-control custom-textbox" />
+                        <span asp-validation-for="CPerson" class="text-danger"></span>
+                    </div>
+                    <div class="box" style="width:300px;">
+                        <label asp-for="Website" class="control-label">Website</label>
+                        <input asp-for="Website" class="form-control custom-textbox" />
+                        <span asp-validation-for="Website" class="text-danger"></span>
+                    </div>
+
+                    <div class="box" style="width:300px;">
+
+                        <label asp-for="Logo" class="control-label">Logo</label>
+                        <input asp-for="Logo" type="file" class="form-control custom-textbox-file" />
+                        <span asp-validation-for="Logo" class="text-danger"></span>
+                    </div>
+                    <div class="box" style="width:300px;">
+                        <label asp-for="Gst" class="control-label">Gst</label>
+                        <input asp-for="Gst" class="form-control custom-textbox" />
+                        <span asp-validation-for="Gst" class="text-danger"></span>
+                    </div>
+
+                    <div class="box" style="width:300px;">
+
+                        <label asp-for="Source" class="control-label">Source</label>
+                        <select asp-for="Source" class="form-control custom-textbox">
+                            <option value="">---Select--- </option>
+                            <option value="Referral">Referral</option>
+                            <option value="Email">Email</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="SocialMedia">SocialMedia</option>
+                            <option value="WebSite">WebSite</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="TechJockey">TechJockey</option>
+                            <option value="OwnDatabase">OwnDatabase</option>
+                        </select>
+                        <span asp-validation-for="Source" class="text-danger"></span>
+                    </div>
+                    <div class="box" style="width:300px;">
+                        <label asp-for="LeadType" class="control-label">LeadType</label>
+                        <select asp-for="LeadType" class="form-control custom-textbox">
+                            <option value="">---Select--- </option>
+                            <option value="Cold Lead">Cold Lead</option>
+                            <option value="Warm Lead">Warm Lead</option>
+                            <option value="Hot Lead">Hot Lead</option>
+                        </select>
+                        <span asp-validation-for="LeadType" class="text-danger"></span>
+                    </div>
+
+                    <div class="box" style="width:300px;">
+
+                        <label asp-for="ProsType" class="control-label">Status</label>
+                        <input asp-for="ProsType" class="form-control custom-textbox" />
+                        <span asp-validation-for="ProsType" class="text-danger"></span>
+                    </div>
+                    <div class="box" style="width:300px;">
+                        <label asp-for="Terms" class="control-label">Terms/conditions</label>
+                        <textarea asp-for="Terms" class="form-control custom-textbox tinymce"></textarea>
+                        <span asp-validation-for="Terms" class="text-danger"></span>
+
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add Prospect" class="btn btn-primary" />
+                </div>
+            </form>
+
+            @*</div>*@
+        </div>
+    </div>
+</div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script type="text/javascript">
+    function showRegistrationForm(formName) {
+        if (formName == "reseller") {
+            document.getElementById("reseller-registration-form").style.display = "block";
+            document.getElementById("divAssignTo").style.display = "";
+            //document.getElementById("self-registration-form").style.display = "none";
+        } else if (formName == "self") {
+            document.getElementById("reseller-registration-form").style.display = "block";
+            document.getElementById("divAssignTo").style.display = "none";
+            ////@*$.ajax({
+                url: '@Url.Action("CreateSelfProspect", "Prospects")', // Modified URL
+                type: 'GET',
+                success: function(result) {
+                    $('#self-registration-form').html(result);
+                    $('#self-registration-form').show();
+                    $('#reseller-registration-form').hide();
+                },
+                error: function(xhr, status, error) {
+                    alert(error);
+                }
+            });*@
+            ////location.href = Url.Action("CreateSelfProspect", "Prospects");
+            //$("#partialviews").load('/Prospects/CreateselfProspect');
+            //document.getElementById('reseller-registration-form').style.display = 'none';
+            //document.getElementById('self-registration-form').style.display = 'block'; // Added this line
+        }
+    }
+        </script>
+    }
+    @*<script>
+            $(document).ready(function () {
+                // Get a reference to the product container
+                var container = $('#product-container');
+
+                // Add a click event listener to the "Add Product" button
+                $('#add-product-btn').click(function () {
+                    // Create the form fields using HTML markup
+                    var productFields = `
+        <div class="form-group">
+            <label for="product-name">Product Name</label>
+            <input type="text" name="product-name" class="form-control custom-textbox">
+        </div>
+        <div class="form-group">
+            <label for="product-price">Product Price</label>
+            <input type="number" name="product-price" class="form-control custom-textbox">
+        </div>
+            `;
+
+                    // Add the form fields to the container
+                    container.append(productFields);
+                });
+            });
+
+        </script>
+        }*@
+
+
+
+
+
+
+
+
+
+

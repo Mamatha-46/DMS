@@ -1,0 +1,55 @@
+﻿@model DMS.Models.Zip
+
+@{
+    ViewData["Title"] = "ZipCreate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+</head>
+<h1>ZipCreate</h1>
+
+<hr />
+<div class="row small-gap">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="ZipCreate">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="container">
+
+    <div class="box">
+        <label asp-for="Zipcode" class="control-label"></label>
+        <input asp-for="Zipcode" class="form-control" />
+        <span asp-validation-for="Zipcode" class="text-danger"></span>
+    </div>
+    <div class="box">
+        <label asp-for="CountryId" class="control-label"></label>
+        <input asp-for="CountryId" class="form-control" />
+        <span asp-validation-for="CountryId" class="text-danger"></span>
+    </div>
+    <div class="box">
+        <label asp-for="StateId" class="control-label"></label>
+        <input asp-for="StateId" class="form-control" />
+        <span asp-validation-for="StateId" class="text-danger"></span>
+    </div>
+    <div class="box">
+        <label asp-for="CityId" class="control-label"></label>
+        <input asp-for="CityId" class="form-control" />
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Add Zipcode" class="btn btn-primary" />
+    </div>
+                </div>
+</form>
+           
+        </div>
+    </div>
+    </div>
+
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+

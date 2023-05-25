@@ -1,0 +1,117 @@
+﻿@*@model IEnumerable<DMS.Models.Countries>*@
+@model X.PagedList.IPagedList<Countries>
+
+@{
+    ViewData["Title"] = "tax";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<div style="text-align:left;width:1000px">
+    <center>
+        <h1>Tax Rates</h1>
+    </center>
+</div>*@
+<br />
+<br />
+<div style="margin-left:30%;" class="d-flex justify-content-end">
+    <form action="@Url.Action("tax")" method="get" class="form-inline mb-3 ml-auto">
+        <input type="text" name="searchString" class="form-control mr-2" style="width:300px" placeholder="Search...">
+        <button type="submit" class="btn btn-primary">Search</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="row">
+            <button style="border:none">
+                <a asp-action="taxCreate" class="btn btn-primary" style="text-align:center; border:none;"> <i class="fa fa-plus"></i>Add taxes</a>
+            </button>
+            <a asp-action="tax" class="btn btn-secondary btn-sm" style="display:flex;float:right"> Back</a>
+        </div>
+    </form>
+</div>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="~/css/css/table.css" />
+</head>
+<div class="row" style="margin-left: 2%">
+    <div style="width: 600px;">
+        <table class="table tablesorter">
+            <thead>
+                <tr>
+                    <th>Name<i class="fa fa-sort"></i></th>
+                    <th>Taxes</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TaxPerc)</td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu" style="display:none;">
+                                    <a class="dropdown-item" href="@Url.Action("TaxDetails", "IndustryType", new { id = item.Id })">
+                                        <i class="fa fa-eye"></i>View
+                                    </a>
+                                    <a class="dropdown-item" href="@Url.Action("TaxEdit", "IndustryType", new { id = item.Id })">
+                                        <i class="fa fa-pen"></i>Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav style="width: 200px;">
+            <ul class="pagination">
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" href="@Url.Action("tax", new { page = Model.PageNumber - 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("tax", new { page = i, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link" href="@Url.Action("tax", new { page = Model.PageNumber + 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-toggle").click(function (e) {
+                e.preventDefault();
+                $(this).siblings(".dropdown-menu").toggle();
+            });
+        });
+        //$(document).ready(function () {
+        //    debugger;
+        //    $(".tablesorter").tablesorter({
+        //        theme: "bootstrap",
+        //        headerTemplate: "{content} {icon}",
+        //        widgets: ["zebra"],
+        //        sortList: [[0, 0]]
+        //    });
+        //});
+        $(function () {
+            $(".tablesorter").tablesorter();
+        });
+    </script>
+}

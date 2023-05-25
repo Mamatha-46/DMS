@@ -1,0 +1,200 @@
+﻿@model DMS.Models.DistributorViewmodel
+
+
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateReseller</title>
+
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+    </
+</head>
+<body>
+
+    <h4>Distributor</h4>
+    <div class="row">
+        <a asp-action="Index" class="btn btn-secondary btn-sm" style="display:flex;float:right"><i class="fa fa-arrow-left"></i> Back</a>
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="CreateReseller">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="container">
+                        <div class="col-md-4">
+                            <div class="box">
+
+                                <label>Reseller Name</label>
+                                <input asp-for="DistributorName" class="form-control custom-textbox" />
+                                <span asp-validation-for="DistributorName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+
+                                <label>Reseller Type</label>
+                                @Html.DropDownList("DistributorType", ViewData["Type"] as SelectList, "Select Reseller")
+                                <span asp-validation-for="DistributorType" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>Zipcode</label>
+
+                                <input asp-for="DistributorZip" class="form-control custom-textbox" />
+                                <span asp-validation-for="DistributorZip" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>Country</label>
+
+                                @Html.DropDownList("DistributorCountry", ViewData["Country"] as SelectList, "Select a country", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
+
+                                <span asp-validation-for="DistributorCountry" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>State/ Region/ Province</label>
+
+                                @Html.DropDownList("DistributorState", ViewData["State"] as SelectList, "Select a State", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
+
+                                <span asp-validation-for="DistributorState" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>City</label>
+                                @Html.DropDownList("DistributorCity", ViewData["City"] as SelectList, "Select a City", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
+
+                                <span asp-validation-for="DistributorCity" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>Address1</label>
+                                <input asp-for="DistributorAddress1" class="form-control custom-textbox" />
+                                <span asp-validation-for="DistributorAddress1" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>Address2</label>
+                                <input asp-for="DistributorAddress2" class="form-control custom-textbox" />
+                                <span asp-validation-for="DistributorAddress2" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>Email </label>
+                                <input asp-for="Email" class="form-control custom-textbox" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>Contact Person Name</label>
+                                <input asp-for="DistributorCName" class="form-control custom-textbox" />
+                                <span asp-validation-for="DistributorCName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>Phone / Mobile No</label>
+                                <input asp-for="DistributorNumber" class="form-control custom-textbox" />
+                                <span asp-validation-for="DistributorVat" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>VAT/GST/Tax No.</label>
+                                <input asp-for="DistributorVat" class="form-control custom-textbox" />
+                                <span asp-validation-for="DistributorVat" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <label>Website</label>
+                                <input asp-for="Website" class="form-control custom-textbox" />
+                                <span asp-validation-for="Website" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <div class="form-group">
+                    <input type="submit" value="Add Reseller" class="btn btn-primary" style="display:flex;float:right" />
+                    <button type="reset" class="btn" name="cancel" style="display:flex;float:right">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br />
+    @*<div>
+            <a asp-action="index">Back</a>
+        </div>*@
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#country_id").change(function () {
+            var countryId = $(this).val();
+           
+            $.ajax({
+                type: "GET",
+                url: "/Login/GetStatesByCountryId",
+                data: { countryId: countryId },
+                success: function (result) {
+                   
+                    $("#state_id").empty();
+                    $("#city_id").empty();
+                    $.each(result, function (i, state) {
+                        $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+                    });
+                    $("#state_id").prepend('<option value="" selected>--Select--</option>');
+                }
+            });
+        });
+        $("#state_id").change(function () {
+            var stateId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Login/GetcitiesBystateId",
+                data: { stateId: stateId },
+                success: function (result) {
+
+                    $("#city_id").empty();
+                    $.each(result, function (i, city) {
+                        $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+                    });
+                    $("#city_id").prepend('<option value="" selected>--Select--</option>');
+                }
+            });
+        });
+
+    });
+
+
+
+</script>

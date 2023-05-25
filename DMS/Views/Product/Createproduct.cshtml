@@ -1,0 +1,268 @@
+﻿@model DMS.Models.ProductViewModel
+
+@{ ViewData["Title"] = "Createproduct";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+<head>
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+<h1 style="text-align:center;">Add NewProduct</h1>
+@*<div class="form-group" align="right">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>*@
+<hr />
+@using (Html.BeginForm("Createproduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<div class="row small-gap">
+    <div class="row">
+        <div class="col-lg-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+               <div class="card" style="margin-left: 20px; margin-right: 20px;">
+                   <div class="card-body">
+                       <div class="row">
+                           <a asp-action="Index" class="btn btn-secondary btn-sm" style="display:flex;float:right"><i class="fa fa-arrow-left"></i> Back</a>
+                       </div>
+                       <div class="container">
+
+                           <div class="box">
+                               <label asp-for="Brand" class="control-label">Company</label>
+                               @Html.DropDownList("Brand", ViewData["Brand"] as SelectList, new { @class = "form-control custom-width custom-textbox" })
+                               <span asp-validation-for="Brand" class="text-danger"></span>
+                           </div>
+                           <div class="box">
+                               <label asp-for="ProductCode" class="control-label">Product Code</label>
+                               <input asp-for="ProductCode" class="form-control custom-width custom-textbox" />
+                               <span asp-validation-for="ProductCode" class="text-danger"></span>
+                           </div>
+
+                           <div class="box">
+                               <label asp-for="ProductName" class="control-label">ProductName</label>
+                               <input asp-for="ProductName" class="form-control custom-textbox" />
+                               <span asp-validation-for="ProductName" class="text-danger"></span>
+                           </div>
+                           <div class="box">
+                               <label asp-for="ProductPrice" class="control-label">Product Price</label>
+                               <input asp-for="ProductPrice" class="form-control custom-textbox" />
+                               <span asp-validation-for="ProductPrice" class="text-danger"></span>
+
+                           </div>
+
+
+                           <div class="box">
+                               <label asp-for="Variant" class="control-label">Variant</label>
+                               <input asp-for="Variant" class="form-control custom-textbox" />
+                               <span asp-validation-for="Variant" class="text-danger"></span>
+                           </div>
+                           <div class="box">
+                               <label asp-for="FromNode" class="control-label">From Qty</label>
+                               <input asp-for="FromNode" class="form-control custom-textbox" />
+                               <span asp-validation-for="FromNode" class="text-danger"></span>
+
+                           </div>
+
+                           <div class="box">
+                               <label asp-for="ToNode" class="control-label">To Qty</label>
+                               <input asp-for="ToNode" class="form-control custom-textbox" />
+                               <span asp-validation-for="ToNode" class="text-danger"></span>
+                           </div>
+                           <div class="box">
+                               <label asp-for="ProductDesc" class="control-label"> Description</label>
+                               <input asp-for="ProductDesc" class="form-control custom-textbox" />
+                               <span asp-validation-for="ProductDesc" class="text-danger"></span>
+
+                           </div>
+
+
+                           <div class="box">
+                               <label asp-for="ProductImg" class="control-label">Logo</label>
+                               <input asp-for="ProductImg" type="file" class="form-control custom-textbox" />
+                               <span asp-validation-for="ProductImg" class="text-danger"></span>
+                           </div>
+
+                       </div>
+
+
+                       <div class="col-md-4 d-flex justify-content-between py-3 px-1 align-items-center">
+                           <h2 align="left" style="margin-left:20px">Marketing Documents</h2>
+                           <center> <button type="button" class="btn btn-primary" id="add-file-btn">Add File</button></center>
+                       </div>
+
+                       <div id="file-upload-container">
+                           <div class="form-group" id="file-upload-fields" style="display:none;">
+                               <div class="container">
+                                   <div class="box">
+                                       <label for="FileName">File Name</label>
+                                       <input type="text" class="" id="FileName" name="fileName">
+                                   </div>
+                                   <div class="box">
+                                       <label for="FileType">File Type</label>
+                                       <select class=" " id="FileType" name="FileType">
+                                           <option value="pdf">PDF</option>
+                                           <option value="doc">Microsoft Word</option>
+                                           <option value="docx">Microsoft Word (docx)</option>
+                                           <option value="txt">Text File</option>
+                                           <option value="jpg">JPEG Image</option>
+                                           <option value="png">PNG Image</option>
+                                       </select>
+                                   </div>
+                                   <div class="box">
+                                       <label for="File">Files</label>
+                                       @*@<input type="file" class="form-control custom-width custom-file" id="File" name="Files" multiple class="form-control">@*@
+                                       <input type="file" id="files" name="Files" multiple>
+
+
+                                   </div>
+                                   <div class="col-1" style="margin-top:23px;">
+                                       <button type="button" class="btn btn-danger delete-file-btn">
+                                           <i class="fa fa-trash"></i>
+                                       </button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <input type="submit" value="Add Product" class="btn btn-primary" style="display:flex;float:right" />
+
+                                @*@<button type="reset" class="btn" name="cancel" style="display:flex;float:right">Cancel</button>@*@
+                                                <a asp-action="Index" class="btn btn-secondary" style="display:flex; float:right;">Cancel</a> @*</div>
+
+                                                                        </div>
+                                                                    </div>*@ @*<form class="btn-btn-primary" method="post" asp-action="Call2Methods">
+                                                                        <table width="1000px"><tr><td width="1000px" align="right"><button type="submit" class="btn btn-primary font-weight-bold">Create Product</button></td></tr></table>
+                                                                    </form>*@ @*</div>
+
+                                                                                        </div>*@}
+@*<div class="container">
+        <div class="box">
+
+            <div class="form-group" align="right">
+                <input type="submit" value="Add Company" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="box"></div>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //$(document).ready(function () {
+    //    $('#add-file-btn').click(function () {
+    //        $('#file-upload-fields').show();
+    //    });
+    $(document).ready(function () {
+        var fileFieldTemplate = $('#file-upload-fields').clone(); // Clone the file upload fields template
+
+        $('#add-file-btn').click(function () {
+            var newFileField = fileFieldTemplate.clone(); // Clone a new file upload field
+            newFileField.appendTo('#file-upload-container'); // Append the new file upload field to the container
+            newFileField.show(); // Show the new file upload field
+        });
+
+        $(document).on('click', '.delete-file-btn', function () {
+            $(this).closest('.form-group').remove();
+        });
+
+        //$('#file-upload-fields input[type="file"]').change(function () {
+        //    var fileInputs = $(this);
+        //    var files = fileInputs[0].files;
+
+        //    for (var i = 0; i < files.length; i++) {
+        //        var file = files[i];
+        //        var fileName = file.name;
+
+
+        //        var fileType = file.type;
+        //        var formData = new FormData();
+        //        formData.append('file', file);
+
+        //        $.ajax({
+        //            url: '/Company/UploadFile',
+        //            type: 'POST',
+        //            data: formData,
+        //            processData: false,
+        //            contentType: false,
+        //            success: function (data) {
+        //                // Handle the success response for each file
+        //                // Update the corresponding input fields for each file
+        //            },
+        //            error: function (xhr, textStatus, errorThrown) {
+        //                console.log(xhr.responseText);
+        //            }
+        //        });
+        //    }
+        //});
+        $('#file-upload-fields input[type="file"]').change(function () {
+            var fileInputs = $(this);
+            var files = fileInputs[0].files;
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var fileName = fileInputs.siblings('#FileName').val(); // Get the entered file name
+
+                var fileType = file.type;
+                var formData = new FormData();
+                formData.append('file', file);
+                formData.append('fileName', fileName); // Include the file name in the form data
+
+                $.ajax({
+                    url: '/Company/UploadFile',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        // Handle the success response for each file
+                        // Update the corresponding input fields for each file
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        });
+
+
+        $("#country_id").change(function () {
+            var countryId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Company/GetStatesByCountryId",
+                data: { countryId: countryId },
+                success: function (result) {
+                    $("#state_id").empty();
+                    $("#city_id").empty();
+                    $.each(result, function (i, state) {
+                        $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+                    });
+                    $("#state_id").prepend('<option value="" selected>--Select--</option>');
+                }
+            });
+        });
+
+
+
+        $("#state_id").change(function () {
+            var stateId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Company/GetcitiesBystateId",
+                data: { stateId: stateId },
+                success: function (result) {
+
+                    $("#city_id").empty();
+                    $.each(result, function (i, city) {
+                        $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+                    });
+                    $("#city_id").prepend('<option value="" selected>--Select--</option>');
+                }
+            });
+        });
+    });
+</script>

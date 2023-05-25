@@ -1,0 +1,207 @@
+﻿@{ ViewData["Title"] = "Dashboard";
+  Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+<link rel="stylesheet" href="~/css/css/DashboardStylesheet.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<div class="col-md-12" style="background-color: #e1e1ef ">
+    <h3>&nbsp;Dashboard</h3>
+</div>
+<div>
+</div>
+<div class="container" style="margin-left:5px;">
+    <div class="col-md-12">
+        <h4>Partners</h4>
+    </div>
+
+    <div class="card card-purple pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top"> Total Partners</h4></td>
+                <td align="right"><img src="https://dms.cyberirondome.net/images/user-1.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.TotalPartners</strong></h2></td>
+                <td>
+                    <a href="https://localhost:44310/Distributor/Index" class="btn btn-sm" style="color:whitesmoke;text-decoration:underline">View More <span class="fa fa-angle-right"></span></a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="card card-green pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top">Total Agreements Signed by Partner</h4></td>
+                <td align="right" valign="top"><img src="https://dms.cyberirondome.net/images/signed-by-partner.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.TotalAgreementsSignedByPartner</strong></h2></td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="card card-green pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top"> Total Agreements Signed by Admin</h4></td>
+                <td align="right" valign="top"><img src="https://dms.cyberirondome.net/images/signed-by-admin.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.TotalAgreementsSignedByAdmin</strong></h2></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="col-md-12">
+        <h3>Prospects</h3>
+    </div>
+
+    <div class="card card-purple pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top"> Total Prospects</h4></td>
+                <td align="right"><img src="https://dms.cyberirondome.net/images/prospects.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.TotalProspects</strong></h2></td>
+                <td>
+                    <a href="https://localhost:44310/Prospects/Index" class="btn btn-sm" style="color:whitesmoke;text-decoration:underline">View More <span class="fa fa-angle-right"></span></a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="card card-mustard pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top">Quotation Shared</h4></td>
+                <td align="right" valign="top"><img src="https://dms.cyberirondome.net/images/quotes-shared.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.QuotationShared</strong></h2></td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="card card-blue pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top"> Trial Licence Shared</h4></td>
+                <td align="right" valign="top"><img src="https://dms.cyberirondome.net/images/trial-period.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.TrailLicenceShared</strong></h2></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="col-md-12">
+        <h3>Clients</h3>
+    </div>
+
+    <div class="card card-purple pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top"> Total Clients</h4></td>
+                <td align="right"><img src="https://dms.cyberirondome.net/images/prospects.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.TotalPropspects</strong></h2></td>
+                <td>
+                    <a href="https://localhost:44310/client/Index" class="btn btn-sm" style="color:whitesmoke;text-decoration:underline">View More <span class="fa fa-angle-right"></span></a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="card card-mustard pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top">Quotation Shared</h4></td>
+                <td align="right" valign="top"><img src="https://dms.cyberirondome.net/images/quotes-shared.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.ClientsquotationShared</strong></h2></td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="card card-blue pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top"> Trial Licence Shared</h4></td>
+                <td align="right" valign="top"><img src="https://dms.cyberirondome.net/images/trial-period.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.ClienttrailLicenceShared</strong></h2></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="col-md-12">
+        <h3>Invoicing & Payments</h3>
+    </div>
+
+    <div class="card card-purple pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top"> Total Invoices</h4></td>
+                <td align="right"><img src="https://dms.cyberirondome.net/images/invoice-amount.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2">@ViewBag.TotalInvoices</strong></h2></td>
+                <td>
+                    <a href="https://localhost:44310/client/Index" class="btn btn-sm" style="color:whitesmoke;text-decoration:underline">View More <span class="fa fa-angle-right"></span></a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="card card-orange pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top">Invoices Amount</h4></td>
+                <td align="right"><img src="https://dms.cyberirondome.net/images/invoice-amount.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2" style="font-size: 24px; text-align: left;">$@ViewBag.InvoicesAmount</strong></h2></td>
+                <td>
+                    <a href="https://localhost:44310/client/Index" class="btn btn-sm" style="color:whitesmoke;text-decoration:underline">View More <span class="fa fa-angle-right"></span></a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="card card-mustard pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top">Total Payment Pending</h4></td>
+                <td align="right" valign="top"><img src="https://dms.cyberirondome.net/images/payment-pending.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2" style="font-size: 24px;">$@ViewBag.TotalPaymentPending</strong></h2></td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="card card-green pb-0" style="margin:10px">
+        <table>
+            <tr>
+                <td><h4 style="vertical-align:top"> Total Payment Received</h4></td>
+                <td align="right" valign="top"><img src="https://dms.cyberirondome.net/images/payment-received.png" class="cardIcon"></td>
+            </tr>
+            <tr>
+                <td><h2><strong class="px-2" style="font-size: 24px;">$@ViewBag.TotalPaymentReceived</strong></h2></td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
