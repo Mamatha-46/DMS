@@ -16,7 +16,7 @@
 <br />
 <div style="text-align:center;width:1000px">
     <center>
-        <h1>Add New TaxRate</h1>
+        <h2>Add New TaxRate</h2>
     </center>
 </div>
 <hr />
@@ -40,11 +40,6 @@
                                     <span asp-validation-for="Id" class="text-danger"></span>
                                 </div>
 
-                                @*<div class="box form">
-            <label asp-for="Id" class="control-label">Country</label>
-            @Html.DropDownList("Id", ViewData["Name"] as SelectList, new { @class = "form-control", @id = "country_id" })
-            <span asp-validation-for="Id" class="text-danger"></span>
-        </div>*@
                             </div>
                         </td>
                         <td colspan="3">
@@ -58,13 +53,23 @@
                             </div>
                         </td>
                         <td>
-                            <div class="form-group">
-                                <input asp-action="taxCreate" type="submit" value="taxCreate" class="btn btn-primary" />
+                            <div class="form-group" >
+                                <input asp-action="taxCreate" style="margin-top:25px" type="submit" value="AddTaxRate" class="btn btn-primary"  />
                             </div>
                         </td>
                     </tr>
                 </table>
             </form>
+
+            @*<div class="modal" id="mymodal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            tax created sucessfully
+                        </div>
+                    </div>
+                </div>
+            </div>*@
         </div>
     </div>
  </div>

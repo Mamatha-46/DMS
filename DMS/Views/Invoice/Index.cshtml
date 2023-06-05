@@ -5,241 +5,274 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div style="margin-left:60%;" class="d-flex justify-content-end">
+<div class="main-content">
 
-    <form action="@Url.Action("Index")" method="get" class="form-inline mb-3 ml-auto">
-        <input type="text" name="searchString" class="form-control mr-2" placeholder="Search...">
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
-</div>
+    <div class="page-content">
+        <div class="container-fluid">
 
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Invoices</h4>
 
-<head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
-    <link rel="stylesheet" href="~/css/css/table.css" />
-</head>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Invoices</li>
+                            </ol>
+                        </div>
 
-<div class="row" style="margin-left:0%">
-
-    <table class="table tablesorter" align="center" cellpadding="2" border="1">
-
-        <thead>
-            <tr>
-                <th class="header">Id<i class="fa fa-sort"></i></th>
-                <th class="header">InvoiceNo<i class="fa fa-sort"></i></th>
-                <th class="header">From<i class="fa fa-sort"></i></th>
-                <th class="header">To<i class="fa fa-sort"></i></th>
-                <th class="header">Amount<i class="fa fa-sort"></i></th>
-                <th class="header">Status<i class="fa fa-sort"></i></th>
-                <th class="header">AddedOn<i class="fa fa-sort"></i></th>
-                <th class="header">Licence<i class="fa fa-sort"></i></th>
-                <th>Action</th>
-
-            </tr>
-        </thead>
-        <tbody>
-           @foreach (var item in Model)
-            {
-
-            <tr>
-
-                <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                <td>@Html.DisplayFor(modelItem => item.InvoiceNo)</td>
-                <td>@Html.DisplayFor(modelItem => item.From)</td>
-                <td>@Html.DisplayFor(modelItem => item.To)</td>
-                <td>@Html.DisplayFor(modelItem => item.Amount)</td>
-                <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                <td>@Html.DisplayFor(modelItem => item.AddedOn)</td>
-                <td>@Html.DisplayFor(modelItem => item.Licence)</td>
-                <td>
-                    <span class="badge badge-warning">@((item.Status == 1) ? "Inactive" : "Active")</span>
-                </td>
-                <!-- new column -->
-                <td>
-                    <div class="dropdown">
-                        @*<a class="btn btn-link" style="cursor:pointer;"
-                   onmouseover="this.nextElementSibling.style.display='block'"
-                   onmouseout="this.nextElementSibling.style.display='none'">
-                    <i class="fas fa-ellipsis-v"></i>
-                </a>*@
-                        @*<a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </a>*@
-
-                        
-
-                            <a class="dropdown-item" href="@Url.Action("Details", "Invoice", new { id = item.Id })">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                View
-                            </a>                         
-                        
                     </div>
+                </div>
+            </div>
+            <!-- end page title -->
 
-                </td>
-            </tr>
-
-            }
-
-        </tbody>
-
-
-
-    </table>
-</div>
-@section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".dropdown-toggle").click(function (e) {
-                e.preventDefault();
-                $(this).siblings(".dropdown-menu").toggle();
-            });
-        });
-        //$(document).ready(function () {
-        //    debugger;
-        //    $(".tablesorter").tablesorter({
-        //        theme: "bootstrap",
-        //        headerTemplate: "{content} {icon}",
-        //        widgets: ["zebra"],
-        //        sortList: [[0, 0]]
-        //    });
-        //});
-
-
-        $(function () {
-            $(".tablesorter").tablesorter();
-        });
-
-
-    </script>
-}
-
-@*@model IEnumerable<Distributionmanagement.Models.Brand>
-
-    @{
-        ViewData["Title"] = "Index";
-    }
-
-    <h1>Index</h1>
-
-    <p>
-        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
-    </p>
-    <head>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"  />
-    </head>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Logo</th>
-                <th>Name</th>
-                <th>Industry</th>
-                <th>Country</th>
-                <th>State</th>
-                <th>City</th>
-                <th>Zipcode</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
-                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
-                    <td>@Html.DisplayFor(modelItem => item.State)</td>
-                    <td>@Html.DisplayFor(modelItem => item.City)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
-                    <td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
-                                <i class="fas fa-ellipsis-v"></i>
-
-                            </a>
-
-                            <div class="dropdown-menu" style="display:none;">
-                                <a class="dropdown-item" href="@Url.Action("Edit", "Brand", new { id = item.BrandId })">Edit</a>
-                                <a class="dropdown-item" href="@Url.Action("Details", "Brand", new { id = item.BrandId })">Details</a>
-                                <a class="dropdown-item" href="@Url.Action("Delete", "Brand", new { id = item.BrandId })">Delete</a>
+            <div class="row">
+                <div class="col-xl-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row g-4">
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="border-end-sm">
+                                        <div class="d-flex align-items-center gap-2 mb-4">
+                                            <div class="avatar-xs flex-shrink-0">
+                                                <div class="avatar-title bg-body-secondary text-primary border border-primary-subtle rounded-circle">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="text-muted mb-0">Total Invoices</p>
+                                            </div>
+                                        </div>
+                                        <h3 class="mb-0"><span class="counter-value" data-target="8956">0</span> <small class="text-success fs-xs fw-normal ms-1"><i class="bi bi-arrow-up align-baseline"></i> 12.09%</small></h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="border-end-lg">
+                                        <div class="d-flex align-items-center gap-2 mb-4">
+                                            <div class="avatar-xs flex-shrink-0">
+                                                <div class="avatar-title bg-body-secondary text-success border border-success-subtle rounded-circle">
+                                                    <i class="bi bi-patch-check-fill"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="text-muted mb-0">Paid Invoices</p>
+                                            </div>
+                                        </div>
+                                        <h3 class="mb-0"><span class="counter-value" data-target="4519">0</span> <small class="text-success fs-xs fw-normal ms-1"><i class="bi bi-arrow-up align-baseline"></i> 6.57%</small></h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="border-end-sm">
+                                        <div class="d-flex align-items-center gap-2 mb-4">
+                                            <div class="avatar-xs flex-shrink-0">
+                                                <div class="avatar-title bg-body-secondary text-warning border border-warning-subtle rounded-circle">
+                                                    <i class="bi bi-clock-history"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="text-muted mb-0">Pending Invoices</p>
+                                            </div>
+                                        </div>
+                                        <h3 class="mb-0"><span class="counter-value" data-target="2648">0</span> <small class="text-success fs-xs fw-normal ms-1"><i class="bi bi-arrow-up align-baseline"></i> 4.07%</small></h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div>
+                                        <div class="d-flex align-items-center gap-2 mb-4">
+                                            <div class="avatar-xs flex-shrink-0">
+                                                <div class="avatar-title bg-body-secondary text-danger border border-danger-subtle rounded-circle">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="text-muted mb-0">Overdue Invoices</p>
+                                            </div>
+                                        </div>
+                                        <h3 class="mb-0"><span class="counter-value" data-target="871">0</span> <small class="text-danger fs-xs fw-normal ms-1"><i class="bi bi-arrow-down align-baseline"></i> 3.49%</small></h3>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </td>
+                    </div><!--end card-->
+                </div><!--end col-->
+                <div class="col-xl-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex mb-4 pb-1">
+                                <div class="flex-grow-1">
+                                    <h6 class="card-title">Total Receivables <i class="bi bi-exclamation-circle align-baseline ms-1 fs-sm" data-bs-toggle="tooltip" data-bs-title="Once you send an invoice (or bill), it becomes part of your accounts receivable – until it's paid."></i></h6>
+                                    <p class="text-muted mb-0"><b>$985.32k</b> Total unpaid invoices</p>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <a href="apps-ecommerce-seller-overview.html" class="link-effect">View Profile <i class="bi bi-arrow-right align-baseline ms-1"></i></a>
+                                </div>
+                            </div>
+                            <div class="progress" data-bs-toggle="tooltip" data-bs-title="$234.95 Paid Amount">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end row-->
+
+            <div class="row" id="invoiceList">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center g-2">
+                                <div class="col-lg-3 me-auto">
+                                    <h6 class="card-title mb-0">Invoices List</h6>
+                                </div><!--end col-->
+                                <div class="col-xl-2 col-md-3">
+                                    <div class="search-box">
+                                        <input type="text" class="form-control search" placeholder="Search for invoice, date, client or something...">
+                                        <i class="ri-search-line search-icon"></i>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-md-auto">
+                                    <div class="hstack gap-2">
+                                        <button class="btn btn-subtle-danger d-none" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                        <a href="apps-invoices-create.html" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Invoice</a>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                        <div class="card-body mt-3">
+                            <div class="table-responsive table-card">
+                                <table class="table table-centered align-middle table-custom-effect table-nowrap mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="checkAll">
+                                                    <label class="form-check-label" for="checkAll"></label>
+                                                </div>
+                                            </th>
+                                            <th scope="col" class="sort cursor-pointer" data-sort="invoice_id">ID</th>
+                                            <th scope="col" class="sort cursor-pointer" data-sort="customer_name">Customer Name</th>
+                                            <th scope="col" class="sort cursor-pointer" data-sort="email">Email</th>
+                                            <th scope="col" class="sort cursor-pointer" data-sort="create_date">Create Date</th>
+                                            <th scope="col" class="sort cursor-pointer" data-sort="due_date">Due Date</th>
+                                            <th scope="col" class="sort cursor-pointer" data-sort="amount">Amount</th>
+                                            <th scope="col" class="sort cursor-pointer" data-sort="status">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list form-check-all" id="invoice-list-data">
+                                    </tbody><!-- end tbody -->
+                                </table><!-- end table -->
+                                <div class="noresult" style="display: none">
+                                    <div class="text-center py-4">
+                                        <i class="ph-magnifying-glass fs-1 text-primary"></i>
+                                        <h5 class="mt-2">Sorry! No Result Found</h5>
+                                        <p class="text-muted mb-0">We've searched more than 6+ invoice We did not find any invoice for you search.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mt-4 pt-3" id="pagination-element">
+                                <div class="col-sm">
+                                    <div class="text-muted text-center text-sm-start">
+                                        Showing <span class="fw-semibold">10</span> of <span class="fw-semibold">15</span> Results
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-sm-auto mt-3 mt-sm-0">
+                                    <div class="pagination-wrap hstack justify-content-center gap-2">
+                                        <a class="page-item pagination-prev disabled" href="#">
+                                            Previous
+                                        </a>
+                                        <ul class="pagination listjs-pagination mb-0"></ul>
+                                        <a class="page-item pagination-next" href="#">
+                                            Next
+                                        </a>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                    </div>
+                </div><!--end col-->
+            </div><!--end row-->
+
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>document.write(new Date().getFullYear())</script> © Steex.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        Design & Develop by Themesbrand
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- end main content-->
+    
+<!-- END layout-wrapper -->
+<!-- deleteRecordModal -->
+<div id="deleteRecordModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" id="deleteRecord-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-md-5">
+                <div class="text-center">
+                    <div class="text-danger">
+                        <i class="bi bi-trash display-5"></i>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="mb-2">Are you sure ?</h4>
+                        <p class="text-muted mx-3 mb-0">Are you sure you want to remove this record ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 pt-2 mb-2">
+                    <button type="button" class="btn w-sm btn-light btn-hover" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record">Yes, Delete It!</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /deleteRecordModal -->
+<!--start back-to-top-->
+<button class="btn btn-dark btn-icon" id="back-to-top">
+    <i class="bi bi-caret-up fs-3xl"></i>
+</button>
+<!--end back-to-top-->
+<!--preloader-->
+<div id="preloader">
+    <div id="status">
+        <div class="spinner-border text-primary avatar-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
 
 
+<!-- JAVASCRIPT -->
+<script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="~/assets/js/plugins.js"></script>
 
+<!-- List Js -->
+<script src="~/assets/libs/list.js/list.min.js"></script>
 
-                </tr>
-            }
-        </tbody>
-    </table>*@
+<!--list pagination js-->
+<script src="~/assets/libs/list.pagination.js/list.pagination.min.js"></script>
 
+<!-- sweetalert2 js -->
+<script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-@*@model IEnumerable<Distributionmanagement.Models.Brand>
+<!-- invoice list-->
+<script src="~/assets/js/pages/invoice-list.init.js"></script>
 
-    @{
-        ViewData["Title"] = "Index";
-    }
-
-    <h1>Index</h1>
-
-    <p>
-        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
-    </p>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Logo</th>
-                <th>Name</th>
-                <th>Industry</th>
-                <th>Country</th>
-                <th>State</th>
-                <th>City</th>
-                <th>Zipcode</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
-                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
-                    <td>@Html.DisplayFor(modelItem => item.State)</td>
-                    <td>@Html.DisplayFor(modelItem => item.City)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
-                    <td>
-                        <a href="#" class="kebab-menu" data-id="@item.BrandId">
-                            <i class="fa-thin fa-ellipsis-vertical"></i>
-
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <script>
-        $(document).ready(function () {
-            $(".kebab-menu").click(function () {
-                var id = $(this).data("id");
-                var options = '<div class="dropdown-menu">' +
-                    '<a class="dropdown-item" href="@Url.Action("Edit", "Brand")/' + id + '">Edit</a>' +
-                    '<a class="dropdown-item" href="@Url.Action("Details", "Brand")/' + id + '">Details</a>' +
-                    '<a class="dropdown-item" href="@Url.Action("Delete", "Brand")/' + id + '">Delete</a>' +
-                    '</div>';
-                $(this).append(options);
-                return false;
-            });
-        });
-    </script>*@
+<!-- App js -->
+<script src="~/assets/js/app.js"></script>

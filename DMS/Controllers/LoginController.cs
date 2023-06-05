@@ -8,6 +8,12 @@ using DMS.Repository;
 using System.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net.Mail;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 //using DMS.Models;
 //using DMS.Models;
 
@@ -15,13 +21,17 @@ namespace DMS.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
         private ILogin _ILogin;
         private IPostRepository _ipos;
         private readonly cyberContext _context;
-        public LoginController(cyberContext cyberContext, IPostRepository ipos)
+        public LoginController(cyberContext cyberContext, IPostRepository ipos, IWebHostEnvironment webHostEnvironment)
         {
             _ipos = ipos;
             _context = cyberContext;
+            _webHostEnvironment = webHostEnvironment;
+
             _ILogin = new LoginRepository();
         }
         [HttpGet]
@@ -41,7 +51,7 @@ namespace DMS.Controllers
 
             var Password = model.Password;
 
-            var user = _ILogin.ValidateUser(UserName,Password);
+            var user = _ILogin.ValidateUser(UserName, Password);
 
             if (user != null)
             {
@@ -75,24 +85,28 @@ namespace DMS.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DistributorViewmodel viewModel)
+        public async Task<IActionResult> Create(DistributorViewmodel viewModel, IFormFile Taxdocumebt, IFormFile companyDocument, IFormFile UserLogo)
         {
+
             // Check if the ViewModel data is valid
             try
             {
                 if (ModelState.IsValid)
                 {
+
+                    string password = GenerateRandomPassword();
+
                     // Create instances of the models and map the ViewModel data
                     var user = new User
                     {
                         UserFname = viewModel.DistributorName,
                         UserMail = viewModel.Email,
-                        Pwd = "Pass@123",
+                        Pwd = HashPassword(password),
                         UserNumber = viewModel.DistributorNumber,
                         //UserType = viewModel.DistributorType,
                         UserType = "R",
 
-                        UserLogo = viewModel.UserLogo,
+
                         UserStatus = 2, // Assuming a default status value
                         AddedOn = DateTime.Now,
                         UserPic = "null",
@@ -101,6 +115,31 @@ namespace DMS.Controllers
                         Readed = 0,
                         AReaded = null
                     };
+                    if (UserLogo != null && UserLogo.Length > 0)
+                    {
+                        var extension = Path.GetExtension(UserLogo.FileName);
+
+                        // Generate a unique filename using a GUID
+                        var filename = $"{Guid.NewGuid()}{extension}";
+
+                        // Set the path to save the file
+                        string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents");
+                        string filePath = Path.Combine(directoryPath, filename);
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            Directory.CreateDirectory(directoryPath);
+                        }
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            UserLogo.CopyTo(stream);
+                        }
+
+                        // Set the brand logo path to the uploaded file
+                        user.UserLogo = $"/Documents/{filename}";
+
+                    }
+
                     //_context.User.Add(user);
                     // Get the last user model and generate a new UserId.
                     var item = _context.User.ToList();
@@ -146,14 +185,84 @@ namespace DMS.Controllers
                         Business = viewModel.CompanyDocument,
                         Opened = 0, // Assuming a default value for opened field
                         Status = 1, // Assuming a default status value
-                        Gst=viewModel.Taxdocumebt,
+                        Gst = viewModel.Taxdocumebt,
                         AddedOn = DateTime.Now,
                         AddedBy = "self" // Assuming a default value for the added by field
                     };
+                    //if (Taxdocumebt != null && Taxdocumebt.Length > 0)
+                    //{
+                    //    string taxDocumentPath = Path.Combine(_webHostEnvironment.WebRootPath, "Documents", Taxdocumebt.FileName);
+                    //    using (var fileStream = new FileStream(taxDocumentPath, FileMode.Create))
+                    //    {
+                    //        await Taxdocumebt.CopyToAsync(fileStream);
+                    //    }
+                    //    distriDocu.Gst = Taxdocumebt.FileName; // Save the file name or path to the database, if needed
+                    //}
+                    if (Taxdocumebt != null && Taxdocumebt.Length > 0)
+                    {
+                        string directoryPath = Path.Combine(_webHostEnvironment.WebRootPath, "Document");
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            Directory.CreateDirectory(directoryPath);
+                        }
+
+                        string taxDocumentPath = Path.Combine(directoryPath, newDistributorId + "_tax" + Path.GetExtension(Taxdocumebt.FileName));
+                        using (var fileStream = new FileStream(taxDocumentPath, FileMode.Create))
+                        {
+                            await Taxdocumebt.CopyToAsync(fileStream);
+                        }
+                        distriDocu.Gst = $"/Document/{newDistributorId}_tax{Path.GetExtension(Taxdocumebt.FileName)}";
+                    }
+
+                    // Save companyDocument file
+                    if (companyDocument != null && companyDocument.Length > 0)
+                    {
+                        string directoryPath = Path.Combine(_webHostEnvironment.WebRootPath, "Document");
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            Directory.CreateDirectory(directoryPath);
+                        }
+
+                        string companyDocumentPath = Path.Combine(directoryPath, newDistributorId + "_company" + Path.GetExtension(companyDocument.FileName));
+                        using (var fileStream = new FileStream(companyDocumentPath, FileMode.Create))
+                        {
+                            await companyDocument.CopyToAsync(fileStream);
+                        }
+                        distriDocu.Business = $"/Document/{newDistributorId}_company{Path.GetExtension(companyDocument.FileName)}";
+                    }
                     _context.User.Add(user);
+
+
                     _context.Distributor.Add(distributor);
                     _context.DistriDocu.Add(distriDocu);
                     _context.SaveChanges();
+                    string emailBody = $"Cyber Iron Dome-Reseller Registration<br />" +
+     $"Dear {viewModel.DistributorName}<br /><br />" +
+     $"Congratulations, you have been successfully registered as a Reseller in Cyber Iron Dome.<br />" +
+     $"Below are the credentials to log in to the system:<br />" +
+     $"URL: https://dms.cyberirondome.net<br />" +
+     $"Username: {viewModel.Email}<br />" +
+     $"Password: {password}<br /><br />" +
+     $"Please note that our admin will verify the initial Documents shared and approve the same<br />" +
+     $"Request you to check your email for further Updates<br />" +
+     $"Regards,<br />Cyber Iron Demo<br />" +
+     $"<img src=\"~/img/logo.png\">";
+
+
+
+
+
+                    //                string emailBody = $"Cyber Iron Demo-Reseller Registration<br />"+ $"Dear {viewModel.DistributorName}<br /><br />" +
+                    //$"Congratulations you have been successfully registered as a Reseller in Cyber Iron Demo.  <br />" +
+                    // // Use the generated password here
+                    //$"Below are the credentials to login into the system.<br />" +
+                    //$"Your default password is {password}.<br />" +
+                    //$"Your default password is {password}.<br /><br />" +
+                    //$"Regards,<br />Your Company";
+
+
+                    await SendEmail(viewModel.Email, "new Reseller Registration", emailBody);
+
 
                     // Redirect to a success page or perform any other action
                     return RedirectToAction("Login");
@@ -170,7 +279,98 @@ namespace DMS.Controllers
 
 
         }
+        //private string SaveDocumentFile(IFormFile document)
+        //{
+        //    if (document != null && document.Length > 0)
+        //    {
+        //        // Generate a unique file name for the document
+        //        var fileName = Path.GetFileName(document.FileName);
+        //        var uniqueFileName = Guid.NewGuid().ToString("N") + "_" + fileName;
 
+        //        // Get the uploads folder path in the wwwroot directory
+        //        var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "upload");
+
+        //        // Create the uploads folder if it doesn't exist
+        //        if (!Directory.Exists(uploadsFolder))
+        //        {
+        //            Directory.CreateDirectory(uploadsFolder);
+        //        }
+
+        //        // Combine the uploads folder path and file name to get the full file path
+        //        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        //        // Save the document file to the specified path
+        //        using (var stream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            document.CopyTo(stream);
+        //        }
+
+        //        // Return the saved file path
+        //        return filePath;
+        //    }
+
+        //    return null;
+        //}
+
+        private string GenerateRandomPassword()
+        {
+            const string validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            Random random = new Random();
+
+            int length = 6; // Set the length to 6 characters
+
+            char[] password = new char[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                password[i] = validChars[random.Next(validChars.Length)];
+            }
+
+            return new string(password);
+        }
+
+
+
+        // Helper method to hash the password
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in hashedBytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+        private async Task SendEmail(string recipientEmail, string subject, string body)
+        {
+            // Configure the SMTP client
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("pratibhagunupuram95@gmail.com", "ddrtrdvxptisobvu"),
+                EnableSsl = true
+            };
+
+            // Create the email message
+            var message = new MailMessage
+            {
+                From = new MailAddress("pratibhagunupuram95@gmail.com"),
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            };
+
+            // Add the recipient's email address
+            message.To.Add(recipientEmail);
+
+            // Send the email
+            await smtpClient.SendMailAsync(message);
+        }
         //to get state 
         public IActionResult GetStatesByCountryId(int countryId)
         {

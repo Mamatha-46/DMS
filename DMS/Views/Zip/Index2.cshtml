@@ -5,201 +5,314 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div style="text-align:center;width:1000px">
-    <center>
-        <h1>
-            Zip Codes
-        </h1>
-    </center>
-</div>
-<head>
-    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
-    <style>
-        /*td {
-            width: 300px;
-        }*/
-    </style>
-</head>
+<div class="main-content">
 
-<div style="margin-left:60%;" class="d-flex justify-content-end">
-    <div class="row">
-        <button style="border:none">
-            <a asp-action="Create" class="btn btn-primary" style="text-align:center; border:none"><i class="fa fa-plus"></i>Add NewZipCode</a>
-        </button>
-        <a asp-action="Index2" class="btn btn-secondary btn-sm" style="display:flex;float:right"> Back</a>
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Zip Code</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Zip Code</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div id="instructorList">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center g-2">
+                                    <div class="col-lg-3 me-auto">
+                                        <h6 class="card-title mb-0">Zip Code</h6>
+                                    </div><!--end col-->
+                                    <div class="col-xl-2 col-lg-3 col-sm-5">
+                                        <div class="search-box">
+                                            <input type="text" class="form-control search" placeholder="Search for instructors, email, contact number or something...">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-sm-auto">
+                                        <div class="hstack gap-2">
+                                            <button class="btn btn-subtle-danger d-none" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                            <a href="#addInstructor" data-bs-toggle="modal" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Zipcode</a>
+                                        </div>
+                                    </div><!--end col-->
+                                </div>
+                            </div>
+                            <div class="card-body mt-3">
+                                <div class="table-responsive table-card">
+                                    <table class="table table-centered align-middle table-custom-effect table-nowrap mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="option" id="checkAll">
+                                                        <label class="form-check-label" for="checkAll"></label>
+                                                    </div>
+                                                </th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="instructor_id">ID</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="instructor">Country Name</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="instructor">Zip Code</th>
+
+                                                <th scope="col" class="sort cursor-pointer" data-sort="status">Status</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list form-check-all">
+                                            <tr>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="chk_child">
+                                                        <label class="form-check-label"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="instructor_id"><a href="#" class="fw-medium link-primary">#TBSI159001</a></td>
+                                                <td class="instructor">
+                                                    <div class="d-flex gap-2 align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/assets/images/users/avatar-1.jpg" alt="" class="avatar-xxs rounded-circle">
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <a href="#" class="text-reset">India</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="sqft">145800</td>
+                                                <td class="status"><span class="badge bg-success-subtle text-success">Active</span></td>
+                                                <td>
+                                                    <ul class="d-flex gap-2 list-unstyled mb-0">
+                                                        <li>
+                                                            <a href="#" class="btn btn-subtle-primary btn-icon btn-sm "><i class="ph-eye"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#addInstructor" data-bs-toggle="modal" class="btn btn-subtle-secondary btn-icon btn-sm edit-item-btn"><i class="ph-pencil"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#deleteRecordModal" data-bs-toggle="modal" class="btn btn-subtle-danger btn-icon btn-sm remove-item-btn"><i class="ph-trash"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody><!-- end tbody -->
+                                    </table><!-- end table -->
+                                    <div class="noresult" style="display: none">
+                                        <div class="text-center py-4">
+                                            <i class="ph-magnifying-glass fs-1 text-primary"></i>
+                                            <h5 class="mt-2">Sorry! No Result Found</h5>
+                                            <p class="text-muted mb-0">We've searched more than 164+ instructors We did not find any instructors for you search.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center mt-4 pt-3" id="pagination-element">
+                                    <div class="col-sm">
+                                        <div class="text-muted text-center text-sm-start">
+                                            Showing <span class="fw-semibold">10</span> of <span class="fw-semibold">15</span> Results
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-sm-auto mt-3 mt-sm-0">
+                                        <div class="pagination-wrap hstack justify-content-center gap-2">
+                                            <a class="page-item pagination-prev disabled" href="javascript:void(0)">
+                                                Previous
+                                            </a>
+                                            <ul class="pagination listjs-pagination mb-0"></ul>
+                                            <a class="page-item pagination-next" href="javascript:void(0)">
+                                                Next
+                                            </a>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+            </div>
+
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>document.write(new Date().getFullYear())</script> © CYBER IRON DOME.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        Design & Develop by Headway Data Systems
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- end main content-->
+    
+<!-- END layout-wrapper -->
+<!-- Modal -->
+<div class="modal fade" id="addInstructor" tabindex="-1" aria-labelledby="addInstructorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content border-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addInstructorModalLabel">Add Zip Code</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-addInstructorModal"></button>
+            </div>
+
+            <form class="tablelist-form" novalidate autocomplete="off">
+                <div class="modal-body">
+                    <div id="alert-error-msg" class="d-none alert alert-danger py-2"></div>
+                    <input type="hidden" id="id-field">
+                    <input type="hidden" id="rating-field">
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="status-input" class="form-label">Country Name<span class="text-danger">*</span></label>
+
+                                <select class="form-select" id="status-input">
+                                    <option value="">Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Unactive">Unactive</option>
+                                </select>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="status-input" class="form-label">State/ Region<span class="text-danger">*</span></label>
+
+                                <select class="form-select" id="status-input">
+                                    <option value="">Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Unactive">Unactive</option>
+                                </select>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="status-input" class="form-label">City<span class="text-danger">*</span></label>
+
+                                <select class="form-select" id="status-input">
+                                    <option value="">Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Unactive">Unactive</option>
+                                </select>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="instructor-name-input" class="form-label">Place Name<span class="text-danger">*</span></label>
+                                <input type="text" id="instructor-name-input" class="form-control" placeholder="Enter Place name" required>
+                            </div>
+                        </div>
+                    </div><!--end row-->
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="instructor-name-input" class="form-label">Division1<span class="text-danger">*</span></label>
+                            <input type="text" id="instructor-name-input" class="form-control" placeholder="Enter Division name" required>
+                        </div>
+                    </div>
+                    <!--end row-->
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="instructor-name-input" class="form-label">Division2<span class="text-danger">*</span></label>
+                            <input type="text" id="instructor-name-input" class="form-control" placeholder="Enter Division name" required>
+                        </div>
+                    </div>
+                    <!--end row-->
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label for="instructor-name-input" class="form-label">Zip Code<span class="text-danger">*</span></label>
+                            <input type="text" id="instructor-name-input" class="form-control" placeholder="Enter Zip Code" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-ghost-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg align-baseline me-1"></i> Close</button>
+                        <button type="submit" class="btn btn-primary" id="add-btn">Add Industry</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- modal-content -->
+    </div>
+</div><!--end modal-->
+<!-- deleteRecordModal -->
+<div id="deleteRecordModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" id="deleteRecord-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-md-5">
+                <div class="text-center">
+                    <div class="text-danger">
+                        <i class="bi bi-trash display-5"></i>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="mb-2">Are you sure ?</h4>
+                        <p class="text-muted mx-3 mb-0">Are you sure you want to remove this record ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 pt-2 mb-2">
+                    <button type="button" class="btn w-sm btn-light btn-hover" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record">Yes, Delete It!</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /deleteRecordModal -->
+<!--start back-to-top-->
+<button class="btn btn-dark btn-icon" id="back-to-top">
+    <i class="bi bi-caret-up fs-3xl"></i>
+</button>
+<!--end back-to-top-->
+<!--preloader-->
+<div id="preloader">
+    <div id="status">
+        <div class="spinner-border text-primary avatar-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
 </div>
-<div class="container-fluid" style="background-color:snow;">
-    <div class="row">
-        <form asp-action="Search" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <table style="margin-left:15px">
-                <tr>
-                    <td>
-                        @*<div class="col-lg-12">*@
-                        <div class="box">
-                            <label asp-for="Country" class="control-label">Country</label>
-                            @Html.DropDownList("Country", ViewData["Country"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
-                            <span asp-validation-for="Country" class="text-danger"></span>
-                        </div>
-                        @*</div>*@
-                    </td>
-                    <td>
-                        @*<div class="col-lg-12">*@
-                        <div class="box">
-                            <label asp-for="State" class="control-label">State/ Region </label>
-                            @Html.DropDownList("State", ViewData["State"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
-                            <span asp-validation-for="State" class="text-danger"></span>
-                        </div>
-                        @*</div>*@
-                    </td>
-                    <td>
-                        @*<div class="col-lg-12">*@
-                        <div class="box">
-                            <label asp-for="City" class="control-label">City</label>
-                            @Html.DropDownList("City", ViewData["City"] as SelectList, "--select--", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
-                            <span asp-validation-for="City" class="text-danger"></span>
-                        </div>
-                        @*</div>*@
-                    </td>
-                    <td>
-                        @*<div class="col-lg-12">*@
-                        <div class="box">
-                            <label asp-for="Zipcode" class="control-label"></label>
-                            <input style="height:44px" asp-for="Zipcode" class="form-control" />
-                            <span asp-validation-for="Zipcode" class="text-danger"></span>
-                        </div>
-                        @*</div>*@
-                    </td>
-                </tr>
-            </table>
-                @*<tr>
-                    <td>*@
-                        <div class="form-group">
-                            <input id="Search" style="margin-left:20px" type="submit" value="Search" class="btn btn-primary" />
-                        </div>
-                       
-                    @*</td>
-
-                </tr>
-                <tr>*@
-                    @*<td>*@
-                        <div id="searchResultsContainer" >
-                            
-                        </div>
-                    @*</td>
-                </tr>*@
-
-           
 
 
-        </form>
-    </div>
-</div>
+<!-- JAVASCRIPT -->
+<script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="~/assets/js/plugins.js"></script>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    //$("#country_id").change(function () {
-    //    var countryId = $(this).val();
-    //    $.ajax({
-    //        type: "GET",
-    //        url: "/Company/GetStatesByCountryId",
-    //        data: { countryId: countryId },
-    //        success: function (result) {
-    //            $("#state_id").empty();
-    //            $("#city_id").empty();
-    //            $.each(result, function (i, state) {
-    //                $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
-    //            });
-    //            $("#state_id").prepend('<option value="" selected>--Select--</option>');
-    //        }
-    //    });
-    //});
+<!-- sweetalert2 js -->
+<script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-    //$("#state_id").change(function () {
-    //    var stateId = $(this).val();
-    //    $.ajax({
-    //        type: "GET",
-    //        url: "/Company/GetcitiesBystateId",
-    //        data: { stateId: stateId },
-    //        success: function (result) {
+<!-- list.js min js -->
+<script src="~/assets/libs/list.js/list.min.js"></script>
+<script src="~/assets/libs/list.pagination.js/list.pagination.min.js"></script>
 
-    //            $("#city_id").empty();
-    //            $.each(result, function (i, city) {
-    //                $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
-    //            });
-    //            $("#city_id").prepend('<option value="" selected>--Select--</option>');
-    //        }
-    //    });
-    //});
-</script>
-@*  *@
+<!-- dropzone js -->
+<script src="~/assets/libs/dropzone/dropzone-min.js"></script>
 
+<!-- apexcharts -->
+<script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#Search').on('click', function (e) {
-        e.preventDefault(); // Prevent the default form submission behavior
+<!-- learning instructors list-->
+<script src="~/assets/js/pages/learning-instructors-list.init.js"></script>
 
-        var path = '@Url.Action("Search", "Zip", new { area = "" })';
-        var country = $("#country_id").val();
-        var state = $("#state_id").val();
-        var city = $("#city_id").val();
-        var zip = $('#zipcode').val();
-
-        $.ajax({
-            url: path,
-            data: { search: "", country: country, state: state, city: city, zip: zip },
-            type: "GET",
-            success: function (data) {
-                $('#searchResultsContainer').html(data); // Update the container with the returned partial view
-                $('#searchResultsContainer').show(); // Display the container
-            },
-            error: function () {
-                alert('Try Again Later');
-            }
-        });
-    });
-
-
-    $("#country_id").change(function () {
-        var countryId = $(this).val();
-        $.ajax({
-            type: "GET",
-            url: "/Company/GetStatesByCountryId",
-            data: { countryId: countryId },
-            success: function (result) {
-                $("#state_id").empty();
-                $("#city_id").empty();
-                $.each(result, function (i, state) {
-                    $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
-                });
-                $("#state_id").prepend('<option value="" selected>--Select--</option>');
-            }
-        });
-    });
-
-    $("#state_id").change(function () {
-        var stateId = $(this).val();
-        $.ajax({
-            type: "GET",
-            url: "/Company/GetcitiesBystateId",
-            data: { stateId: stateId },
-            success: function (result) {
-
-                $("#city_id").empty();
-                $.each(result, function (i, city) {
-                    $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
-                });
-                $("#city_id").prepend('<option value="" selected>--Select--</option>');
-            }
-        });
-    });
-});
-</script>
-
-
-
+<!-- App js -->
+<script src="~/assets/js/app.js"></script>

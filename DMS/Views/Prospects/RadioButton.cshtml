@@ -1,56 +1,682 @@
-﻿@{ ViewData["Title"] = "RadioButton";
-                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
-<style>
-    .radiobox-horizontal {
-        display: flex;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-        .radiobox-horizontal li {
-            margin-right: 10px;
-        }
-</style>
+﻿@model DMS.Models.ProspectSelfViewModel
 
 
-<div class="col-lg-6 col-md-4 col-sm-6  ">
-    <div class="form-group">
-        <ul class="radiobox">
-            <li>
-                <label class="kt-radio kt-radio--bold kt-radio--primary">
-                    <input asp-action="Self" type="radio" name="self" value="1" id="selfCheck" class="somoneCheck" onclick="openView()"> Self
-                    <span></span>
-                </label>
-            </li>
+@{ ViewData["Title"] = "RadioButton";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
 
-            <li>
-                <label class="kt-radio kt-radio--bold kt-radio--primary">
-                    <input asp-action="ResellerCreate" type="radio" name="Reseller" value="0" id="somoneCheck" class="somoneCheck" onclick="openView1()"> To Reseller
-                    <span></span>
-                </label>
-            </li>
-        </ul>
+<html>
+<head>
+
+</head>
+<body>
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0">Prospect (RID-044)</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Prospect Settings</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <div class="row">
+                    <!--end col-->
+
+                    <div class="col-xxl-9">
+                        <div class="d-flex align-items-center flex-wrap gap-2 mb-4">
+                            <ul class="nav nav-pills arrow-navtabs nav-secondary gap-2 flex-grow-1 order-2 order-lg-1" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab" aria-selected="true">
+                                        Self
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab" aria-selected="false" tabindex="-1">
+                                        To Reseller
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+                        <div class="card">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="personalDetails" role="tabpanel">
+                                    <div class="card-header">
+                                        <h6 class="card-title mb-0">Personal Details</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <form asp-action="Self1">
+
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Name" for="firstnameInput" class="form-label">Prospect Name</label>
+                                                        <input asp-for="Name" type="text" class="form-control" id="firstnameInput" placeholder="Enter your firstname">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+
+                                                        <label asp-for="IndustryType" for="productType" class="form-label">Industry Type <span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("Industry", ViewData["IndustryType"] as IEnumerable<SelectListItem>, "---select---", new { @class = "form-control custom-width custom-textbox" })
+
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="CountryName" for="productType" class="form-label">Country <span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("Country", ViewData["Country"] as SelectList, "---select---", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="State" for="productType" class="form-label">State/ Region/ Province<span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("State", ViewData["State"] as SelectList, "---select---", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="City" for="productType" class="form-label">City<span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("City", ViewData["City"] as SelectList, "---select---", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Zip" for="phonenumberInput" class="form-label">Zipcode</label>
+                                                        <input asp-for="Zip" type="text" class="form-control" id="phonenumberInput" placeholder="Enter Zipcode">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Address1" for="emailInput" class="form-label">Address1</label>
+                                                        <input asp-for="Address1" type="text" class="form-control" id="emailInput" placeholder="Enter your Address">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Address2" for="emailInput" class="form-label">Address2</label>
+                                                        <input asp-for="Address2" type="text" class="form-control" id="emailInput" placeholder="Enter your Address">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Email" for="emailInput" class="form-label">Email</label>
+                                                        <input asp-for="Email" type="email" class="form-control" id="emailInput" placeholder="Enter your Address">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Number" for="emailInput" class="form-label">Contact Number</label>
+                                                        <input asp-for="Number" type="text" class="form-control" id="emailInput" placeholder="Enter your Number">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="CPerson" for="emailInput" class="form-label">Contact Person Name</label>
+                                                        <input asp-for="CPerson" type="text" class="form-control" id="emailInput" placeholder="Enter Contact Person Name">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Website" for="emailInput" class="form-label">Website</label>
+                                                        <input asp-for="Website" type="text" class="form-control" id="emailInput" placeholder="Enter Your Website">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Gst" for="emailInput" class="form-label">GST/VAT.No</label>
+                                                        <input asp-for="Gst" type="text" class="form-control" id="emailInput">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Tax" for="emailInput" class="form-label">Tax</label>
+                                                        <input asp-for="Tax" type="text" class="form-control" id="emailInput">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Source" for="emailInput" class="form-label">Source</label>
+                                                        <select class="form-control" data-choices name="productType" id="productType">
+                                                            <option value="">Select Type</option>
+                                                            <option value="REFERRAL">REFERRAL</option>
+                                                            <option value="Email">Email</option>
+                                                            <option value="Social Media">Social Media</option>
+                                                            <option value="Website">Website</option>
+                                                            <option value="Linkedin">Linkedin</option>
+                                                            <option value="Tech Jockey">Tech Jockey</option>
+                                                            <option value="Facebook">Facebook</option>
+                                                            <option value="Instagram">Instagram</option>
+                                                            <option value="Own Database">Own Database</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="LeadType" for="emailInput" class="form-label">Lead Type</label>
+                                                        <select class="form-control" data-choices name="productType" id="productType">
+                                                            <option value="">Select Type</option>
+                                                            <option value="Could Lead">Could Lead</option>
+                                                            <option value="Warm Lead">Warm Lead</option>
+                                                            <option value="Hot lead">Hot lead</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Status" for="emailInput" class="form-label">Status</label>
+                                                        <input asp-for="Status" type="text" class="form-control" id="emailInput">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3 pb-2">
+                                                        <label for="exampleFormControlTextarea" class="form-label">Description</label>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea" placeholder="Enter your description" rows="5"></textarea>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-12">
+                                                    <div class="hstack gap-2 justify-content-end">
+                                                        <button type="submit" class="btn btn-primary">Updates</button>
+                                                        <button type="button" class="btn btn-subtle-danger">Cancel</button>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                            <!--end row-->
+                                        </form>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="row align-items-center gy-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="card-title mb-0">Product Details</h6>
+                                            </div><!--end col-->
+                                            <div class="col-sm-auto ms-sm-auto">
+                                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#add-product"><i class="bi bi-house align-baseline me-1"></i> Add Producr</button>
+
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+                                    </div>
+                                </div>
+                                <!--end tab-pane-->
+                                <div class="tab-pane" id="changePassword" role="tabpanel">
+                                    <div class="card-header">
+                                        <h6 class="card-title mb-0">Reseller Details</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <form asp-action="ResellerCreate">
+                                            <div class="row">
+                                                @*<div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="AddedId" for="productType" class="form-label">Assaign to<span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("AddedId", ViewBag.User as SelectList, "---select---", new { @class = "form-control custom-width custom-textbox" })
+                                                    </div>
+                                                </div>*@
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Name" for="firstnameInput" class="form-label">Prospect Name</label>
+                                                        <input asp-for="Name" type="text" class="form-control" id="firstnameInput" placeholder="Enter your firstname">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="IndustryType" for="productType" class="form-label">Industry Type <span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("IndustryType", ViewData["BrandType"] as SelectList, "---select---", new { @class = "form-control custom-width custom-textbox"  })
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="CountryName" for="productType" class="form-label">Country <span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("CountryName", ViewData["Country"] as SelectList, "---select---", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="State" for="productType" class="form-label">State/ Region/ Province<span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("State", ViewData["State"] as SelectList, "---select---", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="City" for="productType" class="form-label">City<span class="text-danger">*</span></label>
+                                                        @Html.DropDownList("City", ViewData["City"] as SelectList, "---select---", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Zip" for="phonenumberInput" class="form-label">Zipcode</label>
+                                                        <input asp-for="Zip" type="text" class="form-control" id="phonenumberInput" placeholder="Enter Zipcode">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Address1" for="emailInput" class="form-label">Address1</label>
+                                                        <input asp-for="Address1" type="text" class="form-control" id="emailInput" placeholder="Enter your Address">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Address2" for="emailInput" class="form-label">Address2</label>
+                                                        <input asp-for="Address2" type="text" class="form-control" id="emailInput" placeholder="Enter your Address">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Email" for="emailInput" class="form-label">Email</label>
+                                                        <input asp-for="Email" type="email" class="form-control" id="emailInput" placeholder="Enter your Address">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Number" for="emailInput" class="form-label">Contact Number</label>
+                                                        <input asp-for="Number" type="text" class="form-control" id="emailInput" placeholder="Enter your Number">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="CPerson" for="emailInput" class="form-label">Contact Person Name</label>
+                                                        <input asp-for="CPerson" type="text" class="form-control" id="emailInput" placeholder="Enter Contact Person Name">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Website" for="emailInput" class="form-label">Website</label>
+                                                        <input asp-for="Website" type="text" class="form-control" id="emailInput" placeholder="Enter Your Website">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Gst" for="emailInput" class="form-label">GST/VAT.No</label>
+                                                        <input asp-for="Gst" type="text" class="form-control" id="emailInput">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Tax" for="emailInput" class="form-label">Tax</label>
+                                                        <input asp-for="Tax" type="text" class="form-control" id="emailInput">
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Source" for="emailInput" class="form-label">Source</label>
+                                                        <select class="form-control" data-choices name="productType" id="productType">
+                                                            <option value="">Select Type</option>
+                                                            <option value="REFERRAL">REFERRAL</option>
+                                                            <option value="Email">Email</option>
+                                                            <option value="Social Media">Social Media</option>
+                                                            <option value="Website">Website</option>
+                                                            <option value="Linkedin">Linkedin</option>
+                                                            <option value="Tech Jockey">Tech Jockey</option>
+                                                            <option value="Facebook">Facebook</option>
+                                                            <option value="Instagram">Instagram</option>
+                                                            <option value="Own Database">Own Database</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="LeadType" for="emailInput" class="form-label">Lead Type</label>
+                                                        <select class="form-control" data-choices name="productType" id="productType">
+                                                            <option value="">Select Type</option>
+                                                            <option value="Could Lead">Could Lead</option>
+                                                            <option value="Warm Lead">Warm Lead</option>
+                                                            <option value="Hot lead">Hot lead</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Status" for="emailInput" class="form-label">Status</label>
+                                                        <input asp-for="Status" type="text" class="form-control" id="emailInput">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3 pb-2">
+                                                        <label asp-for="Terms" for="exampleFormControlTextarea" class="form-label">Description</label>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea" placeholder="Enter your description" rows="5"></textarea>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-12">
+                                                    <div class="hstack gap-2 justify-content-end">
+                                                        <button type="submit" class="btn btn-primary">Updates</button>
+                                                        <button type="button" class="btn btn-subtle-danger">Cancel</button>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                            <!--end row-->
+                                        </form>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="row align-items-center gy-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="card-title mb-0">Product Details</h6>
+                                            </div><!--end col-->
+                                            <div class="col-sm-auto ms-sm-auto">
+                                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#add-product"><i class="bi bi-house align-baseline me-1"></i> Add Producr</button>
+
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end col-->
+                </div>
+                <!--end row-->
+
+            </div>
+            <!-- container-fluid -->
+        </div><!-- End Page-content -->
+        <!-- Product Add-->
+        <div class="modal fade" id="add-product" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0">
+                    <div class="modal-header p-3 bg-info-subtle">
+                        <h5 class="modal-title" id="modal-title">Add Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form class="needs-validation" name="event-form" id="form-event" novalidate="">
+                            <div class="text-end">
+                                <a href="#" class="btn btn-sm btn-subtle-primary" id="edit-event-btn" data-id="new-event" onclick="editEvent(this)" role="button" hidden="true">Edit</a>
+                            </div>
+                            <div class="row event-form">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Products Name</label>
+                                        <select class="form-select" name="category" id="event-category" required>
+                                            <option value="bg-danger-subtle">Danger</option>
+                                            <option value="bg-success-subtle">Success</option>
+                                            <option value="bg-primary-subtle">Primary</option>
+                                            <option value="bg-info-subtle">Info</option>
+                                            <option value="bg-dark-subtle">Dark</option>
+                                            <option value="bg-warning-subtle">Warning</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a valid event category</div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Discount</label>
+                                        <input class="form-control d-block" type="number" required="" value="">
+                                        <div class="invalid-feedback">Please provide a valid event name</div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Estimated Qty.</label>
+                                        <input class="form-control d-block" type="number" required="" value="">
+                                        <div class="invalid-feedback">Please provide a valid event name</div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Unit Price</label>
+                                        <input class="form-control d-block" type="number" required="" value="">
+                                        <div class="invalid-feedback">Please provide a valid event name</div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">After Discount</label>
+                                        <input class="form-control d-block" type="number" required="" value="">
+                                        <div class="invalid-feedback">Please provide a valid event name</div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Prospect Stage</label>
+                                        <select class="form-select" name="category" id="event-category" required>
+                                            <option value="bg-danger-subtle">Danger</option>
+                                            <option value="bg-success-subtle">Success</option>
+                                            <option value="bg-primary-subtle">Primary</option>
+                                            <option value="bg-info-subtle">Info</option>
+                                            <option value="bg-dark-subtle">Dark</option>
+                                            <option value="bg-warning-subtle">Warning</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a valid event category</div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Date</label>
+                                        <div class="input-group">
+                                            <input type="text" id="event-start-date" class="form-control flatpickr flatpickr-input" placeholder="Select date" readonly required>
+                                            <span class="input-group-text"><i class="ri-calendar-event-line"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Description</label>
+                                        <textarea class="form-control d-block" id="event-description" placeholder="Enter a description" rows="3" spellcheck="false"></textarea>
+                                    </div>
+                                </div>
+                                <!--end col-->
+
+                            </div>
+                            <!--end row-->
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" class="btn btn-subtle-danger" id="btn-delete-event" hidden="true"><i class="ri-close-line align-bottom"></i> Delete</button>
+                                <button type="submit" class="btn btn-success" id="btn-save-event">Add Prospect</button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div> <!-- end modal-->
+        <!-- end modal-->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <script>document.write(new Date().getFullYear())</script> © CYBER IRON DOME.
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end d-none d-sm-block">
+                            Design & Develop by Headway Data Systems
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-</div>
 
-<script>$('.somoneCheck').click(function () {
-        var value = $(this).val();
-        if (value == 1) {
-            $('.hideRow').removeClass('hideRow');
-            $('.selresellerbox').addClass('hide');
-        } else {
-            $('.hideRow').removeClass('hideRow');
-            $('.selresellerbox').removeClass('hide');
-        }
-    })
+    <!-- end main content-->
+    
+    <!-- END layout-wrapper -->
+    <!--start back-to-top-->
+    <!--<button class="btn btn-dark btn-icon" id="back-to-top">
+        <i class="bi bi-caret-up fs-3xl"></i>
+    </button>-->
+    <!--end back-to-top-->
+    <!--preloader-->
+    <!--<div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>-->
+    <!-- JAVASCRIPT -->
+    <script src="~/assets1/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets1/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/assets1/js/plugins.js"></script>
 
-    function openView() {
-        // Code to open the view goes here
-        window.location.href = "/Prospects/Self";
-    }
+    <!-- password-create init -->
+    <script src="~/assets1/js/pages/passowrd-create.init.js"></script>
 
-    function openView1() {
-        // Code to open the view goes here
-        window.location.href = "/Prospects/ResellerCreate";
-    }</script>
+    <!-- profile-setting init js -->
+    <script src="~/assets1/js/pages/profile-setting.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/assets1/js/app.js"></script>
+    <!-- calendar min js -->
+    <script src="~/assets1/libs/fullcalendar/index.global.min.js"></script>
+    <!-- Calendar init -->
+    <script src="~/assets1/js/pages/calendar.init.js"></script>
+    <!-- App js -->
+    <script src="~/assets1/js/app.js"></script>
+</body>
+
+</html>
+
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var fileFieldTemplate = $('#file-upload-fields').clone(); // Clone the file upload fields template
+
+        $('#add-file-btn').click(function () {
+            var newFileField = fileFieldTemplate.clone(); // Clone a new file upload field
+            newFileField.appendTo('#file-upload-container'); // Append the new file upload field to the container
+            newFileField.show(); // Show the new file upload field
+        });
+
+        $(document).on('click', '.delete-file-btn', function () {
+            $(this).closest('.form-group').remove();
+        });
+
+
+        var stageFieldTemplate = $('#stage-upload-fields').clone();
+        $('#add-stage-btn').click(function () {
+            var newStageField = stageFieldTemplate.clone(); // Clone a new stage field
+            newStageField.appendTo('#stage-upload-container'); // Append the new stage field to the container
+            newStageField.show(); // Show the new stage field
+        });
+
+        $(document).on('click', '.delete-stage-btn', function () {
+            $(this).closest('.form-group').remove();
+        });
+
+
+
+
+
+        $('#file-upload-fields input[type="file"]').change(function () {
+            var fileInputs = $(this);
+            var files = fileInputs[0].files;
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+
+                var formData = new FormData();
+                formData.append('file', file);
+                formData.append('fileName', file.name); // Use the file name directly
+
+                $.ajax({
+                    url: '/Company/UploadFile',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        // Handle the success response for each file
+                        // Update the corresponding input fields for each file
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        });
+
+        $("#country_id").change(function () {
+            var countryId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Company/GetStatesByCountryId",
+                data: { countryId: countryId },
+                success: function (result) {
+                    $("#state_id").empty();
+                    $("#city_id").empty();
+                    $.each(result, function (i, state) {
+                        $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+                    });
+                    $("#state_id").prepend('<option value="" selected>--Select--</option>');
+                }
+            });
+        });
+        $("#state_id").change(function () {
+            var stateId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Company/GetcitiesBystateId",
+                data: { stateId: stateId },
+                success: function (result) {
+
+                    $("#city_id").empty();
+                    $.each(result, function (i, city) {
+                        $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+                    });
+                    $("#city_id").prepend('<option value="" selected>--Select--</option>');
+                }
+            });
+        });
+    });
+</script>

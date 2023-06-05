@@ -1,345 +1,413 @@
-﻿ @using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor Accessor
-<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Http
+    @inject IHttpContextAccessor Accessor
+
+
+<html lang="en" data-layout="vertical" data-sidebar="dark" data-sidebar-size="lg" data-preloader="disable" data-theme="default" data-topbar="light" data-bs-theme="light">
+
 <head>
 
+    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>DMS Admin</title>
+    <title>CYBER IRON DOME | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="CYBER IRON DOME | Dashboard" name="description">
+    <meta content="CYBER IRON DOME | Dashboard" name="author">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="https://dms.cyberirondome.net/favicon.png">
 
-    <link rel="stylesheet" href="../../node_modules/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
+    <!-- Fonts css load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link id="fontsLink" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../node_modules/jqvmap/dist/jqvmap.min.css" />
+    <!-- jsvectormap css -->
+    <link href="~/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="~/css/style.css">
+    <!--Swiper slider css-->
+    <link href="~/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css">
 
-    <link rel="shortcut icon" href="images/favicon.png" />
+    <!-- Layout config Js -->
+    <script src="~/assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Icons Css -->
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <!-- App Css-->
+    <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css">
+    <!-- custom Css-->
+    <link href="~/assets/css/custom.min.css" rel="stylesheet" type="text/css">
+    <!-- Sweet Alert css-->
+    <link href="~/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
+    <!-- dropzone css -->
+    <link href="~/assets/libs/dropzone/dropzone.css" rel="stylesheet" type="text/css">
+
 
     <style>
-        .nav-item.outer-ui {
-            margin-left: 1.8px;
+        #box {
+            margin-left: 16%;
+            margin-top: 100px;
+            font-family: Poppins,sans-serif;
         }
-
-            .nav-item.outer-ui a {
-                display: block;
-                text-decoration: none;
-            }
-
-        .menu-title {
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .nav-item.outer-ui img {
-            vertical-align: middle;
-            margin-right: 5px;
-        }
-
-        .mdi {
-            display: inline-block;
-            font-size: inherit;
-            vertical-align: middle;
-        }
-
-            .mdi.menu-icon {
-                margin-left: 10px;
-            }
-
-        ul.inner-ui {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .inner-li {
-            margin-bottom: 5px;
-        }
-
-            .inner-li a {
-                display: block;
-                text-decoration: none;
-            }
-
-            .inner-li .menu-title {
-                display: inline-block;
-                vertical-align: middle;
-            }
-
-            .inner-li img {
-                vertical-align: middle;
-                margin-right: 5px;
-            }
-
-            .inner-li .mdi {
-                display: inline-block;
-                font-size: inherit;
-                vertical-align: middle;
-            }
-
-                .inner-li .mdi.menu-icon {
-                    margin-left: 10px;
-                }
-
-        .nav-item.outer-ui:hover ul.inner-ui {
-            display: block;
-        }
-
-        .inner-li:hover {
-            background-color: transparent;
-            color: white;
-        }
-
-        /* ul.outer-ui {
-            overflow: hidden;
-        }
-
-        li {
-            overflow: hidden;
-            list-style: none;
-        }
-
-            li a:hover {
-               color:white;
-            }
-
-        .outer-ui li:hover .inner-li .inner-ui {
-            display:block;
-        }
-
-        .inner-li {
-            display:none;
-        }*/
     </style>
+
 </head>
 
 <body>
-    <div class="container-scroller">
-    
-        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                @*@<a class="navbar-brand brand-logo" href="../../index.html"><img src="~/images/Dms.png" alt="logo" /></a>@*@
-                <img src="~/images/Dms.png" height="50" width="100" />
-                <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../images/logo-mini.svg" alt="logo" /></a>
-            </div>
-            <div class="navbar-menu-wrapper d-flex align-items-stretch">
 
-                <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item d-none d-lg-block full-screen-link">
-                        <a class="nav-link">
-                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <img src="../../images/faces/face1.jpg" alt="image">
-                            <span class="d-none d-lg-inline">@Accessor.HttpContext.Session.GetString("UName")</span>
-                        </a>
-                        <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-cached mr-2 text-success"></i>
-                                Activity Log
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/Login/Login">
-                                <i class="mdi mdi-logout mr-2 text-primary"></i>
-                                Signout
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-power"></i>
-                        </a>
-                    </li>
-                </ul>
-                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-                    <span class="mdi mdi-menu"></span>
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        s
+        <!-- ========== App Menu ========== -->
+        <div class="app-menu navbar-menu">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <a href="index.html" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="~/assets/images/logo-sm.png" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="~/assets/images/logo-dark.png" alt="" height="22">
+                    </span>
+                </a>
+                <a href="index.html" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="https://dms.cyberirondome.net/images/logo.png" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="https://dms.cyberirondome.net/images/logo.png" alt="" height="50">
+                    </span>
+                </a>
+                <button type="button" class="btn btn-sm p-0 fs-3xl header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                    <i class="ri-record-circle-line"></i>
                 </button>
             </div>
-        </nav>
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-            <div class="row row-offcanvas row-offcanvas-right">
-                <!-- partial:../../partials/_sidebar.html -->
 
-                <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                    <ul class="nav">
+            <div id="scrollbar">
+                <div class="container-fluid">
+
+                    <div id="two-column-menu">
+                    </div>
+                    <ul class="navbar-nav" id="navbar-nav">
+
                         <li class="nav-item">
-                            <a class="nav-link " href="/Home/Dashboard">
-                                <span class="menu-title active"><img src="~/images/dashboard.svg" />Dashboard</span>
-                                @*@<span class="menu-sub-title">( 2 new updates )</span>@*@
-                                <i class="mdi mdi-home menu-icon"></i>
-                            </a>
+                            <a href="/Home/Dashboard" class="nav-link menu-link"> <i class="ph-gauge"></i> <span data-key="t-dashboards">Dashboards</span></a>
                         </li>
-                        @*<li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Basic UI Elements</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/buttons.html">Buttons</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li>
-                </ul>
-            </div>
-        </li>*@
+
                         <li class="nav-item">
-                            <a class="nav-link" href="/Company/Index">
-                                <span class="menu-title"><img src="~/images/prospects.svg" />Company</span>
-                                <i class="mdi mdi-contacts menu-icon"></i>
-                            </a>
+                            <a href="/Company/Index" class="nav-link menu-link"><i class="ph-buildings"></i> <span data-key="t-real-estate">Company</span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/Product/Index" class="nav-link menu-link"> <i class="ph-storefront"></i> <span data-key="t-ecommerce">Products</span> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Product/Index">
-                                <span class="menu-title"><img src="~/images/products.svg" />Products</span>
-                                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-                            </a>
+                            <a href="/Distributor/Index" class="nav-link menu-link"> <i class="ph-user-circle"></i> <span data-key="t-authentication">Resellers</span> </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/Prospects/Index" class="nav-link menu-link"> <i class="ph-stack-simple"></i> <span data-key="t-authentication">Prospect</span> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Distributor/Index">
-                                <span class="menu-title"><img src="~/images/reseller.svg" />Reseller</span>
-                                <i class="mdi mdi-chart-bar menu-icon"></i>
-                            </a>
+                            <a href="/client/Index" class="nav-link menu-link"> <i class="ph-users"></i> <span data-key="t-authentication">Clients</span> </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="/Prospects/Index">
-                                <span class="menu-title"><img src="~/images/prospects.svg" />Prospects</span>
-                                <i class="mdi mdi-table-large menu-icon"></i>
-                            </a>
+                            <a href="/Invoice/Index" class="nav-link menu-link"> <i class="ph-file-text"></i> <span data-key="t-authentication">Invoice</span> </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="/client/Index">
-                                <span class="menu-title"><img src="~/images/clients.svg" /> Clients</span>
-                                <i class="mdi mdi-table-large menu-icon"></i>
+                            <a href="#sidebarInvoices" class="nav-link menu-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInvoices">
+                                <i class="ph-stack-simple"></i> <span data-key="t-invoices">Masters</span>
                             </a>
+                            <div class="menu-dropdown collapse" id="sidebarInvoices" style="">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="/IndustryType/Index" class="nav-link" data-key="t-list-view">Industry Types</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/IndustryType/tax" class="nav-link" data-key="t-overview">Tax Rates</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Zip/Index2" class="nav-link" data-key="t-create-invoice">Zip Codes</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Invoice/Index">
-                                <span class="menu-title"><img src="~/images/orders.svg" /> Invoices</span>
-                                <i class="mdi mdi-table-large menu-icon"></i>
+
+                        <!--<li class="nav-item">
+                            <a class="nav-link menu-link collapsed" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCharts">
+                                <i class="ph-chart-pie-slice"></i> <span data-key="t-apexcharts">Apexcharts</span>
                             </a>
-                        </li>
-                        <li class="nav-item outer-ui" style="margin-left: 1.8px;">
-                            <a href="#Masters">
-                                <span class="menu-title" style="color:white;"><img src="~/images/orders.svg"  /> Masters</span>
-                                <i class="mdi mdi-table-large menu-icon"></i>
-                            </a>
-                            <ul class="inner-ui">
-                                <li class="inner-li">
-                                    <a class="nav-link" href="/IndustryType/Index">
-                                        <span class="menu-title"><img src="~/images/prospects.svg" />Industry Types</span>
-                                        <i class="mdi mdi-contacts menu-icon"></i>
-                                    </a>
-                                </li>
-                                <li class="inner-li">
-                                    <a class="nav-link" href="/IndustryType/tax">
-                                        <span class="menu-title"><img src="~/images/prospects.svg" />Tax Rates</span>
-                                        <i class="mdi mdi-contacts menu-icon"></i>
-                                    </a>
-                                </li>
-                                <li class="inner-li">
-                                    <a class="nav-link" href="/Zip/Index2">
-                                        <span class="menu-title"><img src="~/images/prospects.svg" />Zip Codes</span>
-                                        <i class="mdi mdi-contacts menu-icon"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--<li class="nav-item bg-transparent">-->
-                            @*<a class="nav-link" data-toggle="collapse" href="/IndustryType/Index" aria-expanded="false" aria-controls="auth">
-            <span class="menu-title">Industry Types</span>*@
-                            @*@<i class="menu-arrow"></i>
-                            @*Masters
-                            <select class="menu-title bg-transparent" style="background-color:transparent;opacity:50;border:none">
-                                <option style="background:transparent"></option>
-                                <option style="background:transparent">Industry Types</option>
-                                <option src="/IndustryType/tax">Tax Rates</option>
-                                <option href="/IndustryType/zip">Zip Codes</option>
-                            </select>
-                            <i class="mdi mdi-lock menu-icon"></i>*@
-                            @*@</a>@*@
-                            <!--<div class="collapse" id="auth">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/blank-page.html"> Blank Page </a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/login.html"> Login </a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/register.html"> Register </a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
+                            <div class="collapse menu-dropdown" id="sidebarCharts">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="charts-apex-line.html" class="nav-link" data-key="t-line">Line</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="charts-apex-area.html" class="nav-link" data-key="t-area">Area</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>-->
-                        @*<li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <span class="menu-title"><img src="~/images/products.svg" /> MasterPages</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-lock menu-icon"></i>
-            </a>
-            <div class="collapse" id="auth">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/blank-page.html"> Blank Page </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/login.html"> Login </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/register.html"> Register </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
-                </ul>
-            </div>
-        </li>*@
+
                     </ul>
-                </nav>
-            </div>
-
-            <!-- partial -->
-            <div class="content-wrapper" style="background-color:white">
-                <div class="row">
-                    @RenderSection("Scripts", required: false)
-                    @RenderBody()
-
-                    <!-- content-wrapper ends -->
-                    <!-- partial:../../partials/_footer.html -->
-                    <!--<footer class="footer">
-                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023 <a href="https://www.DMS.com/" target="_blank">DMS</a>. All rights reserved.</span>-->
-                            @*@<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>@*@
-                        <!--</div>
-                    </footer>-->
-                    <!-- partial -->
                 </div>
-                <!-- row-offcanvas ends -->
+                <!-- Sidebar -->
             </div>
-           
+
+            <div class="sidebar-background"></div>
         </div>
-       
-        <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="../../node_modules/popper.js/dist/umd/popper.min.js"></script>
-        <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
-       
-        <script src="../../js/off-canvas.js"></script>
-        <script src="../../js/misc.js"></script>
-       
-        <script src="~/js/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function () {
-               
-                $('.nav-link:contains("MasterPages")').click(function (e) {
-                    e.preventDefault(); 
-                    var submenu = $(this).siblings('.collapse'); 
-                    if (submenu.is(':visible')) {
-                        submenu.collapse('hide'); 
-                    } else {
-                        $('.collapse.show').collapse('hide'); 
-                        submenu.collapse('show'); 
-                    }
-                });
-            });
-        </script>
+        <!-- Left Sidebar End -->
+        <!-- Vertical Overlay-->
+        <div class="vertical-overlay"></div>
+        <header id="page-topbar">
+            <div class="layout-width">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box horizontal-logo">
+                            <a href="index.html" class="logo logo-dark">
+                                <span class="logo-sm">
+                                    <img src="~/assets/images/logo-sm.png" alt="" height="22">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="~/assets/images/logo-dark.png" alt="" height="22">
+                                </span>
+                            </a>
+
+                            <a href="index.html" class="logo logo-light">
+                                <span class="logo-sm">
+                                    <img src="~/assets/images/logo-sm.png" alt="" height="22">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="~/assets/images/logo-light.png" alt="" height="22">
+                                </span>
+                            </a>
+                        </div>
+
+                        <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger shadow-none" id="topnav-hamburger-icon">
+                            <span class="hamburger-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </button>
+
+                        <form class="app-search d-none d-md-inline-flex">
+                            <div class="position-relative">
+                                @*<input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="">*@
+                                <span class="mdi mdi-magnify search-widget-icon"></span>
+                                <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
+                                <div data-simplebar style="max-height: 320px;">
+                                    <!-- item-->
+                                    <div class="dropdown-header">
+                                        <h6 class="text-overflow text-muted mb-0 text-uppercase">Recent Searches</h6>
+                                    </div>
+
+                                    <div class="dropdown-item bg-transparent text-wrap">
+                                        <a href="index.html" class="btn btn-subtle-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
+                                        <a href="index.html" class="btn btn-subtle-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
+                                    </div>
+                                    <!-- item-->
+                                    <div class="dropdown-header mt-2">
+                                        <h6 class="text-overflow text-muted mb-1 text-uppercase">Pages</h6>
+                                    </div>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="ri-bubble-chart-line align-middle fs-18 text-muted me-2"></i>
+                                        <span>Analytics Dashboard</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="ri-lifebuoy-line align-middle fs-18 text-muted me-2"></i>
+                                        <span>Help Center</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="ri-user-settings-line align-middle fs-18 text-muted me-2"></i>
+                                        <span>My account settings</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <div class="dropdown-header mt-2">
+                                        <h6 class="text-overflow text-muted mb-2 text-uppercase">Members</h6>
+                                    </div>
+
+                                    <div class="notification-list">
+                                        <!-- item -->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                            <div class="d-flex">
+                                                <img src="~/assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                                <div class="flex-1">
+                                                    <h6 class="m-0">Angela Bernier</h6>
+                                                    <span class="fs-11 mb-0 text-muted">Manager</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <!-- item -->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                            <div class="d-flex">
+                                                <img src="~/assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                                <div class="flex-1">
+                                                    <h6 class="m-0">David Grasso</h6>
+                                                    <span class="fs-11 mb-0 text-muted">Web Designer</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <!-- item -->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                            <div class="d-flex">
+                                                <img src="~/assets/images/users/avatar-5.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                                <div class="flex-1">
+                                                    <h6 class="m-0">Mike Bunch</h6>
+                                                    <span class="fs-11 mb-0 text-muted">React Developer</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="text-center pt-3 pb-1">
+                                    <a href="#" class="btn btn-primary btn-sm">View All Results <i class="ri-arrow-right-line ms-1"></i></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
 
-     </div>
+                    <div class="dropdown ms-sm-3 header-item topbar-user">
+                        <button type="button" class="btn shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="d-flex align-items-center">
+                                <img class="rounded-circle header-profile-user" src="~/assets/images/users/32/avatar-1.jpg" alt="Header Avatar">
+                                <span class="text-start ms-xl-2">
+                                    <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">@Accessor.HttpContext.Session.GetString("UName")</span>
+                                    <span class="d-none d-xl-block ms-1 fs-sm user-name-sub-text"></span>
+                                    @*<div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+                                        <a class="dropdown-item" href="#">
+                                            <i class="mdi mdi-cached mr-2 text-success"></i>
+                                            Activity Log
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="/Login/Login">
+                                            <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                            Signout
+                                        </a>
+                                    </div>*@
+                                </span>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <h6 class="dropdown-header">Welcome @Accessor.HttpContext.Session.GetString("UName")!</h6>
+                            <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-lg align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                            <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-lg align-middle me-1"></i> <span class="align-middle">Messages</span></a>
+                            <a class="dropdown-item" href="apps-tickets-overview.html"><i class="mdi mdi-calendar-check-outline text-muted fs-lg align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
+                            <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-lg align-middle me-1"></i> <span class="align-middle">Help</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-lg align-middle me-1"></i> <span class="align-middle">Balance : <b>$8451.36</b></span></a>
+                            <a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-success-subtle text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-lg align-middle me-1"></i> <span class="align-middle">Settings</span></a>
+                            <a class="dropdown-item" href="auth-lockscreen.html"><i class="mdi mdi-lock text-muted fs-lg align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
+                            <a class="dropdown-item" href="/Login/Login"><i class="mdi mdi-logout text-muted fs-lg align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </header>
+
+    <!-- removeNotificationModal -->
+    <div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+                </div>
+                <div class="modal-body p-md-5">
+                    <div class="text-center">
+                        <div class="text-danger">
+                            <i class="bi bi-trash display-4"></i>
+                        </div>
+                        <div class="mt-4 fs-base">
+                            <h4 class="mb-1">Are you sure ?</h4>
+                            <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete It!</button>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- removeCartModal -->
+    <div id="removeCartModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-cartmodal"></button>
+                </div>
+                <div class="modal-body p-md-5">
+                    <div class="text-center">
+                        <div class="text-danger">
+                            <i class="bi bi-trash display-5"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h4>Are you sure ?</h4>
+                            <p class="text-muted mx-4 mb-0">Are you sure you want to remove this product ?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn w-sm btn-danger" id="remove-cartproduct">Yes, Delete It!</button>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div>
+        @RenderBody()
+        @RenderSection("script", required: false)
+
+    </div>
+    --start back-to-top-->
+    <button class="btn btn-dark btn-icon" id="back-to-top">
+        <i class="bi bi-caret-up fs-3xl"></i>
+    </button>
+
 </body>
 
+
 </html>
+
+<!-- JAVASCRIPT -->
+<script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="~/assets/js/plugins.js"></script>
+
+<!-- apexcharts -->
+<script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+<!-- Echarts -->
+<script src="~/assets/libs/echarts/echarts.min.js"></script>
+
+<!-- Vector map-->
+<script src="~/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+<script src="~/assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+<script src="~/assets/libs/list.js/list.min.js"></script>
+
+<!-- dashboard-analytics init js -->
+<script src="~/assets/js/pages/dashboard-analytics.init.js"></script>
+
+<!-- App js -->
+<script src="~/assets/js/app.js"></script>

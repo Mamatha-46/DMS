@@ -11,7 +11,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Create</title>
-
+    @*<link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css">*@
     <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
     </
 </head>
@@ -21,161 +21,163 @@
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="row">
-                    <div class="container">
-                        <div class="col-md-4">
-                            <div class="box">
+           
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
 
-                                <label>Reseller Name</label>
-                                <input asp-for="DistributorName" class="form-control custom-textbox" />
-                                <span asp-validation-for="DistributorName" class="text-danger"></span>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-md-4">
+                                <div class="box">
+
+                                    <label>Reseller Name</label>
+                                    <input asp-for="DistributorName" class="form-control custom-textbox" />
+                                    <span asp-validation-for="DistributorName" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
+                            <div class="col-md-4">
+                                <div class="box">
 
-                                <label>Reseller Type</label>
-                                @Html.DropDownList("DistributorType", ViewData["Type"] as SelectList, "Select Reseller")
-                                <span asp-validation-for="DistributorType" class="text-danger"></span>
+                                    <label>Reseller Type</label>
+                                    @Html.DropDownList("DistributorType", ViewData["Type"] as SelectList, "Select Reseller")
+                                    <span asp-validation-for="DistributorType" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Zipcode</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Zipcode</label>
 
-                                <input asp-for="DistributorZip" class="form-control custom-textbox" />
-                                <span asp-validation-for="DistributorZip" class="text-danger"></span>
+                                    <input asp-for="DistributorZip" class="form-control custom-textbox" />
+                                    <span asp-validation-for="DistributorZip" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Country</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Country</label>
 
-                                @Html.DropDownList("DistributorCountry", ViewData["Country"] as SelectList, "Select a country", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
+                                    @Html.DropDownList("DistributorCountry", ViewData["Country"] as SelectList, "Select a country", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
 
-                                <span asp-validation-for="DistributorCountry" class="text-danger"></span>
+                                    <span asp-validation-for="DistributorCountry" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>State/ Region/ Province</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>State/ Region/ Province</label>
 
-                                @Html.DropDownList("DistributorState", ViewData["State"] as SelectList, "Select a State", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
+                                    @Html.DropDownList("DistributorState", ViewData["State"] as SelectList, "Select a State", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
 
-                                <span asp-validation-for="DistributorState" class="text-danger"></span>
+                                    <span asp-validation-for="DistributorState" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>City</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>City</label>
 
-                                @Html.DropDownList("DistributorCity", ViewData["City"] as SelectList, "Select a City", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
+                                    @Html.DropDownList("DistributorCity", ViewData["City"] as SelectList, "Select a City", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
 
-                                <span asp-validation-for="DistributorCity" class="text-danger"></span>
+                                    <span asp-validation-for="DistributorCity" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Address1</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Address1</label>
 
-                                <input asp-for="DistributorAddress1" class="form-control custom-textbox" />
-                                <span asp-validation-for="DistributorAddress1" class="text-danger"></span>
+                                    <input asp-for="DistributorAddress1" class="form-control custom-textbox" />
+                                    <span asp-validation-for="DistributorAddress1" class="text-danger"></span>
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Address2</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Address2</label>
 
-                                <input asp-for="DistributorAddress2" class="form-control custom-textbox" />
-                                <span asp-validation-for="DistributorAddress2" class="text-danger"></span>
+                                    <input asp-for="DistributorAddress2" class="form-control custom-textbox" />
+                                    <span asp-validation-for="DistributorAddress2" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Email </label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Email </label>
 
-                                <input asp-for="Email" class="form-control custom-textbox" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
+                                    <input asp-for="Email" class="form-control custom-textbox" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Contact Person Name</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Contact Person Name</label>
 
-                                <input asp-for="DistributorCName" class="form-control custom-textbox" />
-                                <span asp-validation-for="DistributorCName" class="text-danger"></span>
+                                    <input asp-for="DistributorCName" class="form-control custom-textbox" />
+                                    <span asp-validation-for="DistributorCName" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Phone / Mobile No</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Phone / Mobile No</label>
 
-                                <input asp-for="DistributorNumber" class="form-control custom-textbox" />
-                                <span asp-validation-for="DistributorVat" class="text-danger"></span>
+                                    <input asp-for="DistributorNumber" class="form-control custom-textbox" />
+                                    <span asp-validation-for="DistributorVat" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>VAT/GST/Tax No.</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>VAT/GST/Tax No.</label>
 
-                                <input asp-for="DistributorVat" class="form-control custom-textbox" />
-                                <span asp-validation-for="DistributorVat" class="text-danger"></span>
+                                    <input asp-for="DistributorVat" class="form-control custom-textbox" />
+                                    <span asp-validation-for="DistributorVat" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Website</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Website</label>
 
-                                <input asp-for="Website" class="form-control custom-textbox" />
-                                <span asp-validation-for="Website" class="text-danger"></span>
+                                    <input asp-for="Website" class="form-control custom-textbox" />
+                                    <span asp-validation-for="Website" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="box">
-                                <label>Logo</label>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <label>Logo</label>
 
+                                    <input asp-for="UserLogo" type="file" class="form-control custom-width custom-file" />
 
-                                <input type="file" class="form-control custom-width custom-file" id="logoFile" name="UserLogo">
-
-                                <span asp-validation-for="UserLogo" class="text-danger"></span>
+                                  
+                                    <span asp-validation-for="UserLogo" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4"></div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4"></div>
 
 
-                        <div class="col-md-4">
-                            <h4>Documents</h4>
-                            <div class="box">
-                                <label>Company Registration Document</label>
+                            <div class="col-md-4">
+                                <h4>Documents</h4>
+                                <div class="box">
+                                    <label>Company Registration Document</label>
 
-                                <input type="file" class="form-control custom-width custom-file" id="CompanyFile" name="CompanyDocument">
+                                    <input type="file" class="form-control custom-width custom-file" id="CompanyFile" name="CompanyDocument">
 
-                                <span asp-validation-for="CompanyDocument" class="text-danger"></span>
+                                    <span asp-validation-for="CompanyDocument" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <br />
-                            <div class="box">
-                                <label>Tax Document</label>
-                                <input type="file" class="form-control custom-width custom-file" id="TaxFile" name="Taxdocumebt">
-                                <span asp-validation-for="Taxdocumebt" class="text-danger"></span>
+                            <div class="col-md-4">
+                                <br />
+                                <div class="box">
+                                    <label>Tax Document</label>
+                                    <input type="file" class="form-control custom-width custom-file" id="TaxFile" name="Taxdocumebt">
+                                    <span asp-validation-for="Taxdocumebt" class="text-danger"></span>
+                                </div>
                             </div>
+
+
                         </div>
-
-
+                    </div><br />
+                    <div class="form-group">
+                        <input style="display:flex;float:right" type="submit" value="Create" class="btn btn-primary" />
+                        <a asp-action="Login" style="display:flex;float:left">Back</a>
                     </div>
-                </div><br />
-                <div class="form-group">
-                    <input style="display:flex;float:right" type="submit" value="Create" class="btn btn-primary" />
-                    <a asp-action="Login" style="display:flex;float:left">Back</a>
-                </div>
-            </form>
-        </div>
+                </form>
+</div>
     </div>
 
     @*div>

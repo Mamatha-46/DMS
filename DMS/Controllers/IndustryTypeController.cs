@@ -88,18 +88,9 @@ namespace DMS.Controllers
 
         public async Task<IActionResult> tax(string searchString, string sortOrder, int page = 1, int pageSize = 15)
         {
-            // int pageSize = 10;
-            // List<Brand> brandinfo = new List<>();
+           
             var brandinfo = await ipos.GetCountries();
-            //if (!string.IsNullOrEmpty(searchString))
-            //{
-            //    brandinfo = brandinfo.Where(b =>
-            //        b != null &&
-            //        (b.Name != null && b.Name.Contains(searchString)) ||
-            //        //(b.TaxPerc != null && b.TaxPerc.Contains(searchString)) ||
-            //        (b.TaxPerc != null && b.TaxPerc.ToString() != null && b.TaxPerc.ToString().Contains(searchString)));
-
-            //}
+            
             if (!string.IsNullOrEmpty(searchString))
             {
                 brandinfo = brandinfo.Where(b =>
@@ -126,43 +117,11 @@ namespace DMS.Controllers
                 return NotFound();
             }
             brand.Status = (brand.Status == 1) ? 0 : 1;
-            //await ipos.UpdateCompany(brand);
+           // await ipos.UpdateIndustryDetails(brand);
             TempData["Message"] = (brand.Status == 0) ? "Record activated successfully." : "Record deactivated successfully.";
             return RedirectToAction("Index");
         }
 
-        //public async Task<IActionResult> ZipCreate()
-        //{
-        //    var countr = await ipos.GetCountries();
-        //    ViewBag.Countries = new SelectList(countr, "Id", "Name"); // create SelectList from Countries list
-        //    ViewData["CountryId"] = ViewBag.Countries;
-        //    var state = await ipos.GetStates();
-        //    ViewBag.States = new SelectList(state, "Id", "Name"); // create SelectList from Countries list
-        //    ViewData["StateId"] = ViewBag.States;
-        //    var city = await ipos.GetCities();
-
-        //    ViewBag.Cities = new SelectList(city, "Id", "Name"); // create SelectList from Countries list
-        //    ViewData["CityId"] = ViewBag.Cities;
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ZipCreate(Countries count)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            await ipos.CreateTaxes(count);
-        //            //return RedirectToAction("Index");
-        //        }
-        //        return View("taxCreate");
-        //    }
-        //    catch
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
         public async Task<IActionResult> taxCreate()
         {
             var countries = await ipos.GetCountries();
@@ -172,13 +131,6 @@ namespace DMS.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> taxCreate()
-        //{
-        //    var countr = await ipos.GetCountries();
-        //    ViewBag.Countries = new SelectList(countr, "Id", "Name"); // create SelectList from Countries list
-        //    ViewData["Name"] = ViewBag.Countries;
-        //    return View();
-        //}
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
@@ -187,7 +139,6 @@ namespace DMS.Controllers
 
             try
             {
-
                     var item =  await ipos.CreateTaxes(countries);
                     if (item == null)
                     {
@@ -207,116 +158,7 @@ namespace DMS.Controllers
                 throw ex;
             }
         }
-        //public async Task<IActionResult> TaxEdit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var brand = await ipos.GetTaxDetailsByID(id.Value);
-        //    if (brand == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(brand);
-        //}
-
-        // POST: Brand/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> TaxEdit(int id, Countries countries)
-        //{
-        //    if (id != countries.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            await ipos.EditTaxDetails(countries);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw ex;
-        //        }
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(countries);
-        //}
-
-        //public async Task<IActionResult> TaxDetails(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var brand = await ipos.GetTaxDetailsByID(id.Value);
-        //    if (brand == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(brand);
-        //}
-        //public async Task<IActionResult> ZipEdit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var brand = await ipos.GetZipDetailsByID(id.Value);
-        //    if (brand == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(brand);
-        //}
-
-        //// POST: Brand/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ZipEdit(int id, Zip zip)
-        //{
-        //    if (id != zip.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            await ipos.EditZipDetails(zip);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw ex;
-        //        }
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(zip);
-        //}
-
-        //public async Task<IActionResult> zipDetails(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var brand = await ipos.GetZipDetailsByID(id.Value);
-        //    if (brand == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(brand);
-        //}
+        
 
         public IActionResult Create()
         {
@@ -334,15 +176,7 @@ namespace DMS.Controllers
                     return NotFound();
                 }
                 return RedirectToAction("Index");
-                //if (ModelState.IsValid)
-                //{
-                //    await ipos.CreateIndustry(industry);
-                //    //return RedirectToAction("Index");
-                //}
-
-
-                //return View("CreateIndustry");
-
+                
             }
             catch
             {
@@ -426,7 +260,6 @@ namespace DMS.Controllers
 
             return View(model);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, IndustryViewModel model)
@@ -453,25 +286,18 @@ namespace DMS.Controllers
 
             return View(model);
         }
-
-
         public async Task<IActionResult> Details(int? id, IndustryViewModel model)
         {
-            
             if (id == null)
             {
                 return NotFound();
             }
-
             var brand = await ipos.GetIndustryById(id.Value);
             if (brand == null)
             {
                 return NotFound();
             }
-
             return View(brand);
-
-
         }
     }
 }

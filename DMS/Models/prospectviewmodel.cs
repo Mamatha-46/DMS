@@ -32,7 +32,7 @@ namespace DMS.Models
         //public int? Status { get; set; }
         public string Terms { get; set; }
         public int AddedId { get; set; }
-        //public DateTime? UpdatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
         public int ProsId { get; set; }
         public int ProductId { get; set; }
         public int Discount { get; set; }

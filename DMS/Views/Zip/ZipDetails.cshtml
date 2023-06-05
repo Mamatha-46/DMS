@@ -12,16 +12,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 
-<div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card" style="margin-left: 20px; margin-right: 20px;">
+<div class="row" style="background-color:whitesmoke">
+    <a asp-action="Index2" class="btn btn-secondary btn-sm" style="display:flex;float:right"><i class="fa fa-arrow-left"></i> Back</a>
+    <a asp-action="ZipEdit" asp-route-id="@Model.Id" class="btn btn-primary" style="display:flex;float:right">Edit</a>
+</div>
+<div class="container-fluid">
+    <div class="row" >
+        @*<div class="col-lg-12">*@
+            <div class="card" style="background-color:white" >
                 <div class="card-body">
-                    <div class="row">
-                        <a asp-action="Index2" class="btn btn-secondary btn-sm" style="display:flex;float:right"><i class="fa fa-arrow-left"></i> Back</a>
-                        <a asp-action="ZipEdit" asp-route-id="@Model.Id" class="btn btn-primary" style="display:flex;float:right">Edit</a>
-                    </div>
-                    
                     <div class="container">
                         <div class="box">
                             <label asp-for="Zipcode" class="label-style"></label>
@@ -55,7 +54,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        @*</div>*@
     </div>
 </div>
                    

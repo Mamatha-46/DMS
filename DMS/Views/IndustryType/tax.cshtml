@@ -6,112 +6,271 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-@*<div style="text-align:left;width:1000px">
-    <center>
-        <h1>Tax Rates</h1>
-    </center>
-</div>*@
-<br />
-<br />
-<div style="margin-left:30%;" class="d-flex justify-content-end">
-    <form action="@Url.Action("tax")" method="get" class="form-inline mb-3 ml-auto">
-        <input type="text" name="searchString" class="form-control mr-2" style="width:300px" placeholder="Search...">
-        <button type="submit" class="btn btn-primary">Search</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="row">
-            <button style="border:none">
-                <a asp-action="taxCreate" class="btn btn-primary" style="text-align:center; border:none;"> <i class="fa fa-plus"></i>Add taxes</a>
-            </button>
-            <a asp-action="tax" class="btn btn-secondary btn-sm" style="display:flex;float:right"> Back</a>
-        </div>
-    </form>
-</div>
-<head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
-    <link rel="stylesheet" href="~/css/css/table.css" />
-</head>
-<div class="row" style="margin-left: 2%">
-    <div style="width: 600px;">
-        <table class="table tablesorter">
-            <thead>
-                <tr>
-                    <th>Name<i class="fa fa-sort"></i></th>
-                    <th>Taxes</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.TaxPerc)</td>
-                        <td>
-                            <div class="dropdown">
-                                <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu" style="display:none;">
-                                    <a class="dropdown-item" href="@Url.Action("TaxDetails", "IndustryType", new { id = item.Id })">
-                                        <i class="fa fa-eye"></i>View
-                                    </a>
-                                    <a class="dropdown-item" href="@Url.Action("TaxEdit", "IndustryType", new { id = item.Id })">
-                                        <i class="fa fa-pen"></i>Edit
-                                    </a>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Tax Rates</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Tax Rates</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div id="instructorList">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center g-2">
+                                    <div class="col-lg-3 me-auto">
+                                        <h6 class="card-title mb-0">Tax Rates</h6>
+                                    </div><!--end col-->
+                                    <div class="col-xl-2 col-lg-3 col-sm-5">
+                                        <div class="search-box">
+                                            <input type="text" class="form-control search" placeholder="Search for instructors, email, contact number or something...">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-sm-auto">
+                                        <div class="hstack gap-2">
+                                            <button class="btn btn-subtle-danger d-none" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                            <a href="#addInstructor" data-bs-toggle="modal" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Tax Rate</a>
+                                        </div>
+                                    </div><!--end col-->
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <nav style="width: 200px;">
-            <ul class="pagination">
-                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                    <a class="page-link" href="@Url.Action("tax", new { page = Model.PageNumber - 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                @for (int i = 1; i <= Model.PageCount; i++)
-                {
-                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                        <a class="page-link" href="@Url.Action("tax", new { page = i, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })">@i</a>
-                    </li>
-                }
-                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                    <a class="page-link" href="@Url.Action("tax", new { page = Model.PageNumber + 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+                            <div class="card-body mt-3">
+                                <div class="table-responsive table-card">
+                                    <table class="table table-centered align-middle table-custom-effect table-nowrap mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="option" id="checkAll">
+                                                        <label class="form-check-label" for="checkAll"></label>
+                                                    </div>
+                                                </th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="instructor_id">ID</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="instructor">Country Name</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="rating">Tax</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="status">Status</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list form-check-all">
+                                            <tr>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="chk_child">
+                                                        <label class="form-check-label"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="instructor_id"><a href="#" class="fw-medium link-primary">#TBSI159001</a></td>
+                                                <td class="instructor">
+                                                    <div class="d-flex gap-2 align-items-center">
+
+                                                        <div class="flex-grow-1">
+                                                            <a href="#" class="text-reset">Themesbrand</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="rating"><span class="rate-value">4.7%</span></td>
+                                                <td class="status"><span class="badge bg-success-subtle text-success">Active</span></td>
+                                                <td>
+                                                    <ul class="d-flex gap-2 list-unstyled mb-0">
+                                                        <li>
+                                                            <a href="apps-instructors-overview.html" class="btn btn-subtle-primary btn-icon btn-sm "><i class="ph-eye"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#addInstructor" data-bs-toggle="modal" class="btn btn-subtle-secondary btn-icon btn-sm edit-item-btn"><i class="ph-pencil"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#deleteRecordModal" data-bs-toggle="modal" class="btn btn-subtle-danger btn-icon btn-sm remove-item-btn"><i class="ph-trash"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody><!-- end tbody -->
+                                    </table><!-- end table -->
+                                    <div class="noresult" style="display: none">
+                                        <div class="text-center py-4">
+                                            <i class="ph-magnifying-glass fs-1 text-primary"></i>
+                                            <h5 class="mt-2">Sorry! No Result Found</h5>
+                                            <p class="text-muted mb-0">We've searched more than 164+ instructors We did not find any instructors for you search.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center mt-4 pt-3" id="pagination-element">
+                                    <div class="col-sm">
+                                        <div class="text-muted text-center text-sm-start">
+                                            Showing <span class="fw-semibold">10</span> of <span class="fw-semibold">15</span> Results
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-sm-auto mt-3 mt-sm-0">
+                                        <div class="pagination-wrap hstack justify-content-center gap-2">
+                                            <a class="page-item pagination-prev disabled" href="javascript:void(0)">
+                                                Previous
+                                            </a>
+                                            <ul class="pagination listjs-pagination mb-0"></ul>
+                                            <a class="page-item pagination-next" href="javascript:void(0)">
+                                                Next
+                                            </a>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+            </div>
+
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>document.write(new Date().getFullYear())</script> © CYBER IRON DOME.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        Design & Develop by Headway Data Systems
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- end main content-->
+    
+<!-- END layout-wrapper -->
+<!-- Modal -->
+<div class="modal fade" id="addInstructor" tabindex="-1" aria-labelledby="addInstructorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content border-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addInstructorModalLabel">Add Tax Rate</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-addInstructorModal"></button>
+            </div>
+
+            <form class="tablelist-form" novalidate autocomplete="off">
+                <div class="modal-body">
+                    <div id="alert-error-msg" class="d-none alert alert-danger py-2"></div>
+                    <input type="hidden" id="id-field">
+                    <input type="hidden" id="rating-field">
+
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label for="status-input" class="form-label">Country<span class="text-danger">*</span></label>
+
+                                <select class="form-select" id="status-input">
+                                    <option value="">Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Unactive">Unactive</option>
+                                </select>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label for="instructor-name-input" class="form-label">Percentage<span class="text-danger">*</span></label>
+                                <input type="text" id="instructor-name-input" class="form-control" placeholder="Enter Percentage Value" required>
+                            </div>
+                        </div>
+
+                    </div><!--end row-->
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-ghost-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg align-baseline me-1"></i> Close</button>
+                        <button type="submit" class="btn btn-primary" id="add-btn">Add Industry</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- modal-content -->
+    </div>
+</div><!--end modal-->
+<!-- deleteRecordModal -->
+<div id="deleteRecordModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" id="deleteRecord-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-md-5">
+                <div class="text-center">
+                    <div class="text-danger">
+                        <i class="bi bi-trash display-5"></i>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="mb-2">Are you sure ?</h4>
+                        <p class="text-muted mx-3 mb-0">Are you sure you want to remove this record ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 pt-2 mb-2">
+                    <button type="button" class="btn w-sm btn-light btn-hover" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record">Yes, Delete It!</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /deleteRecordModal -->
+<!--start back-to-top-->
+<button class="btn btn-dark btn-icon" id="back-to-top">
+    <i class="bi bi-caret-up fs-3xl"></i>
+</button>
+<!--end back-to-top-->
+<!--preloader-->
+<div id="preloader">
+    <div id="status">
+        <div class="spinner-border text-primary avatar-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
 </div>
-@section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".dropdown-toggle").click(function (e) {
-                e.preventDefault();
-                $(this).siblings(".dropdown-menu").toggle();
-            });
-        });
-        //$(document).ready(function () {
-        //    debugger;
-        //    $(".tablesorter").tablesorter({
-        //        theme: "bootstrap",
-        //        headerTemplate: "{content} {icon}",
-        //        widgets: ["zebra"],
-        //        sortList: [[0, 0]]
-        //    });
-        //});
-        $(function () {
-            $(".tablesorter").tablesorter();
-        });
-    </script>
-}
+
+
+<!-- JAVASCRIPT -->
+<script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="~/assets/js/plugins.js"></script>
+
+<!-- sweetalert2 js -->
+<script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+<!-- list.js min js -->
+<script src="~/assets/libs/list.js/list.min.js"></script>
+<script src="~/assets/libs/list.pagination.js/list.pagination.min.js"></script>
+
+<!-- dropzone js -->
+<script src="~/assets/libs/dropzone/dropzone-min.js"></script>
+
+<!-- apexcharts -->
+<script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+<!-- learning instructors list-->
+<script src="~/assets/js/pages/learning-instructors-list.init.js"></script>
+
+<!-- App js -->
+<script src="~/assets/js/app.js"></script>

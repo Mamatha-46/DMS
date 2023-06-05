@@ -549,18 +549,19 @@ namespace DMS.Repository
             return null;
         }
 
-       
 
-        
+
+
         public async Task<ResellerDetailsView> GetResellersDetailsView(int DistributorID)
         {
-            var ResellerDetails = (from distributor in _context.Distributor
+            var ResellerDetails = await (from distributor in _context.Distributor
                                    join user in _context.User on distributor.UserId equals user.UserId
                                    join countries in _context.Countries on distributor.DistributorCountry equals countries.Id
-                                   join zip in _context.Zip on distributor.DistributorZip equals zip.Zipcode
+                                   //join zip in _context.Zip on distributor.DistributorZip equals zip.Zipcode
                                    join states in _context.States on distributor.DistributorState equals states.Id
                                    join cities in _context.Cities on distributor.DistributorCity equals cities.Id
-                                   join distri_doc in _context.DistriDocu on distributor.DisId equals distri_doc.Id
+                                   join distri_doc in _context.DistriDocu on distributor.DisId equals distri_doc.DistriId
+                                   where distributor.DisId == DistributorID
                                    select new ResellerDetailsView
                                    {
                                        DisID = distributor.DisId,
@@ -570,7 +571,7 @@ namespace DMS.Repository
                                        Country = countries.Name,
                                        State = states.Name,
                                        City = cities.Name,
-                                       Zipcode = zip.Zipcode,
+                                       Zipcode = distributor.DistributorZip,
                                        Address1 = distributor.DistributorAddress1,
                                        Address2 = distributor.DistributorAddress2,
                                        Email = user.UserMail,
@@ -578,8 +579,10 @@ namespace DMS.Repository
                                        PhoneNo = distributor.DistributorNumber.ToString(),
                                        VAT = distributor.DistributorVat,
                                        Website = distributor.Website,
-                                   });
-            return await ResellerDetails.FirstOrDefaultAsync();
+                                       Bus_Status = distri_doc.BusiDocStatus.ToString(),
+                                       Tax_Status = distri_doc.GstDocStatus.ToString()
+                                   }).FirstOrDefaultAsync();
+            return ResellerDetails;
         }
 
         public async Task<DistriDocu> GetDistriDocuByID(int Id)
@@ -749,6 +752,25 @@ namespace DMS.Repository
 
             return query.ToList();
         }
+
+        public async Task<DistriDocu> updatedocstatus(int bstatus, int tstatus)
+        {
+
+            var dic = new DistriDocu
+            {
+                BusiDocStatus = bstatus,
+                GstDocStatus = tstatus
+            };
+            if (_context != null)
+            {
+                _context.DistriDocu.Add(dic);
+                await _context.SaveChangesAsync();
+                return dic;
+
+            }
+            return null;
+        }
+
 
     }
 }

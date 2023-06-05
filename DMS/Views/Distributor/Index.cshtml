@@ -1,155 +1,358 @@
-﻿@model X.PagedList.IPagedList<resellerView>
+﻿
 
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-}
+    @model X.PagedList.IPagedList<DMS.Models.resellerView>
 
-<div style="margin-left:25%;margin-top:10px">
-
-    <form action="@Url.Action("Index")" method="get" class="form-inline mb-3 ml-auto">
-        <input type="text" name="searchString" class="form-control mr-2" style="width:280px" placeholder="Search...">
-        <button type="submit" class="btn btn-primary">Search</button>
-        <button style="border:none">
-            <a asp-action="CreateReseller" class="btn btn-primary" style="text-align:center; border:none;margin-left:300px"><i class="fa fa-plus"></i>Add Reseller</a>
-            <a href="@Url.Action("Dashboard", "Home")" class="btn btn-primary" style="margin-left: 5px">← Back</a>
-        </button>
-    </form>
-</div>
-
-<style>
-    .ellipse {
-        display: inline-block;
-        width: 50px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     }
-</style>
-<head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
-    <link rel="stylesheet" href="~/css/css/table.css" />
-</head>
+    <div class="main-content">
 
-<div class="row" style="margin-left:5%">
+        <div class="page-content">
+            <div class="container-fluid">
 
-    <table class="table tablesorter" align="center"  cellpadding="2" border="1" style="text-align:center">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0">Resellers</h4>
 
-        <thead>
-            <tr>
-                <th class="header" style="text-align:center;width:120px">DistributorID<i class="fa fa-sort"></i></th>
-                <th class="header" style="text-align:center">DID<i class="fa fa-sort"></i></th>
-                <th class="header" style="text-align:center">FullName<i class="fa fa-sort"></i></th>
-                <th class="header" style="text-align:center">Email<i class="fa fa-sort"></i></th>
-                <th class="header" style="text-align:center">ContactNumber<i class="fa fa-sort"></i></th>
-                <th class="header" style="text-align:center">City<i class="fa fa-sort"></i></th>
-                <th class="header" style="text-align:center">Country<i class="fa fa-sort"></i></th>
-                <th class="header" style="text-align: center">Status<i class="fa fa-sort"></i></th>
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Resellers</li>
+                                </ol>
+                            </div>
 
-                <th style="align-content:center;width:50px">Action</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-
-            <tr>
-                <td style="height:10px">@Html.DisplayFor(modelItem => item.DistributorID)</td>
-                <td style="height:10px">@Html.DisplayFor(modelItem => item.DID)</td>
-                <td style="height:10px">@Html.DisplayFor(modelItem => item.FullName)</td>
-                <td style="height:10px">@Html.DisplayFor(modelItem => item.Email)</td>
-                <td style="height:10px">@Html.DisplayFor(modelItem => item.ContactNumber)</td>
-                <td style="height:10px">@Html.DisplayFor(modelItem => item.City)</td>
-                <td style="height:10px">@Html.DisplayFor(modelItem => item.Country)</td>
-                <td style="height:10px">
-                    @*<span class="badge badge-warning">@((item.Status == 0) ? "Pending" : "Completed")</span>*@
-
-
-                    <span class="badge @(item.Status == 0 ? "badge-danger" : "badge-success")">
-                        <span class="badge badge-warning">@((item.Status==0)?"Block":(item.Status==1)? "Active":"Pending")</span>
-
-
-
-                        <span class="badge @(item.Status == 0 ? "badge-danger" : "badge-success")">
-                            <span class="ellipse">@((item.Status == 0 ? "Inactive" : "Active"))</span>
-</td>
-                <!-- new column -->
-               
-                <td>
-                    <div class="dropdown">
-                        @*<a class="btn btn-link" style="cursor:pointer;"
-                   onmouseover="this.nextElementSibling.style.display='block'"
-                   onmouseout="this.nextElementSibling.style.display='none'">
-                    <i class="fas fa-ellipsis-v"></i>
-                </a>*@
-                        <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </a>
-
-                        <div class="dropdown-menu" style="display:none;">
-                            @*<a class="dropdown-item" href="@Url.Action("UpdateReseller", "Distributor", new { DistributorID = item.DistributorID })"><i class="fa fa-pen"></i>Edit</a>*@
-
-                            <a class="dropdown-item" href="@Url.Action("Details", "Distributor", new { DistributorID = item.DistributorID })">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                View
-                            </a>
-                            @*<a class="dropdown-item" href="@Url.Action("DeleteReseller", "Distributor", new { id = item.DistributorID })"><i class="fa fa-pen"></i>Delete</a>*@
-                        <a class="dropdown-item" href="@Url.Action("ToggleStatus", "Distributor", new { id = item.DistributorID })">
-                            @if (item.Status == 1)
-                            {
-                        <span><i class="fa fa-ban"></i>Deactivate</span> }
-                    else
-                    {
-                        <span><i class="fa fa-check"></i>Activate</span>}
-                            @*@if (TempData["Message"] != null)
-                            {
-                                <div class="alert alert-success" role="alert">
-                                    @TempData["Message"]
-                                </div>
-                            }*@
-
-                        </a>
                         </div>
                     </div>
+                </div>
+                <!-- end page title -->
 
-                </td>
-            </tr>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center flex-wrap gap-3">
+                                    <div class="flex-grow-1">
+                                        <h3 class="card-title mb-0">Resellers List</h3>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            @*<button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#showModal"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Resellers</button>*@
+                                            
+                                            <a href="@Url.Action("CreateReseller", "Distributor")" class="btn btn-primary">
+                                                <i class="bi bi-plus-circle align-baseline me-1"></i> Add Resellers
+                                            </a>
+                                            <button type="button" class="btn btn-secondary"><i class="ph-cloud-arrow-down align-middle me-1"></i> Import</button>
+                                            <button type="button" class="btn btn-subtle-info"><i class="ph-cloud-arrow-up align-middle me-1"></i> Export</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
 
-            }
+                <div class="row" id="customer-list">
+                    <div class="col-xxl-12">
 
-        </tbody>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive table-card">
+                                    <table class="table align-middle table-nowrap">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="option" id="checkAll">
+                                                        <label class="form-check-label" for="checkAll"></label>
+                                                    </div>
+                                                </th>
+                                                <th scope="col" class="sort cursor-pointer desc" data-sort="instructor_id">#</th>
+                                                <th scope="col" class="sort cursor-pointer desc" data-sort="id">ID</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="instructor">Full Name</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="email">Email</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="contact">contact</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="experience">City</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="students">Country</th>
+                                                <th scope="col" class="sort cursor-pointer" data-sort="status">Status</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="option" id="checkAll">
+                                                            <label class="form-check-label" for="checkAll"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>@Html.DisplayFor(modelItem => item.DistributorID)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.DID)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.ContactNumber)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                                                    <td>
+                                                        <span class="badge@(item.Status==0?"badge-danger":"badge-success")">
+
+                                                            <span class="ellipsce">@(item.Status==0?"Inactive":"Active")</span>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="dropdown">
 
 
+                                                            <a class="btn btn-link dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
+                                                                <i class="fas fa-ellipsis-v"></i>
+                                                            </a>
 
-    </table>
-    <nav>
-        <ul class="pagination">
-            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            @for (int i = 1; i <= Model.PageCount; i++)
-            {
-<li class="page-item @(i == Model.PageNumber ? "active" : "")">
-    <a class="page-link" href="@Url.Action("Index", new { page = i, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })">@i</a>
-</li>            }
-            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
-@section Scripts {
+                                                            <div class="dropdown-menu" style="display:none;">
+
+                                                                <a class="dropdown-item" href="@Url.Action("Details", "Distributor", new { DistributorID = item.DistributorID })">
+                                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                    View
+                                                                </a>
+                                                                @*<a class="dropdown-item" href="@Url.Action("ToggleStatus", "Distributor", new { id = item.DistributorID })">
+                                                                    @if (item.Status == 1)
+                                                                    {
+                                                                        <span><i class="fa fa-ban"></i>Deactivate</span> }
+                                                                    else
+                                                                    {
+                                                                        <span><i class="fa fa-check"></i>Activate</span>}
+
+
+                                                                </a>*@
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>                                     
+                                    </table>
+                                    <nav style="display:flex;float:right">
+                                        <ul class="pagination">
+                                            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                            @for (int i = 1; i <= Model.PageCount; i++)
+                                            {
+                                                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                                    <a class="page-link" href="@Url.Action("Index", new { page = i, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })">@i</a>
+                                                </li>
+                                            }
+                                            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString })" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="noresult" style="display: none">
+                                    <div class="text-center py-4">
+                                        <i class="ph-magnifying-glass fs-1 text-primary"></i>
+                                        <h5 class="mt-2">Sorry! No Result Found</h5>
+                                        <p class="text-muted mb-0">We've searched more than 150+ customers We did not find any customers for you search.</p>
+                                    </div>
+                                </div>
+                                <div class="align-items-center mt-4 justify-content-between row text-center text-sm-start" id="pagination-element">
+                                    <div class="col-sm">
+                                        <div class="text-muted">
+                                            Showing <span class="fw-semibold">10</span> of <span class="fw-semibold">13</span> Results
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-auto  mt-3 mt-sm-0">
+                                        @*<div class="pagination-wrap hstack gap-2">
+                                            <a class="page-item pagination-prev disabled" href="javascript:void(0)">Previous</a>
+                                            <ul class="pagination listjs-pagination mb-0"></ul>
+                                            <a class="page-item pagination-next" href="javascript:void(0)">Next</a>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                </div><!--end row-->
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <script>document.write(new Date().getFullYear())</script> © CYBER IRON DOME.
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end d-none d-sm-block">
+                            Design & Develop by Headway Data Systems
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- end main content-->
+    <!-- END layout-wrapper -->
+    <!-- showModal -->
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-light p-3">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Order</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-ordermodal"></button>
+                    </div>
+                    @*<form class="tablelist-form" novalidate autocomplete="off">*@
+                    <div class="modal-body">
+                        <div id="alert-error-msg" class="d-none alert alert-danger py-2"></div>
+                        <input type="hidden" id="id-field">
+
+                        <div class="text-center mb-3">
+                            <div class="position-relative d-inline-block">
+                                <div class="position-absolute top-100 start-100 translate-middle">
+                                    <label for="customer-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select customer photo">
+                                        <span class="avatar-xs d-inline-block">
+                                            <span class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
+                                                <i class="ri-image-fill"></i>
+                                            </span>
+                                        </span>
+                                    </label>
+                                    <input class="form-control d-none" id="customer-image-input" type="file" accept="image/png, image/gif, image/jpeg">
+                                </div>
+                                <div class="avatar-lg">
+                                    <div class="avatar-title bg-light rounded-3">
+                                        <img src="~/assets/images/users/user-dummy-img.jpg" alt="" id="customer-img" class="avatar-md h-auto rounded-3 object-fit-cover">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customername-field" class="form-label">Customer Name</label>
+                            <input type="text" id="customername-field" class="form-control" placeholder="Enter customer name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email-field" class="form-label">Email</label>
+                            <input type="email" id="email-field" class="form-control" placeholder="Enter email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact-field" class="form-label">Contact no.</label>
+                            <input type="text" id="contact-field" class="form-control" placeholder="Enter contact no" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact-field" class="form-label">Country</label>
+                            @Html.DropDownList("DistributorCountry", ViewData["Country"] as SelectList, "Select a country", new { @class = "form-control custom-width custom-textbox", @id = "country_id" })
+                            @*<input type="text" id="contact-field" class="form-control" placeholder="Enter Country" required>*@
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact-field" class="form-label">State</label>
+                            @Html.DropDownList("DistributorState", ViewData["State"] as SelectList, "Select a State", new { @class = "form-control custom-width custom-textbox", @id = "state_id" })
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact-field" class="form-label">City</label>
+
+                            @Html.DropDownList("DistributorCity", ViewData["City"] as SelectList, "Select a City", new { @class = "form-control custom-width custom-textbox", @id = "city_id" })
+                            @*<input type="text" id="contact-field" class="form-control" placeholder="Enter City" required>*@
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="date-field" class="form-label">Joining Date</label>
+                            <input type="date" id="date-field" class="form-control" required>
+                        </div>
+                        <div>
+                            <label for="status-field" class="form-label">Status</label>
+                            <select class="form-control" name="status-field" id="status-field" required>
+                                <option value="">Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Block">Block</option>
+                                <option value="Unactive">Unactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="hstack gap-2 justify-content-end">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" id="add-btn">Add Order</button>
+                        </div>
+                    </div>
+                    @*</form>*@
+                </div>
+            </div>
+        </div>
+        <!-- end showModal -->
+    </form>
+    <!-- deleteRecordModal -->
+    <div id="deleteRecordModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" id="deleteRecord-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-md-5">
+                    <div class="text-center">
+                        <div class="text-danger">
+                            <i class="bi bi-trash display-4"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="mb-2">Are you sure ?</h3>
+                            <p class="text-muted fs-lg mx-3 mb-0">Are you sure you want to remove this record ?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <button type="button" class="btn w-sm btn-light btn-hover" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record">Yes, Delete It!</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /deleteRecordModal -->
+    <!--start back-to-top-->
+    <button class="btn btn-dark btn-icon" id="back-to-top">
+        <i class="bi bi-caret-up fs-3xl"></i>
+    </button>
+    <!--end back-to-top-->
+    <!--preloader-->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
+
+    <!-- list.js min js -->
+    <script src="~/assets/libs/list.js/list.min.js"></script>
+    <script src="~/assets/libs/list.pagination.js/list.pagination.min.js"></script>
+    <!-- sweetalert2 js -->
+    <script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <!-- ckeditor -->
+    <!--<script src="~/assets/libs/ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>-->
+    <!-- ecommerce-customer -->
+    <script src="~/assets/js/pages/ecommerce-customer.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/assets/js/app.js"></script>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -158,145 +361,43 @@
                 $(this).siblings(".dropdown-menu").toggle();
             });
         });
-        //$(document).ready(function () {
-        //    debugger;
-        //    $(".tablesorter").tablesorter({
-        //        theme: "bootstrap",
-        //        headerTemplate: "{content} {icon}",
-        //        widgets: ["zebra"],
-        //        sortList: [[0, 0]]
-        //    });
-        //});
-
-
-        $(function () {
-            $(".tablesorter").tablesorter();
-        });
     </script>
-}
-
-@*@model IEnumerable<Distributionmanagement.Models.Brand>
-
-    @{
-        ViewData["Title"] = "Index";
-    }
-
-    <h1>Index</h1>
-
-    <p>
-        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
-    </p>
-    <head>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"  />
-    </head>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Logo</th>
-                <th>Name</th>
-                <th>Industry</th>
-                <th>Country</th>
-                <th>State</th>
-                <th>City</th>
-                <th>Zipcode</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
-                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
-                    <td>@Html.DisplayFor(modelItem => item.State)</td>
-                    <td>@Html.DisplayFor(modelItem => item.City)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
-                    <td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" data-target="#">
-                                <i class="fas fa-ellipsis-v"></i>
-
-                            </a>
-
-                            <div class="dropdown-menu" style="display:none;">
-                                <a class="dropdown-item" href="@Url.Action("Edit", "Brand", new { id = item.BrandId })">Edit</a>
-                                <a class="dropdown-item" href="@Url.Action("Details", "Brand", new { id = item.BrandId })">Details</a>
-                                <a class="dropdown-item" href="@Url.Action("Delete", "Brand", new { id = item.BrandId })">Delete</a>
-                            </div>
-                        </div>
-                    </td>
-
-
-
-
-                </tr>
-            }
-        </tbody>
-    </table>*@
-
-
-@*@model IEnumerable<Distributionmanagement.Models.Brand>
-
-    @{
-        ViewData["Title"] = "Index";
-    }
-
-    <h1>Index</h1>
-
-    <p>
-        <a asp-action="Createcompany" class="btn btn-success" type-align="right">Create New</a>
-    </p>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Logo</th>
-                <th>Name</th>
-                <th>Industry</th>
-                <th>Country</th>
-                <th>State</th>
-                <th>City</th>
-                <th>Zipcode</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Logo)</td>
-                    <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.BrandType)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
-                    <td>@Html.DisplayFor(modelItem => item.State)</td>
-                    <td>@Html.DisplayFor(modelItem => item.City)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
-                    <td>
-                        <a href="#" class="kebab-menu" data-id="@item.BrandId">
-                            <i class="fa-thin fa-ellipsis-vertical"></i>
-
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
     <script>
         $(document).ready(function () {
-            $(".kebab-menu").click(function () {
-                var id = $(this).data("id");
-                var options = '<div class="dropdown-menu">' +
-                    '<a class="dropdown-item" href="@Url.Action("Edit", "Brand")/' + id + '">Edit</a>' +
-                    '<a class="dropdown-item" href="@Url.Action("Details", "Brand")/' + id + '">Details</a>' +
-                    '<a class="dropdown-item" href="@Url.Action("Delete", "Brand")/' + id + '">Delete</a>' +
-                    '</div>';
-                $(this).append(options);
-                return false;
+            $("#country_id").change(function () {
+                var countryId = $(this).val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Login/GetStatesByCountryId",
+                    data: { countryId: countryId },
+                    success: function (result) {
+
+                        $("#state_id").empty();
+                        $("#city_id").empty();
+                        $.each(result, function (i, state) {
+                            $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        });
+                        $("#state_id").prepend('<option value="" selected>--Select--</option>');
+                    }
+                });
             });
+            $("#state_id").change(function () {
+                var stateId = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Login/GetcitiesBystateId",
+                    data: { stateId: stateId },
+                    success: function (result) {
+
+                        $("#city_id").empty();
+                        $.each(result, function (i, city) {
+                            $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
+                        });
+                        $("#city_id").prepend('<option value="" selected>--Select--</option>');
+                    }
+                });
+            });
+
         });
-    </script>*@
+    </script>

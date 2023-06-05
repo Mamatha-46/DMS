@@ -31,24 +31,31 @@ namespace DMS.Controllers
         }
         public async Task<IActionResult> Index(string searchString, string sortOrder, int page = 1, int pageSize = 7)
         {
+
+
+            var countr = await ipos.GetCountries();
+            ViewBag.Countries = new SelectList(countr, "Id", "Name"); // create SelectList from Countries list
+            ViewData["Country"] = ViewBag.Countries;
+            var state = await ipos.GetStates();
+            ViewBag.States = new SelectList(state, "Id", "Name"); // create SelectList from Countries list
+            ViewData["State"] = ViewBag.States;
+            var city = await ipos.GetCities();
+            ViewBag.Cities = new SelectList(city, "Id", "Name"); // create SelectList from Countries list
+            ViewData["City"] = ViewBag.Cities;
+            var industries = await ipos.GetIndustry();
+            ViewBag.Industry = new SelectList(industries, "Id", "Name");
+            ViewData["BrandType"] = ViewBag.Industry;
+            var users = await ipos.GetAllusers();
+            ViewBag.Industry = new SelectList(industries, "Id", "Name");
+            ViewData["BrandType"] = ViewBag.Industry;
+            var model = new brandviewmodel();
+
+
+
+
             var brandinfo = await ipos.GetAllCompanies();
 
-            //if (!string.IsNullOrEmpty(searchString))
-            //{
-            //    brandinfo = brandinfo.Where(b =>
-            //        b != null &&
-            //        (b.BrandName != null && b.BrandName.Contains(searchString)) 
-            //        //(b.BrandType != null && b.BrandType.Contains(searchString)) ||
-            //        //(b.Country != null && b.Country.ToString() != null && b.Country.ToString().Contains(searchString)) ||
-            //        //(b.State != null && b.State.ToString() != null && b.State.ToString().Contains(searchString)) ||
-            //        //(b.City != null && b.City.ToString() != null && b.City.ToString().Contains(searchString)) ||
-            //        //(b.Zipcode != null && b.Zipcode.ToString().Contains(searchString)) 
-            //        // Add additional properties for search here
-            //        // (b.PropertyName != null && b.PropertyName.ToString().Contains(searchString)) ||
-            //        // ...
-            //    );
-
-            //}
+          
             if (!string.IsNullOrEmpty(searchString))
             {
                 brandinfo = brandinfo.Where(b =>
@@ -633,7 +640,7 @@ namespace DMS.Controllers
             brand.Status = (brand.Status == 1) ? 0 : 1;
             await ipos.UpdateCompany(brand);
 
-            TempData["Message"] = (brand.Status == 0) ? "Record deactivated successfully." : "Record activated successfully.";
+            TempData["Message"] = (brand.Status == 0) ? "Record activated successfully." : "Record deactivated successfully.";
             return RedirectToAction("Index");
         }
 

@@ -1,4 +1,4 @@
-﻿@model DMS.Models.DistriDocu
+﻿@model IEnumerable<DMS.Models.DistriDocu>
 
 
 <table>
@@ -10,7 +10,32 @@
         <th style="width:200px">Admin Remarks</th>
         <th style="width:200px">Added on</th>
     </tr>
-    <tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="row" style="display:flex;gap:20px">
+                    <label>
+                        <input style="display:inline-block" type="radio" class="form-check" name="status1" value="Innactive">
+                    </label>
+                    <label>
+                        <input style="display:inline-block" type="radio" class="form-check" name="status1" value="Active" checked>
+                    </label>
+                </div>
+            </td>
+            <td>@item.ReGRemarks</td>
+            <td>@item.Remarks</td>
+            <td>@item.AddedOn</td>
+        </tr>
+    }
+
+
+
+
+
+    @*<tr>
         <td>Business document</td>
         <td><a href="~/images/R_bus38-230510030132.pdf">view</a></td>
         <td>
@@ -48,6 +73,6 @@
         <td>@Model.ReGRemarks</td>
         <td>@Model.Remarks</td>
         <td>@Model.AddedOn</td>
-    </tr>
+    </tr>*@
 
 </table>

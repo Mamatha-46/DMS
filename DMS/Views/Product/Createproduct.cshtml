@@ -1,268 +1,418 @@
 ﻿@model DMS.Models.ProductViewModel
+@{ ViewData["Title"] = "CreateProduct";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<html>
+<body>
+    <div class="main-content">
 
-@{ ViewData["Title"] = "Createproduct";
-                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
-<head>
-    <link rel="stylesheet" href="~/css/css/StyleSheet1.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-</head>
-<h1 style="text-align:center;">Add NewProduct</h1>
-@*<div class="form-group" align="right">
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>*@
-<hr />
-@using (Html.BeginForm("Createproduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-<div class="row small-gap">
-    <div class="row">
-        <div class="col-lg-12">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-               <div class="card" style="margin-left: 20px; margin-right: 20px;">
-                   <div class="card-body">
-                       <div class="row">
-                           <a asp-action="Index" class="btn btn-secondary btn-sm" style="display:flex;float:right"><i class="fa fa-arrow-left"></i> Back</a>
-                       </div>
-                       <div class="container">
+        <div class="page-content">
+            <div class="container-fluid">
 
-                           <div class="box">
-                               <label asp-for="Brand" class="control-label">Company</label>
-                               @Html.DropDownList("Brand", ViewData["Brand"] as SelectList, new { @class = "form-control custom-width custom-textbox" })
-                               <span asp-validation-for="Brand" class="text-danger"></span>
-                           </div>
-                           <div class="box">
-                               <label asp-for="ProductCode" class="control-label">Product Code</label>
-                               <input asp-for="ProductCode" class="form-control custom-width custom-textbox" />
-                               <span asp-validation-for="ProductCode" class="text-danger"></span>
-                           </div>
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0">Add Product</h4>
 
-                           <div class="box">
-                               <label asp-for="ProductName" class="control-label">ProductName</label>
-                               <input asp-for="ProductName" class="form-control custom-textbox" />
-                               <span asp-validation-for="ProductName" class="text-danger"></span>
-                           </div>
-                           <div class="box">
-                               <label asp-for="ProductPrice" class="control-label">Product Price</label>
-                               <input asp-for="ProductPrice" class="form-control custom-textbox" />
-                               <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Add Product</li>
+                                </ol>
+                            </div>
 
-                           </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
 
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xxl-4">
+                                        <h5 class="card-title mb-3">Product Information</h5>
+                                        <p class="text-muted">Product Information refers to any information held by an organisation about the products it produces, buys, sells or distributes.</p>
+                                    </div>
 
-                           <div class="box">
-                               <label asp-for="Variant" class="control-label">Variant</label>
-                               <input asp-for="Variant" class="form-control custom-textbox" />
-                               <span asp-validation-for="Variant" class="text-danger"></span>
-                           </div>
-                           <div class="box">
-                               <label asp-for="FromNode" class="control-label">From Qty</label>
-                               <input asp-for="FromNode" class="form-control custom-textbox" />
-                               <span asp-validation-for="FromNode" class="text-danger"></span>
+                                    <div class="col-xxl-8">
+                                        <form asp-action="Createproduct">
+                                            <div class="mb-3">
+                                                <label asp-for="Brand" class="control-label">Company</label>
+                                                @Html.DropDownList("Brand", ViewData["Brand"] as SelectList, new { @class = "form-control custom-width custom-textbox" })
+                                                <span asp-validation-for="Brand" class="text-danger"></span>
 
-                           </div>
-
-                           <div class="box">
-                               <label asp-for="ToNode" class="control-label">To Qty</label>
-                               <input asp-for="ToNode" class="form-control custom-textbox" />
-                               <span asp-validation-for="ToNode" class="text-danger"></span>
-                           </div>
-                           <div class="box">
-                               <label asp-for="ProductDesc" class="control-label"> Description</label>
-                               <input asp-for="ProductDesc" class="form-control custom-textbox" />
-                               <span asp-validation-for="ProductDesc" class="text-danger"></span>
-
-                           </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for="ProductCode" class="control-label">Product Code</label>
+                                                <input asp-for="ProductCode" class="form-control custom-width custom-textbox" />
+                                                <span asp-validation-for="ProductCode" class="text-danger"></span>
 
 
-                           <div class="box">
-                               <label asp-for="ProductImg" class="control-label">Logo</label>
-                               <input asp-for="ProductImg" type="file" class="form-control custom-textbox" />
-                               <span asp-validation-for="ProductImg" class="text-danger"></span>
-                           </div>
-
-                       </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for="ProductName" class="control-label">ProductName</label>
+                                                <input asp-for="ProductName" class="form-control custom-textbox" />
+                                                <span asp-validation-for="ProductName" class="text-danger"></span>
 
 
-                       <div class="col-md-4 d-flex justify-content-between py-3 px-1 align-items-center">
-                           <h2 align="left" style="margin-left:20px">Marketing Documents</h2>
-                           <center> <button type="button" class="btn btn-primary" id="add-file-btn">Add File</button></center>
-                       </div>
-
-                       <div id="file-upload-container">
-                           <div class="form-group" id="file-upload-fields" style="display:none;">
-                               <div class="container">
-                                   <div class="box">
-                                       <label for="FileName">File Name</label>
-                                       <input type="text" class="" id="FileName" name="fileName">
-                                   </div>
-                                   <div class="box">
-                                       <label for="FileType">File Type</label>
-                                       <select class=" " id="FileType" name="FileType">
-                                           <option value="pdf">PDF</option>
-                                           <option value="doc">Microsoft Word</option>
-                                           <option value="docx">Microsoft Word (docx)</option>
-                                           <option value="txt">Text File</option>
-                                           <option value="jpg">JPEG Image</option>
-                                           <option value="png">PNG Image</option>
-                                       </select>
-                                   </div>
-                                   <div class="box">
-                                       <label for="File">Files</label>
-                                       @*@<input type="file" class="form-control custom-width custom-file" id="File" name="Files" multiple class="form-control">@*@
-                                       <input type="file" id="files" name="Files" multiple>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for="ProductPrice" class="control-label">Product Price</label>
+                                                <input asp-for="ProductPrice" class="form-control custom-textbox" />
+                                                <span asp-validation-for="ProductPrice" class="text-danger"></span>
 
 
-                                   </div>
-                                   <div class="col-1" style="margin-top:23px;">
-                                       <button type="button" class="btn btn-danger delete-file-btn">
-                                           <i class="fa fa-trash"></i>
-                                       </button>
-                                   </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label asp-for="Variant" class="control-label">Variant</label>
+                                                        <input asp-for="Variant" class="form-control custom-textbox" />
+                                                        <span asp-validation-for="Variant" class="text-danger"></span>
 
-                               </div>
-                           </div>
-                       </div>
-                   </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label asp-for="FromNode" class="control-label">From Qty</label>
+                                                        <input asp-for="FromNode" class="form-control custom-textbox" />
+                                                        <span asp-validation-for="FromNode" class="text-danger"></span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for="ToNode" class="control-label">To Qty</label>
+                                                <input asp-for="ToNode" class="form-control custom-textbox" />
+                                                <span asp-validation-for="ToNode" class="text-danger"></span>
+                                                @*<label class="form-label">Tags</label>
+                                                    <input class="form-control" id="choices-text-unique-values" data-choices data-choices-text-unique-true data-choices-removeItem type="text" value="Fashion, Style, Brands, Puma">*@
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for="ProductDesc" class="control-label"> Description</label>
+                                                <input asp-for="ProductDesc" class="form-control custom-textbox" />
+                                                <span asp-validation-for="ProductDesc" class="text-danger"></span>
+                                                @*<label class="form-label">Tags</label>
+                                                    <input class="form-control" id="choices-text-unique-values" data-choices data-choices-text-unique-true data-choices-removeItem type="text" value="Fashion, Style, Brands, Puma">*@
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for="ProductImg" class="control-label">Logo</label>
+                                                <input asp-for="ProductImg" type="file" class="form-control custom-textbox" />
+                                                <span asp-validation-for="ProductImg" class="text-danger"></span>
+                                                @*<label class="form-label">Tags</label>
+                                                    <input class="form-control" id="choices-text-unique-values" data-choices data-choices-text-unique-true data-choices-removeItem type="text" value="Fashion, Style, Brands, Puma">*@
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="submit" value="Create" class="btn btn-primary" style="display:flex;float:left" />
+                                                <a asp-action="Index" class="btn btn-secondary" style="display:flex; float:left;">Cancel</a>
+                                            </div>
+                                            @*<input type="submit" value="Add Product" class="btn btn-primary" style="display:flex;float:left" />*@
+                                        </form>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xxl-4">
+                                        <h5 class="card-title mb-3">Description</h5>
+                                        <p class="text-muted">Product Information refers to any information held by an organization about the products it produces, buys, sells or distributes.</p>
+                                    </div><!--end col-->
+                                    <div class="col-xxl-8">
+                                        <div>
+                                            <label class="form-label">Product Description <span class="text-danger">*</span></label>
+                                            <div class="ckeditor-classic"></div>
+                                        </div>
+                                    </div>
+                                </div><!--end row-->
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xxl-4">
+                                        <h5 class="card-title mb-3">Images</h5>
+                                        <p class="text-muted">Product Information refers to any information held by an organization about the products it produces, buys, sells or distributes.</p>
+                                    </div><!--end col-->
+                                    <div class="col-xxl-8">
+                                        <div class="mb-3">
+                                            <label class="form-label">Product Images <span class="text-danger">*</span></label>
+                                            <div class="dropzone text-center">
+                                                <div class="fallback">
+                                                    <input name="file" type="file" multiple="multiple">
+                                                </div>
+                                                <div class="dz-message needsclick">
+                                                    <div class="mb-3">
+                                                        <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
+                                                    </div>
+
+                                                    <h4>Drop product images here or click to upload.</h4>
+                                                </div>
+                                            </div>
+
+                                            <ul class="list-unstyled mb-0" id="dropzone-preview">
+                                                <li class="mt-2" id="dropzone-preview-list">
+                                                    <!-- This is used as the file preview template -->
+                                                    <div class="border rounded">
+                                                        <div class="d-flex p-2">
+                                                            <div class="flex-shrink-0 me-3">
+                                                                <div class="avatar-sm bg-light rounded">
+                                                                    <img data-dz-thumbnail class="img-fluid rounded d-block" src="~/assets/images/new-document.png" alt="Dropzone-Image">
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-grow-1">
+                                                                <div class="pt-1">
+                                                                    <h5 class="fs-md mb-1" data-dz-name>&nbsp;</h5>
+                                                                    <p class="fs-sm text-muted mb-0" data-dz-size></p>
+                                                                    <strong class="error text-danger" data-dz-errormessage></strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-shrink-0 ms-3">
+                                                                <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <!-- end dropzon-preview -->
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Gallery Images <span class="text-danger">*</span></label>
+                                            <div class="dropzone text-center" id="dropzone">
+                                                <div class="fallback">
+                                                    <input name="file" type="file" multiple="multiple">
+                                                </div>
+                                                <div class="dz-message needsclick">
+                                                    <div class="mb-3">
+                                                        <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
+                                                    </div>
+
+                                                    <h4>Drop gallery images here or click to upload.</h4>
+                                                </div>
+                                            </div>
+
+                                            <ul class="list-unstyled mb-0" id="dropzone-preview2">
+                                                <li class="mt-2" id="dropzone-preview-list2">
+                                                    <!-- This is used as the file preview template -->
+                                                    <div class="border rounded">
+                                                        <div class="d-flex p-2">
+                                                            <div class="flex-shrink-0 me-3">
+                                                                <div class="avatar-sm bg-light rounded">
+                                                                    <img data-dz-thumbnail class="img-fluid rounded d-block" src="~/assets/images/new-document.png" alt="Dropzone-Image">
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-grow-1">
+                                                                <div class="pt-1">
+                                                                    <h5 class="fs-md mb-1" data-dz-name>&nbsp;</h5>
+                                                                    <p class="fs-sm text-muted mb-0" data-dz-size></p>
+                                                                    <strong class="error text-danger" data-dz-errormessage></strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-shrink-0 ms-3">
+                                                                <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <!-- end dropzon-preview -->
+                                        </div>
+                                    </div>
+                                </div><!--end row-->
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xxl-4">
+                                        <h5 class="card-title mb-3">General Info</h5>
+                                        <p class="text-muted mb-0">An informational product can be a digital book (or e-book), a digital report, a white paper, a piece of software, audio or video files, a website, an e-zine or a newsletter.</p>
+                                    </div><!--end col-->
+                                    <div class="col-xxl-8">
+                                        <div class="row gy-3">
+                                            <div class="col-lg-6">
+                                                <div>
+                                                    <label for="manufacturer-name-input" class="form-label">Manufacturer Name</label>
+                                                    <input type="text" class="form-control" id="manufacturer-name-input" placeholder="Enter manufacturer name" required>
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-6">
+                                                <div>
+                                                    <label class="form-label" for="manufacturer-brand-input">Manufacturer Brand</label>
+                                                    <input type="text" class="form-control" id="manufacturer-brand-input" placeholder="Enter manufacturer brand">
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-4">
+                                                <div>
+                                                    <label for="productStocks" class="form-label">Stocks <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="productStocks" placeholder="Stocks" required>
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-4">
+                                                <div>
+                                                    <label class="form-label" for="product-price-input">Price</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="product-price-addon">$</span>
+                                                        <input type="text" class="form-control" id="product-price-input" placeholder="Enter price" aria-label="Price" aria-describedby="product-price-addon" required="">
+                                                        <div class="invalid-feedback">Please Enter a product price.</div>
+                                                    </div>
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-4">
+                                                <div>
+                                                    <label class="form-label" for="product-discount-input">Discount</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text" id="product-discount-addon">%</span>
+                                                        <input type="text" class="form-control" id="product-discount-input" placeholder="Enter discount" aria-label="discount" aria-describedby="product-discount-addon">
+                                                    </div>
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-6">
+                                                <div>
+                                                    <label for="choices-publish-status-input" class="form-label">Status</label>
+                                                    <select class="form-select" id="choices-publish-status-input" data-choices data-choices-search-false>
+                                                        <option value="Published" selected>Published</option>
+                                                        <option value="Scheduled">Scheduled</option>
+                                                        <option value="Draft">Draft</option>
+                                                    </select>
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-6">
+                                                <div>
+                                                    <label for="choices-publish-visibility-input" class="form-label">Visibility</label>
+                                                    <select class="form-select" id="choices-publish-visibility-input" data-choices data-choices-search-false>
+                                                        <option value="Public" selected>Public</option>
+                                                        <option value="Hidden">Hidden</option>
+                                                    </select>
+                                                </div>
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+                                    </div>
+                                </div><!--end row-->
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="hstack gap-2 justify-content-end mb-3">
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" style="display:flex;float:left" />
+                        <a asp-action="Index" class="btn btn-secondary" style="display:flex; float:left;">Cancel</a>
+                    </div>
+                    @*<button class="btn btn-danger"><i class="ph-x align-middle"></i> Cancel</button>*@
+                    <a asp-action="Index" class="btn btn-secondary" style="display:flex; float:left;">Cancel</a>
+                    @*<button class="btn btn-primary">Submit</button>*@
+                    @*<input type="submit" value="Add Product" class="btn btn-primary" style="display:flex;float:left" />*@
+
+                </div>
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <script>document.write(new Date().getFullYear())</script> © CYBER IRON DOME.
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end d-none d-sm-block">
+                            Design & Develop by Headway Data Systems
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-                <input type="submit" value="Add Product" class="btn btn-primary" style="display:flex;float:right" />
-
-                                @*@<button type="reset" class="btn" name="cancel" style="display:flex;float:right">Cancel</button>@*@
-                                                <a asp-action="Index" class="btn btn-secondary" style="display:flex; float:right;">Cancel</a> @*</div>
-
-                                                                        </div>
-                                                                    </div>*@ @*<form class="btn-btn-primary" method="post" asp-action="Call2Methods">
-                                                                        <table width="1000px"><tr><td width="1000px" align="right"><button type="submit" class="btn btn-primary font-weight-bold">Create Product</button></td></tr></table>
-                                                                    </form>*@ @*</div>
-
-                                                                                        </div>*@}
-@*<div class="container">
-        <div class="box">
-
-            <div class="form-group" align="right">
-                <input type="submit" value="Add Company" class="btn btn-primary" />
+        </footer>
+    </div>
+    <!-- end main content-->
+    <!-- END layout-wrapper -->
+    <!--start back-to-top-->
+    <button class="btn btn-dark btn-icon" id="back-to-top">
+        <i class="bi bi-caret-up fs-3xl"></i>
+    </button>
+    <!--end back-to-top-->
+    <!--preloader-->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-        <div class="box"></div>
-    </div>*@
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    //$(document).ready(function () {
-    //    $('#add-file-btn').click(function () {
-    //        $('#file-upload-fields').show();
-    //    });
-    $(document).ready(function () {
-        var fileFieldTemplate = $('#file-upload-fields').clone(); // Clone the file upload fields template
+    @*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
 
-        $('#add-file-btn').click(function () {
-            var newFileField = fileFieldTemplate.clone(); // Clone a new file upload field
-            newFileField.appendTo('#file-upload-container'); // Append the new file upload field to the container
-            newFileField.show(); // Show the new file upload field
-        });
+    <!-- JAVASCRIPT -->
+    <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
 
-        $(document).on('click', '.delete-file-btn', function () {
-            $(this).closest('.form-group').remove();
-        });
+    <!-- dropzone min -->
+    <script src="~/assets/libs/dropzone/dropzone-min.js"></script>
 
-        //$('#file-upload-fields input[type="file"]').change(function () {
-        //    var fileInputs = $(this);
-        //    var files = fileInputs[0].files;
-
-        //    for (var i = 0; i < files.length; i++) {
-        //        var file = files[i];
-        //        var fileName = file.name;
+    <!-- ckeditor -->
+    <script src="~/assets/libs/ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
 
 
-        //        var fileType = file.type;
-        //        var formData = new FormData();
-        //        formData.append('file', file);
+    <!-- init js -->
+    <script src="~/assets/js/pages/ecommerce-create-product.init.js"></script>
 
-        //        $.ajax({
-        //            url: '/Company/UploadFile',
-        //            type: 'POST',
-        //            data: formData,
-        //            processData: false,
-        //            contentType: false,
-        //            success: function (data) {
-        //                // Handle the success response for each file
-        //                // Update the corresponding input fields for each file
-        //            },
-        //            error: function (xhr, textStatus, errorThrown) {
-        //                console.log(xhr.responseText);
-        //            }
-        //        });
-        //    }
-        //});
-        $('#file-upload-fields input[type="file"]').change(function () {
-            var fileInputs = $(this);
-            var files = fileInputs[0].files;
+    <!-- App js -->
+    <script src="~/assets/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>
 
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var fileName = fileInputs.siblings('#FileName').val(); // Get the entered file name
+@*<script>
+        $(document).ready(function () {
+            $('form').submit(function (e) {
+                e.preventDefault(); // Prevent the form from submitting normally
+                console.log("Form submitted!"); // Check if this message appears in the console
+                // Collect the form data
+                var formData = new FormData(this);
 
-                var fileType = file.type;
-                var formData = new FormData();
-                formData.append('file', file);
-                formData.append('fileName', fileName); // Include the file name in the form data
-
+                // Send the form data using AJAX
                 $.ajax({
-                    url: '/Company/UploadFile',
+                    url: '/Product/CreateProduct', // URL of the controller action
                     type: 'POST',
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function (data) {
-                        // Handle the success response for each file
-                        // Update the corresponding input fields for each file
+                    success: function (response) {
+                        // Handle the response from the server
+                        // ...
                     },
-                    error: function (xhr, textStatus, errorThrown) {
-                        console.log(xhr.responseText);
+                    error: function (xhr, status, error) {
+                        // Handle any errors that occur during the AJAX request
+                        // ...
                     }
                 });
-            }
-        });
-
-
-        $("#country_id").change(function () {
-            var countryId = $(this).val();
-            $.ajax({
-                type: "GET",
-                url: "/Company/GetStatesByCountryId",
-                data: { countryId: countryId },
-                success: function (result) {
-                    $("#state_id").empty();
-                    $("#city_id").empty();
-                    $.each(result, function (i, state) {
-                        $("#state_id").append('<option value="' + state.value + '">' + state.text + '</option>');
-                    });
-                    $("#state_id").prepend('<option value="" selected>--Select--</option>');
-                }
             });
         });
-
-
-
-        $("#state_id").change(function () {
-            var stateId = $(this).val();
-            $.ajax({
-                type: "GET",
-                url: "/Company/GetcitiesBystateId",
-                data: { stateId: stateId },
-                success: function (result) {
-
-                    $("#city_id").empty();
-                    $.each(result, function (i, city) {
-                        $("#city_id").append('<option value="' + city.value + '">' + city.text + '</option>');
-                    });
-                    $("#city_id").prepend('<option value="" selected>--Select--</option>');
-                }
-            });
-        });
-    });
-</script>
+    </script>*@

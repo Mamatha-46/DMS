@@ -14,15 +14,30 @@ namespace DMS.Controllers
     {
         private readonly IPostRepository _ipr;
         cyberContext _context;
-        public DistributorController(IPostRepository ipr, cyberContext context)
+        private IPostRepository _ipos;
+        public DistributorController(IPostRepository ipr, cyberContext context, IPostRepository ipos)
         {
             _context = context;
             _ipr = ipr;
+            _ipos = ipos;
 
         }
 
         public async Task<IActionResult> Index(string searchString, string sortOrder, int page = 1, int pagesize = 5)
         {
+            var countr = await _ipos.GetCountries();
+            ViewBag.Countries = new SelectList(countr, "Id", "Name"); // create SelectList from Countries list
+            ViewData["Country"] = ViewBag.Countries;
+            var state = await _ipos.GetStates();
+            ViewBag.States = new SelectList(state, "Id", "Name"); // create SelectList from Countries list
+            ViewData["State"] = ViewBag.States;
+            var city = await _ipos.GetCities();
+            ViewBag.Cities = new SelectList(city, "Id", "Name"); // create SelectList from Countries list
+            ViewData["City"] = ViewBag.Cities;
+
+
+
+
             var brandinfo = await _ipr.GetAllResellers();
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -75,6 +90,7 @@ namespace DMS.Controllers
                     break;
             }
             var pagedata = await brandinfo.ToPagedListAsync(page, pagesize);
+
             return View(pagedata);
         }
 
@@ -136,7 +152,7 @@ namespace DMS.Controllers
                     //_context.User.Add(user);
                     // Get the last user model and generate a new UserId.
                     var item = _context.User.ToList();
-                
+
                     var lastitem = item.Last();
                     // Get the last distributor model and generate a new distributor ID.
                     var model = _context.Distributor.ToList();
@@ -277,7 +293,7 @@ namespace DMS.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         //public async Task<IActionResult> Details(int? id)
         //{
         //    if (id == null)
@@ -301,10 +317,12 @@ namespace DMS.Controllers
                 return NotFound();
             }
             var reseller = await _ipr.GetResellersDetailsView(DistributorID.Value);
+            
             if (reseller == null)
             {
                 return NotFound();
             }
+
             return View(reseller);
         }
 
@@ -359,6 +377,33 @@ namespace DMS.Controllers
                 return NotFound();
             }
             return View(reseller);
+        }
+
+       public async Task<IActionResult> AgreementDetails1(int? DistributorID)
+        {
+            if (DistributorID == null)
+            {
+                return NotFound();
+            }
+            var reseller = await _ipr.GetResellersDetailsView(DistributorID.Value);
+            //var item = reseller.Bussiness;
+            //ViewBag.business = item;
+            //var item2 = reseller.Tax;
+            //ViewBag.taxstatus = item2;
+            if (reseller == null)
+            {
+                return NotFound();
+            }
+
+            return View(reseller);
+
+            //return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> updatestatus(int bsts, int tsts)
+        {
+            var item = await _ipr.updatedocstatus(bsts,tsts);
+            return View( item);
         }
     }
 }

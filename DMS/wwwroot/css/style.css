@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------
+    /*------------------------------------------------------------------
  [Master Stylesheet]
 
   Project:	Purple Admin (Free)
@@ -9011,7 +9011,7 @@ fieldset[disabled] a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #4D10AB;
+    background-color: #009ab3;
     border-color: #4D10AB;
 }
   .btn-primary:hover {

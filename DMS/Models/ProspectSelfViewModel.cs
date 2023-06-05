@@ -8,6 +8,7 @@ namespace DMS.Models
     public class ProspectSelfViewModel
     {
         public int Id { get; set; }
+        public int AddedId { get; set; }
         public string Name { get; set; }
         public string IndustryType { get; set; }
         public string CountryName { get; set; }

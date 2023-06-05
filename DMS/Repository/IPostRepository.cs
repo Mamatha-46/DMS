@@ -85,6 +85,8 @@ namespace DMS.Repository
         Task<Countries> EditTaxDetails(Countries countries);
         Task<Countries> GetTaxDetailsByID(int Id);
 
+        Task<DistriDocu> updatedocstatus(int bstatus, int tstatus);
+
     }
 
 }
