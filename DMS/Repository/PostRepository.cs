@@ -753,23 +753,49 @@ namespace DMS.Repository
             return query.ToList();
         }
 
-        public async Task<DistriDocu> updatedocstatus(int bstatus, int tstatus)
-        {
 
-            var dic = new DistriDocu
-            {
-                BusiDocStatus = bstatus,
-                GstDocStatus = tstatus
-            };
+
+
+
+        public async Task<DistDocView> updatedocstatus(DistDocView dic)
+        {
             if (_context != null)
             {
-                _context.DistriDocu.Add(dic);
-                await _context.SaveChangesAsync();
-                return dic;
-
+                var res = _context.DistriDocu.Where(c => c.Id == dic.DisID).FirstOrDefault();
+                if (res != null)
+                {
+                    res.BusiDocStatus = Convert.ToInt32(dic.Bus_Status);
+                    res.GstDocStatus = Convert.ToInt32(dic.Tax_Status);
+                    _context.DistriDocu.Update(res);
+                    await _context.SaveChangesAsync();
+                    return dic;
+                }
             }
             return null;
         }
+
+        //public async Task<ResellerDetailsView> updatedocstatus(ResellerDetailsView dic) 
+        //{
+        //    if (_context != null)
+        //    {
+        //        var existingItem = await _context.ResellerDetailsView.FindAsync(dic.DisID);
+        //        if (existingItem != null)
+        //        {
+        //            // Update the existing item with the new values
+        //            existingItem.Bus_Status = dic.Bus_Status;
+        //            existingItem.Tax_Status = dic.Tax_Status;
+
+        //            // Update other properties as needed
+
+        //            _context.ResellerDetailsView.Update(existingItem);
+        //            await _context.SaveChangesAsync();
+        //            return existingItem;
+        //        }
+        //    }
+        //    return null;
+
+
+        //}
 
 
     }

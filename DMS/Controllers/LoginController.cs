@@ -14,8 +14,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
-//using DMS.Models;
-//using DMS.Models;
+
 
 namespace DMS.Controllers
 {
@@ -79,8 +78,7 @@ namespace DMS.Controllers
             var city = await _ipos.GetCities();
             ViewBag.Cities = new SelectList(city, "Id", "Name"); // create SelectList from Countries list
             ViewData["City"] = ViewBag.Cities;
-            //var countries = await ipos.GetCountries();
-            //ViewBag.Countries = new SelectList(countries, "Id", "Name");
+           
             return View();
         }
         [HttpPost]
@@ -140,11 +138,9 @@ namespace DMS.Controllers
 
                     }
 
-                    //_context.User.Add(user);
-                    // Get the last user model and generate a new UserId.
                     var item = _context.User.ToList();
                     var lastitem = item.Last();
-                    // Get the last distributor model and generate a new distributor ID.
+                  
                     var model = _context.Distributor.ToList();
                     var lastmodel = model.Last();
                     int incrementedNumber = 1;
@@ -176,7 +172,7 @@ namespace DMS.Controllers
                         AddedOn = DateTime.Now,
                         AddedBy = "self" // Assuming a default value for the added by field
                     };
-                    //_context.Distributor.Add(distributor);
+                   
 
 
                     var distriDocu = new DistriDocu
@@ -189,15 +185,7 @@ namespace DMS.Controllers
                         AddedOn = DateTime.Now,
                         AddedBy = "self" // Assuming a default value for the added by field
                     };
-                    //if (Taxdocumebt != null && Taxdocumebt.Length > 0)
-                    //{
-                    //    string taxDocumentPath = Path.Combine(_webHostEnvironment.WebRootPath, "Documents", Taxdocumebt.FileName);
-                    //    using (var fileStream = new FileStream(taxDocumentPath, FileMode.Create))
-                    //    {
-                    //        await Taxdocumebt.CopyToAsync(fileStream);
-                    //    }
-                    //    distriDocu.Gst = Taxdocumebt.FileName; // Save the file name or path to the database, if needed
-                    //}
+                   
                     if (Taxdocumebt != null && Taxdocumebt.Length > 0)
                     {
                         string directoryPath = Path.Combine(_webHostEnvironment.WebRootPath, "Document");
@@ -252,13 +240,6 @@ namespace DMS.Controllers
 
 
 
-                    //                string emailBody = $"Cyber Iron Demo-Reseller Registration<br />"+ $"Dear {viewModel.DistributorName}<br /><br />" +
-                    //$"Congratulations you have been successfully registered as a Reseller in Cyber Iron Demo.  <br />" +
-                    // // Use the generated password here
-                    //$"Below are the credentials to login into the system.<br />" +
-                    //$"Your default password is {password}.<br />" +
-                    //$"Your default password is {password}.<br /><br />" +
-                    //$"Regards,<br />Your Company";
 
 
                     await SendEmail(viewModel.Email, "new Reseller Registration", emailBody);
@@ -279,38 +260,11 @@ namespace DMS.Controllers
 
 
         }
-        //private string SaveDocumentFile(IFormFile document)
-        //{
-        //    if (document != null && document.Length > 0)
-        //    {
-        //        // Generate a unique file name for the document
-        //        var fileName = Path.GetFileName(document.FileName);
-        //        var uniqueFileName = Guid.NewGuid().ToString("N") + "_" + fileName;
 
-        //        // Get the uploads folder path in the wwwroot directory
-        //        var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "upload");
-
-        //        // Create the uploads folder if it doesn't exist
-        //        if (!Directory.Exists(uploadsFolder))
-        //        {
-        //            Directory.CreateDirectory(uploadsFolder);
-        //        }
-
-        //        // Combine the uploads folder path and file name to get the full file path
-        //        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-        //        // Save the document file to the specified path
-        //        using (var stream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            document.CopyTo(stream);
-        //        }
-
-        //        // Return the saved file path
-        //        return filePath;
-        //    }
-
-        //    return null;
-        //}
+        private Task SendEmail(string email, string v, string emailBody)
+        {
+            throw new NotImplementedException();
+        }
 
         private string GenerateRandomPassword()
         {
@@ -346,20 +300,22 @@ namespace DMS.Controllers
             }
         }
 
-        private async Task SendEmail(string recipientEmail, string subject, string body)
+        private async Task SendEmail(string fromEmail, string fromName, string recipientEmail, string subject, string body, string ccEmail)
         {
             // Configure the SMTP client
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtp.office365.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("pratibhagunupuram95@gmail.com", "ddrtrdvxptisobvu"),
+                Credentials = new NetworkCredential("dms.no-reply@cybrilliance.com", "Yar17157"),
                 EnableSsl = true
             };
 
             // Create the email message
             var message = new MailMessage
             {
-                From = new MailAddress("pratibhagunupuram95@gmail.com"),
+                //From = new MailAddress("dms.no-reply@cybrilliance.com"),
+                From = new MailAddress(fromEmail, fromName),
+
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = true
@@ -367,6 +323,10 @@ namespace DMS.Controllers
 
             // Add the recipient's email address
             message.To.Add(recipientEmail);
+            if (!string.IsNullOrEmpty(ccEmail))
+            {
+                message.CC.Add(ccEmail);
+            }
 
             // Send the email
             await smtpClient.SendMailAsync(message);
@@ -402,18 +362,7 @@ namespace DMS.Controllers
         }
 
 
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public IActionResult Create(Distributor dist,User use)
-        //{
-
-        //    _ILogin.addDistributor(dist,use);
-        //    return RedirectToAction("Login");
-
-        //}
+       
 
     }
 }

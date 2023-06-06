@@ -77,81 +77,12 @@
             <div class="col-lg-4"></div>
             <div class="col-lg-4"></div>
             <div class="col-lg-4"></div>
-            @*<form method="POST" enctype="multipart/form-data" name="distriDoc">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>File</th>
-                                <th>Status</th>
-                                <th>Reseller Remarks</th>
-                                <th>Admin Remarks</th>
-                                <th>Added On</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Company Registration Document</td>
-                                <td>
-                                    <a href="~/images/R_bus38-230510030132.pdf">View</a>
-                                </td>
-                                <td>
-                                    <ul class="radiobox" id="busiDoc">
-                                        <li>
-                                            <label class="kt-radio kt-radio--bold kt-radio--success">
-                                                <input type="radio" name="busi_status" value="1"> Approve
-                                                <span></span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="kt-radio kt-radio--bold kt-radio--danger">
-                                                <input type="radio" name="busi_status" value="0"> Reject
-                                                <span></span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <textarea class="form-control mb-0" name="busi_remark" required></textarea>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Tax Identification Document</td>
-                                <td>
-                                    <a href="">View</a>
-                                </td>
-                                <td>
-                                    <ul class="radiobox" id="gstDoc">
-                                        <li>
-                                            <label class="kt-radio kt-radio--bold kt-radio--success">
-                                                <input type="radio" name="gst_status" value="1"> Approve
-                                                <span></span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="kt-radio kt-radio--bold kt-radio--danger">
-                                                <input type="radio" name="gst_status" value="0"> Reject
-                                                <span></span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <textarea class="form-control mb-0" name="gst_remark" required></textarea>
-                                </td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>*@
+
         </div>
         <div style="margin-top:15px;background-color:white">
             <br />
             <h4 style="margin-left:5px">Document Details</h4>
-            <form method="POST" enctype="multipart/form-data" name="distriDoc">
+            <form method="POST" enctype="multipart/form-data" name="updatedocstatus">
                 <table class="table table-sm">
                     <thead>
                         <tr>
@@ -168,35 +99,32 @@
                             <td>Company Registration Document</td>
                             <td>
                                 <a href="~/Document/@(Model.DistributorId)_company.pdf">view</a>
-</td>
+                            </td>
                             <td>
                                 @if (Model.Bus_Status == "0")
                                 {
+                    <label>
+                        <input type="radio" name="Bus_Status" value="1"> Approve
+                    </label>
                                     <label>
-                                        <input type="radio" asp-for="Bus_Status" value="1"> Approve
-                                    </label>
-                                    <label>
-                                        <input type="radio" asp-for="Bus_Status" value="0" checked> Reject
-                                    </label>
-                                }
-                                else if (Model.Bus_Status =="1" )
+                                        <input type="radio" name="Bus_Status" value="0" checked> Reject
+                                    </label> }
+                                else if (Model.Bus_Status == "1")
                                 {
+                    <label>
+                        <input type="radio" name="Bus_Status" value="1" checked> Approve
+                    </label>
                                     <label>
-                                        <input type="radio" asp-for="Bus_Status" value="1" checked> Approve
-                                    </label>
-                                    <label>
-                                        <input type="radio" asp-for="Bus_Status" value="0"> Reject
-                                    </label>
-                                }
+                                        <input type="radio" name="Bus_Status" value="0"> Reject
+                                    </label> }
                                 else
                                 {
+                    <label>
+                        <input type="radio" name="Bus_Status" value="1"> Approve
+                    </label>
                                     <label>
-                                        <input type="radio" asp-for="Bus_Status" value="1"> Approve
-                                    </label>
-                                    <label>
-                                        <input type="radio" asp-for="Bus_Status" value="0"> Reject
-                                    </label>
-                                }
+                                        <input type="radio" name="Bus_Status" value="0"> Reject
+                                    </label>}
 
 
 
@@ -220,31 +148,28 @@
 
                                 @if (Model.Tax_Status == "0")
                                 {
+                    <label>
+                        <input type="radio" name="Tax_Status" value="1"> Approve
+                    </label>
                                     <label>
-                                        <input type="radio" asp-for="Tax_Status" value="1"> Approve
-                                    </label>
-                                    <label>
-                                        <input type="radio" asp-for="Tax_Status" value="0" checked> Reject
-                                    </label>
-                                }
+                                        <input type="radio" name="Tax_Status" value="0" checked> Reject
+                                    </label> }
                                 else if (Model.Tax_Status == "1")
                                 {
+                    <label>
+                        <input type="radio" name="Tax_Status" value="1" checked> Approve
+                    </label>
                                     <label>
-                                        <input type="radio" asp-for="Tax_Status" value="1" checked> Approve
-                                    </label>
-                                    <label>
-                                        <input type="radio" asp-for="Tax_Status" value="0"> Reject
-                                    </label>
-                                }
+                                        <input type="radio" name="Tax_Status" value="0"> Reject
+                                    </label> }
                                 else
                                 {
+                    <label>
+                        <input type="radio" name="Tax_Status" value="1"> Approve
+                    </label>
                                     <label>
-                                        <input type="radio" asp-for="Tax_Status" value="1"> Approve
-                                    </label>
-                                    <label>
-                                        <input type="radio" asp-for="Tax_Status" value="0"> Reject
-                                    </label>
-                                }
+                                        <input type="radio" name="Tax_Status" value="0"> Reject
+                                    </label>}
 
 
                             </td>
@@ -256,8 +181,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <button id="btn-kkk" class="btn btn-primary" onclick="checkApproval()">Click</button>
+                <button id="btn-kkk" class="btn btn-primary" type="button">Click</button>
             </form>
+
+
         </div>
 
         <div id="additionalDetailsDiv" style="display: none;">
@@ -271,36 +198,108 @@
                 <i class="bi bi-plus-circle align-baseline me-1"></i> Start Agreement
             </a>
         </div>
-       </div>
     </div>
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</div>
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-
-
-@*<div class="col-lg-12">
-        <br />
-        <h5 style="color:blue">
-        Document Details
-        </h5>
-        <br />
-        @await Component.InvokeAsync("DocumentDetails", new { Id = Model.DisID })
-    </div>*@
-@*<div class="col-lg-12">
-        <br />
-        <h5 style="color:blue">
-
-            Product Map Details
-        </h5>
-        <br />
-        @await Component.InvokeAsync("ProductMap", new { Id = Model.DisID })
-    </div>*@
-@*</div>
-
-    </div>>*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 <script>
+
     $(document).ready(function () {
+     
+    });
+
+    $(document).ready(function () {
+        $("#btn-kkk").click(function () {
+            //checkApproval();
+            //var companyStatus = $("input[name='Bus_Status']:checked").val();
+            //var taxStatus = $("input[name='Tax_Status']:checked").val();
+            //console.log(companyStatus);
+            //console.log(taxStatus);
+
+            var bus_Status = $("input[name='Bus_Status']:checked").val();
+            var tax_Status = $("input[name='Tax_Status']:checked").val();
+           
+            if (busiStatus === '1' && gstStatus === '1') {
+            var busiRemark = document.querySelector('textarea[name="busi_remark"]').value;
+            var gstRemark = document.querySelector('textarea[name="gst_remark"]').value;
+
+            var data = {
+                DisID: @(Model.DisID),
+                Bus_Status: bus_Status,
+                Tax_Status: tax_Status
+            };
+                console.log(data);
+            $.ajax({
+                url: "/Distributor/updatedocstatus",
+                type: "POST",
+                //data: data,
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function (response) {
+                    // Handle the response from the server if needed
+                    console.log(response);
+                },
+                error: function (error) {
+                    // Handle the error if the request fails
+                    console.log(error);
+                }
+            });
+
+            document.getElementById('additionalDetailsDiv').style.display = 'block';
+
+        });
+
+        $("#update-button").click(function () {
+            //var formData = $("#update-form").serialize();
+
+            $.ajax({
+                url: "/Distributor/UpdateDistriDocu",
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    // Handle success response
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#update-button").click(function () {
+            //var formData = $("#update-form").serialize();
+
+            $.ajax({
+                url: "/Distributor/GetProductMapById",
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    // Handle success response
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+@*<script>
+
+
+    $(document).ready(function () {
+        $("#btn-kkk").click(function () {
+            checkApproval();
+        });
+
         $("#update-button").click(function () {
             //var formData = $("#update-form").serialize();
 
@@ -338,33 +337,48 @@
 </script>
 <script>
     function checkApproval() {
+       
+        var busiStatus = document.querySelector('input[name="busi_status"]:checked').value;
+        var gstStatus = document.querySelector('input[name="gst_status"]:checked').value;
+
         debugger;
-        var busiStatus = document.querySelector('input[name="Bus_Status"]:checked').value;
-        var gstStatus = document.querySelector('input[name="Tax_Status"]:checked').value;
+        if (busiStatus === '1' && gstStatus === '1') {
+            var busiRemark = document.querySelector('textarea[name="busi_remark"]').value;
+            var gstRemark = document.querySelector('textarea[name="gst_remark"]').value;
 
-        
-        if(busiStatus === '1' && gstStatus === '1')
-        {
-            
-                    document.getElementById('additionalDetailsDiv').style.display = 'block';
-          
-        }
 
-        $.ajax({
-            url: "/Distributor/updatestatus",
-            type: "POST",
-            data: {
+            var data = {
+                DisID:@(Model.DisID),
                 busiStatus: busiStatus,
-                gstStatus: gstStatus
-            },
-           
-            success: function (data) {
-                // Handle success response
-            },
-            error: function (xhr, status, error) {
-                // Handle error response
-            }
-        });
+                busiRemark: busiRemark,
+                gstStatus: gstStatus,
+                gstRemark: gstRemark
+            };
 
+            $.ajax({
+                url: "/Distributor/updatedocstatus",
+                type: "POST",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    // Handle the response from the server if needed
+                    console.log(response);
+                },
+                error: function (error) {
+                    // Handle the error if the request fails
+                    console.log(error);
+                }
+            });
+
+            document.getElementById('additionalDetailsDiv').style.display = 'block';
+        }
     }
-</script>
+   
+</script>*@
+
+
+
+
+
+
+
+

@@ -29,4 +29,15 @@ namespace DMS.Models
         public string Bus_Status { get; set; }
         public string Tax_Status { get; set; }
     }
+
+    public class DistDocView
+    {
+        public int DisID { get; set; }
+        public string Bus_Status { get; set; }
+        public string Tax_Status { get; set; }
+        public string Remarks { get; set; }
+        public string BRemark { get; set; }
+
+    }
+
 }
