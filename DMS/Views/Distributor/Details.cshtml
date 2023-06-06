@@ -221,35 +221,36 @@
 
             var bus_Status = $("input[name='Bus_Status']:checked").val();
             var tax_Status = $("input[name='Tax_Status']:checked").val();
-           
-            if (busiStatus === '1' && gstStatus === '1') {
-            var busiRemark = document.querySelector('textarea[name="busi_remark"]').value;
-            var gstRemark = document.querySelector('textarea[name="gst_remark"]').value;
 
-            var data = {
-                DisID: @(Model.DisID),
-                Bus_Status: bus_Status,
-                Tax_Status: tax_Status
-            };
+            //if (busiStatus === '1' && gstStatus === '1') {
+                //var busiRemark = document.querySelector('textarea[name="busi_remark"]').value;
+                //var gstRemark = document.querySelector('textarea[name="gst_remark"]').value;
+
+                var data = {
+                    DisID: @(Model.DisID),
+                    Bus_Status: bus_Status,
+                    Tax_Status: tax_Status
+                };
                 console.log(data);
-            $.ajax({
-                url: "/Distributor/updatedocstatus",
-                type: "POST",
-                //data: data,
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                success: function (response) {
-                    // Handle the response from the server if needed
-                    console.log(response);
-                },
-                error: function (error) {
-                    // Handle the error if the request fails
-                    console.log(error);
-                }
-            });
+                $.ajax({
+                    url: "/Distributor/updatedocstatus",
+                    type: "POST",
+                    //data: data,
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function (response) {
+                        // Handle the response from the server if needed
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        // Handle the error if the request fails
+                        console.log(error);
+                    }
+                });
 
-            document.getElementById('additionalDetailsDiv').style.display = 'block';
+                document.getElementById('additionalDetailsDiv').style.display = 'block';
 
+            //}
         });
 
         $("#update-button").click(function () {
