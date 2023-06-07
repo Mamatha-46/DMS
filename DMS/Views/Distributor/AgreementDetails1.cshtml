@@ -179,7 +179,7 @@
                                         <input type="hidden" id2="ProductId" name="ProductId" value="@Model.ProductId">
 
                                         <label for="ProductName">Product Name</label>
-                                        @Html.DropDownList("product-id", ViewData["product-id"] as SelectList, "Select a Product", new { @class = "form-control custom-width custom-textbox",@id = "product-id" })
+                                        @Html.DropDownList("product-id", ViewData["product-id"] as SelectList, "Select a Product", new { @class = "form-control custom-width custom-textbox", @id = "product-id" })
 
                                         @*<input type="text" class="form-control custom-width custom-textbox" name="ProductName">*@
 
@@ -359,6 +359,23 @@
 <script>
     $(document).ready(function () 
     {
+        $("#product-id").change(function () {
+
+            var id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Distributor/getproductbyId",
+                data: { id: id },
+                success: function (result) {
+                    alert(result);
+                    //$("#IDFQty").val(result.f);
+                    //$("#IDTQty").val(result.TQty);
+                    //$("#IDUPrice").val(result.UPrice);
+                    //$("#IDSTotal").val(result.STotal);
+                }
+            });
+        });
+
 
         var stageFieldTemplate = $('#stage-upload-fields').clone();
         $('#add-stage-btn').click(function () {
@@ -375,23 +392,7 @@
 
 
 
-
-        $("#product-id").change(function () {
-            
-            var id = $(this).val();
-            $.ajax({
-                type: "GET",
-                url: "/Distributor/getproductbyId",
-                data: { id: id },
-                success: function (result) {
-                    alert(result)
-                    //$("#IDFQty").val(result.f);
-                    //$("#IDTQty").val(result.TQty);
-                    //$("#IDUPrice").val(result.UPrice);
-                    //$("#IDSTotal").val(result.STotal);
-                }
-            });
-        });
+       
 
        
 

@@ -55,8 +55,17 @@ namespace DMS.Controllers
 
             if (user != null)
             {
-                HttpContext.Session.SetString("UName", UserName.ToString());
-                return RedirectToAction("Dashboard", "Home");
+                if (user.UserType == "A")
+                {
+                    HttpContext.Session.SetString("UName", UserName.ToString());
+                    return RedirectToAction("Dashboard", "Home");
+                }
+                else if (user.UserType == "R")
+                {
+                    HttpContext.Session.SetString("UName", UserName.ToString());
+                    return RedirectToAction("PartnerDashboard", "Partner");
+                }
+                return View();
             }
             else
             {
