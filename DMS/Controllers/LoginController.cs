@@ -246,7 +246,7 @@ namespace DMS.Controllers
      $"Please note that our admin will verify the initial Documents shared and approve the same<br />" +
      $"Request you to check your email for further Updates<br />" +
      $"Regards,<br />Cyber Iron Demo<br />" +
-     $"<img src=\"~/img/logo.png\">";
+     $"<img src=\"~/img/logo.png\" style='height:60px; width:200px;'>";
 
 
 
@@ -261,7 +261,8 @@ namespace DMS.Controllers
                     //$"Regards,<br />Your Company";
 
 
-                    await SendEmail(viewModel.Email, "new Reseller Registration", emailBody);
+
+                    await SendEmail("dms.no-reply@cyberirondome.com", "Cyber Iron Dome", viewModel.Email, "new Reseller Registration", emailBody, "Sudhakar@matayo-ai.com");
 
 
                     // Redirect to a success page or perform any other action
@@ -346,20 +347,48 @@ namespace DMS.Controllers
             }
         }
 
-        private async Task SendEmail(string recipientEmail, string subject, string body)
+        //        private async Task SendEmail(string recipientEmail, string subject, string body)
+        //        {
+        //            // Configure the SMTP client
+        //            var smtpClient = new SmtpClient("smtp.gmail.com")
+        //            {
+        //                Port = 587,
+        //                Credentials = new NetworkCredential("pratibhagunupuram95@gmail.com", "jgmiupamthfsctvs
+        //"),
+        //                EnableSsl = true
+        //            };
+
+        //            // Create the email message
+        //            var message = new MailMessage
+        //            {
+        //                From = new MailAddress("pratibhagunupuram95@gmail.com"),
+        //                Subject = subject,
+        //                Body = body,
+        //                IsBodyHtml = true
+        //            };
+
+        //            // Add the recipient's email address
+        //            message.To.Add(recipientEmail);
+
+        //            // Send the email
+        //            await smtpClient.SendMailAsync(message);
+        //        }
+        private async Task SendEmail(string fromEmail, string fromName, string recipientEmail, string subject, string body, string ccEmail)
         {
             // Configure the SMTP client
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtp.office365.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("pratibhagunupuram95@gmail.com", "ddrtrdvxptisobvu"),
+                Credentials = new NetworkCredential("dms.no-reply@cybrilliance.com", "Yar17157"),
                 EnableSsl = true
             };
 
             // Create the email message
             var message = new MailMessage
             {
-                From = new MailAddress("pratibhagunupuram95@gmail.com"),
+                //From = new MailAddress("dms.no-reply@cybrilliance.com"),
+                From = new MailAddress(fromEmail, fromName),
+
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = true
@@ -367,10 +396,15 @@ namespace DMS.Controllers
 
             // Add the recipient's email address
             message.To.Add(recipientEmail);
+            if (!string.IsNullOrEmpty(ccEmail))
+            {
+                message.CC.Add(ccEmail);
+            }
 
             // Send the email
             await smtpClient.SendMailAsync(message);
         }
+
         //to get state 
         public IActionResult GetStatesByCountryId(int countryId)
         {
@@ -402,18 +436,7 @@ namespace DMS.Controllers
         }
 
 
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public IActionResult Create(Distributor dist,User use)
-        //{
-
-        //    _ILogin.addDistributor(dist,use);
-        //    return RedirectToAction("Login");
-
-        //}
+        
 
     }
 }

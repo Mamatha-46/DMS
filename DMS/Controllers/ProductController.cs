@@ -86,6 +86,7 @@ namespace DMS.Controllers
             var brand = await ipos.GetBrands();
             ViewBag.Brand = new SelectList(brand, "BrandId", "BrandName"); // create SelectList from Countries list
             ViewData["Brand"] = ViewBag.Brand;
+
             return View("Createproduct");
 
         }

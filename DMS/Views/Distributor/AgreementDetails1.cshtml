@@ -91,118 +91,135 @@
 
     <div style="background-color:white;width:1220px;margin-top:10px">
         <div class="col-md-4 d-flex justify-content-between py-3 px-1 align-items-center">
-            @*<h2 align="left" style="margin-left: 20px">Agreement Details</h2>*@
+
         </div>
 
         <div class="container">
-            <form method="POST" name="addprdren" id="addprdren" enctype="multipart/form-data">
-                <div class="row mt-5 mb-3">
-                    <div class="col-md-12">
-                        <h5 class="text-primary mb-3">Agreement details</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="form-group">
-                            <label>Agreement Start date</label>
-                            <input type="date" class="form-control" id="fDate" onchange="FDate()" placeholder="Reseller From" name="d_from" required>
+            <form action="/Distributor/Adduserrenewal" method="post">
+                @*<form method="POST" enctype="multipart/form-data" id="renewalForm">*@
+                    <div class="row mt-5 mb-3">
+                        <div class="col-md-12">
+                            <h5 class="text-primary mb-3">Agreement details</h5>
+                            <input type="hidden" id="UserId" name="UserId" value="@Model.UserId">
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <label>Agreement Start date</label>
+                                <input type="date" class="form-control" id="fDate" onchange="FDate()" placeholder="Reseller From" name="UserFrom" required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <label>Agreement End date</label>
+                                <input type="date" class="form-control" id="tDate" onchange="FDate()" onclick="TFDate()" placeholder="Reseller To" name="UserTo" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>Terms & Conditions 1</label>
+                                <textarea class="form-control textarea" rows="5" placeholder="Terms & Conditions" name="terms" style="width:1200px;height:150px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>Terms & Conditions 2</label>
+                                <textarea class="form-control textarea" rows="5" placeholder="Terms & Conditions" name="terms2" style="width:1200px;height:150px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>Discount Terms <sup class="text-danger">*</sup></label>
+                                <textarea class="form-control textarea" rows="5" required placeholder="Discount Terms" name="terms3" style="width:1200px;height:150px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1" style="margin-top:20px;">
+                        <button type="submit" class="btn btn-danger delete-file-btn" id="saveButton">
+                            <i class="fa fa-trash"></i> Save
+                        </button>
                     </div>
 
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="form-group">
-                            <label>Agreement End date</label>
-                            <input type="date" class="form-control" id="tDate" onchange="FDate()" disabled="disabled" onclick="TFDate()" placeholder="Reseller To" name="d_to" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="form-group">
-                            <label>Terms & Conditions 1</label>
-                            <textarea class="form-control textarea" rows="5" placeholder="Terms & Conditions" name="terms" style="width:1200px;height:150px"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="form-group">
-                            <label>Terms & Conditions 2</label>
-                            <textarea class="form-control textarea" rows="5" placeholder="Terms & Conditions" name="terms2" style="width:1200px;height:150px"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="form-group">
-                            <label>Discount Terms <sup class="text-danger">*</sup></label>
-                            <textarea class="form-control textarea" rows="5" required placeholder="Discount Terms" name="terms3" style="width:1200px;height:150px"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-1" style="margin-top:20px;">
-                    <button type="button" class="btn btn-danger delete-file-btn">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </div>
-
-            </form>
+                </form>
         </div>
     </div>
     <div class="container" style="background-color:white;width:1220px">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-append">
-                    <br />
-                    <div class="col-md-4 d-flex justify-content-between py-3 px-1 align-items-center">
-                        <h2 align="left" style="margin-left: 20px">Product Mapped</h2>
-                        <center>
-                            <button type="button" class="btn btn-primary" id="add-stage-btn">Add Product</button>
-                        </center>
-                    </div>
-                    <div id="stage-upload-container">
-                        <div class="form-group" id="stage-upload-fields" style="display:none;">
-                            <div class="container">
-                                <div class="box" style="height: 66px; border-radius: 7px;">
-                                    <label for="ProductName">Product Name</label>
-                                    <input type="text" class="form-control custom-width custom-textbox" name="ProductName">
-                                </div>
-                                <div class="box" style="height: 66px; border-radius: 7px;">
-                                    <label for="Discount">Discount</label>
-                                    <input type="text" class="form-control custom-width custom-textbox" name="Discount">
-                                </div>
-                                <div class="box" style="height: 66px; border-radius: 7px;">
-                                    <label for="EQty">Estimated Quantity</label>
-                                    <input type="text" class="form-control custom-width custom-textbox" name="EstimatedQuantity">
-                                </div>
-                                <div class="box" style="height: 66px; border-radius: 7px;">
-                                    <label for="UPrice">Unit Price</label>
-                                    <input type="text" class="form-control custom-width custom-textbox" name="UnitPrice">
-                                </div>
-                                <div class="box" style="height: 66px; border-radius: 7px;">
-                                    <label for="EDiscount">After Discount</label>
-                                    <input type="text" class="form-control custom-width custom-textbox" name="AfterDiscount">
-                                </div>
+        <form action="/Distributor/Addproductreseler" method="post">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <br />
+                        <div class="col-md-4 d-flex justify-content-between py-3 px-1 align-items-center">
+                            <h2 align="left" style="margin-left: 20px">Product Mapped</h2>
+                            <center>
+                                <button type="button" class="btn btn-primary" id="add-stage-btn">Add Product</button>
+                            </center>
+                        </div>
+                        <div style="margin-top:20px;">
 
-                                <div class="col-1" style="margin-top:20px;">
-                                    <button type="button" class="btn btn-danger delete-file-btn">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                                <div class="row row1">
-                                    <div class="col-md-12 text-right">
-                                        <button type="cancel" class="btn" name="cancel">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="submit" id="submit">Save </button>
+
+                            <button type="submit" id="ADD" class="btn btn-primary" style="display:flex;float:right">
+                                <i class="fa fa-trash"></i>Save
+                            </button>
+                        </div>
+                        <div id="stage-upload-container">
+                            <div class="form-group" id="stage-upload-fields" style="display:none;">
+                                <div class="container">
+                                    <div class="box" style="height: 66px; border-radius: 7px;">
+                                        @*<input type="hidden" name="RId" value="@Model.DisID" />*@
+                                        <input type="hidden" id="ProsId" name="ProsId" value="@Model.ProsId">
+                                        <input type="hidden" id2="ProductId" name="ProductId" value="@Model.ProductId">
+
+                                        <label for="ProductName">Product Name</label>
+                                        @Html.DropDownList("product-id", ViewData["product-id"] as SelectList, "Select a Product", new { @class = "form-control custom-width custom-textbox",@id = "product-id" })
+
+                                        @*<input type="text" class="form-control custom-width custom-textbox" name="ProductName">*@
+
                                     </div>
+                                    <div class="box" style="height: 66px; border-radius: 7px;">
+                                        <label for="Discount">Discount</label>
+                                        <input type="text" class="form-control custom-width custom-textbox" >
+                                    </div>
+                                    <div class="box" style="height: 66px; border-radius: 7px;">
+                                        <label for="EQty">FROM Quantity</label>
+                                        <input type="text" id="IDFQty" class="form-control custom-width custom-textbox">
+                                    </div>
+                                    <div class="box" style="height: 66px; border-radius: 7px;">
+                                        <label for="EQty">TO Quantity</label>
+                                        <input type="text" id="IDTQty" class="form-control custom-width custom-textbox">
+                                    </div>
+                                    <div class="box" style="height: 66px; border-radius: 7px;">
+                                        <label for="UPrice">Unit Price</label>
+                                        <input type="text" id="IDUPrice" class="form-control custom-width custom-textbox">
+                                    </div>
+                                    <div class="box" style="height: 66px; border-radius: 7px;">
+                                        <label for="EDiscount">After Discount</label>
+                                        <input type="text" id="IDSTotal" class="form-control custom-width custom-textbox" >
+                                    </div>
+
+                                    @*<div class="col-1" style="margin-top:20px;">
+                                            <button type="button" id="ADD"  class="btn btn-danger delete-file-btn">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>*@
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-    
+
 </div>
 
 
@@ -211,8 +228,9 @@
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+
+
+@*<script>
     $(document).ready(function () {
         var fileFieldTemplate = $('#file-upload-fields').clone(); // Clone the file upload fields template
 
@@ -276,6 +294,146 @@
                 });
             });
         });
+
     });
+    $(document).ready(function () {
+
+        $("#saveButton").click(function () {
+            var formData = new FormData($('#renewalForm')[0]);
+            formData.append('UserId', $('#UserId').val()); // Assuming you added an id attribute to the hidden input field
+
+
+            $.ajax({
+                url: "/Distributor/Adduserrenewal",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response) {
+
+                        console.log(response);
+                    } else {
+
+                        console.log("Error occurred while saving the form.");
+                    }
+                },
+                error: function () {
+
+                    console.log("Error occurred during the AJAX request.");
+                }
+            });
+        });
+    });
+
+
+
+    $(document).ready(function () {
+        $("#product-id").change(function () {
+           
+            var id = $(this).val();
+            alert(id)
+
+            $.ajax({
+                type: "GET",
+                url: "/Distributor/getproductbyId",
+                data: { id: id },
+                success: function (result) {
+                    alert(result)
+                    $("#IDFQty").val(result.FQty);
+                    $("#IDTQty").val(result.TQty);
+                    $("#IDUPrice").val(result.UPrice);
+                    $("#IDSTotal").val(result.STotal);
+
+
+                }
+            });
+        });
+    });
+
+
+
+</script>*@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () 
+    {
+
+        var stageFieldTemplate = $('#stage-upload-fields').clone();
+        $('#add-stage-btn').click(function () {
+           
+            var newStageField = stageFieldTemplate.clone(); // Clone a new stage field
+            newStageField.appendTo('#stage-upload-container'); // Append the new stage field to the container
+            newStageField.show(); // Show the new stage field
+
+        });
+
+        $(document).on('click', '.delete-stage-btn', function () {
+            $(this).closest('.form-group').remove();
+        });
+
+
+
+
+        $("#product-id").change(function () {
+            
+            var id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Distributor/getproductbyId",
+                data: { id: id },
+                success: function (result) {
+                    alert(result)
+                    //$("#IDFQty").val(result.f);
+                    //$("#IDTQty").val(result.TQty);
+                    //$("#IDUPrice").val(result.UPrice);
+                    //$("#IDSTotal").val(result.STotal);
+                }
+            });
+        });
+
+       
+
+       
+    });
+
+
+
 </script>
+
+
+
+
+@*<script>
+        $(document).ready(function () {
+            // Retrieve the input fields
+            var discountInput = $("input[name='Discount']");
+            var qtyInput = $("input[name='EstimatedQuantity']");
+            var priceInput = $("input[name='UnitPrice']");
+            var afterDiscountInput = $("input[name='AfterDiscount']");
+
+            // Bind the event listener for input changes
+            discountInput.on("input", calculateAfterDiscount);
+            qtyInput.on("input", calculateAfterDiscount);
+            priceInput.on("input", calculateAfterDiscount);
+
+            // Calculate and update the AfterDiscount field
+            function calculateAfterDiscount() {
+                var discount = parseFloat(discountInput.val());
+                var qty = parseFloat(qtyInput.val());
+                var price = parseFloat(priceInput.val());
+
+                // Perform the calculation
+                var afterDiscount = price * qty - discount;
+
+                // Update the AfterDiscount field with the calculated value
+                afterDiscountInput.val(afterDiscount.toFixed(2));
+            }
+        });
+    </script>*@
+
+
+
+
 

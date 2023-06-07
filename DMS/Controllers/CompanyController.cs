@@ -279,54 +279,7 @@ namespace DMS.Controllers
             }
         }
 
-        //public async Task<IActionResult> Createcompany(brandviewmodel model, IFormFile logo)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var brand = new Brand
-        //        {
-
-        //            BrandName = model.BrandName,
-        //            BrandType=model.BrandType,
-        //            Address1 = model.Address1,
-        //            Address2 = model.Address2,
-        //            Country = model.Country,
-        //            State = model.State,
-        //            City = model.City,
-        //            Zipcode = model.Zipcode,
-        //            Province = model.Province,
-        //            Material = model.Material,
-        //        };
-
-        //        if (logo != null && logo.Length > 0)
-        //        {
-        //            // Get the file extension
-        //            var extension = Path.GetExtension(logo.FileName);
-
-        //            // Genera.
-        //            // te a unique filename using a GUID
-        //            var filename = $"{Guid.NewGuid()}{extension}";
-
-        //            // Set the path to save the file
-        //            var path = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", filename);
-
-        //            // Save the file to disk
-        //            using (var stream = new FileStream(path, FileMode.Create))
-        //            {
-        //                await logo.CopyToAsync(stream);
-        //            }
-
-        //            // Set the brand logo path to the uploaded file
-        //            brand.Logo = $"/uploads/{filename}";
-        //        }
-        //        await Task.Delay(1000);
-        //        await ipos.Createcompany(brand);
-        //        return RedirectToAction("Index");
-        //    }
-
-
-        //    return View(model);
-        //}
+     
         public async Task<IActionResult> UploadFile2(IFormFile file)
         {
             if (file != null && file.Length > 0)

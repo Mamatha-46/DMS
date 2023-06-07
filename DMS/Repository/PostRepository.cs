@@ -565,6 +565,7 @@ namespace DMS.Repository
                                    select new ResellerDetailsView
                                    {
                                        DisID = distributor.DisId,
+                                       UserId=distributor.UserId,
                                        DistributorId = distributor.DistributorId,
                                        DistributorName = distributor.DistributorName,
                                        DistributorType = distributor.DistributorType,
@@ -753,23 +754,68 @@ namespace DMS.Repository
             return query.ToList();
         }
 
-        public async Task<DistriDocu> updatedocstatus(int bstatus, int tstatus)
+        public async Task<ResellerDetailsView> updatedocstatus(ResellerDetailsView dic) 
         {
 
-            var dic = new DistriDocu
-            {
-                BusiDocStatus = bstatus,
-                GstDocStatus = tstatus
-            };
+
+            
             if (_context != null)
             {
-                _context.DistriDocu.Add(dic);
+                _context.ResellerDetailsView.Update(dic);
                 await _context.SaveChangesAsync();
                 return dic;
 
             }
             return null;
         }
+
+        public async Task<DistDocView> updatedocstatus(DistDocView dic)
+        {
+            if (_context != null)
+            {
+                var res = _context.DistriDocu.Where(c => c.DistriId == dic.DisID).FirstOrDefault();
+                if (res != null)
+                {
+                    res.BusiDocStatus = Convert.ToInt32(dic.Bus_Status);
+                    res.GstDocStatus = Convert.ToInt32(dic.Tax_Status);
+                    res.ReBRemarks = dic.ReBRemarks;
+                    res.ReGRemarks = dic.ReGRemarks;
+
+                    _context.DistriDocu.Update(res);
+                    await _context.SaveChangesAsync();
+                    return dic;
+                }
+            }
+            return null;
+        }
+        
+        public  async Task<UserRenewal> Adduserrenewal(UserRenewal usr)
+        {
+            if (_context != null)
+            {
+                _context.UserRenewal.Add(usr);
+                await _context.SaveChangesAsync();
+                return usr;
+
+            }
+            return null;
+
+        }
+
+
+        public async Task<ProsProd> Addproductreseler(ProsProd pp)
+        {
+            if (_context != null)
+            {
+                _context.ProsProd.Add(pp);
+                await _context.SaveChangesAsync();
+                return pp;
+
+            }
+            return null;
+
+        }
+
 
 
     }
